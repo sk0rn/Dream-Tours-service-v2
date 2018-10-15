@@ -1,0 +1,42 @@
+language: java
+sudo: false
+install: true
+
+dist: trusty
+
+jdk:
+- oraclejdk8
+
+os:
+- linux
+
+branches:
+  only:
+    - master
+    - develop
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
+before_install:
+ - chmod +x gradlew
+
+addons:
+  sonarcloud:
+    organization: "sk0rn-github"
+    token:
+      secure: "6cec43ff359bbd6fc88dfb49428e34ae5b2c250b"
+
+
+script:
+  - ./gradlew assemble
+  - ./gradlew check
+  - sonar-scanner
+  - rm -rf .scannerwork
+
