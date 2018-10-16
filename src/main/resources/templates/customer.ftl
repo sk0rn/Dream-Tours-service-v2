@@ -1,4 +1,4 @@
-﻿<#import "index.ftl" as i>
+﻿<#import "parts/index.ftl" as i>
 <@i.page>
 <div class="row">
     <div class="col-3">
@@ -13,6 +13,7 @@
         </div>
     </div>
 
+    <#--TODO добавить возможность редактирования телефона-->
     <div class="col-8">
         <div class="tab-content" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
@@ -47,7 +48,7 @@
                     <br>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span>Подписаться на рассылку </span>
+                            <span>Подписаться на рассылку&nbsp;&nbsp;</span>
                         </div>
                         <div class="input-group-append">
                             <label class="switch switch_type1" role="switch">
@@ -56,6 +57,7 @@
                             </label>
                         </div>
                     </div>
+                    <#--TODO а нам нужно удалять аккаунт?-->
                     <input type="button" class="btn btn-danger" value="Удалить аккаунт..." style="float: right;">
                 </form>
             </div>

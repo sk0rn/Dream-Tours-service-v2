@@ -8,6 +8,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/static/css/toggleCheckbox.css">
-    <#--TODO проверить вывод туров на вкладке-->
+    <#--TODO проверить вывод имени тура во вкладку-->
     <title>${(tour.name)!"Туры в Японию"}</title>
 </head>

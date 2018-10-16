@@ -8,7 +8,7 @@ public class HelloController {
 
     @RequestMapping("/hello")
     public String hello() {
-        return "indexTour";
+        return "customer";
     }
 
     @RequestMapping("/tours")
