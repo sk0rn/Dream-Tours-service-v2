@@ -1,6 +1,6 @@
-package repository;
+package application.repository;
 
-import domain.TourRelease;
+import application.domain.TourRelease;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TourReleaseRepository extends JpaRepository<TourRelease, Long> {

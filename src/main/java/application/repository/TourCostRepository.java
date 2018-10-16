@@ -1,6 +1,6 @@
-package repository;
+package application.repository;
 
-import domain.TourCost;
+import application.domain.TourCost;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TourCostRepository extends JpaRepository<TourCost, Long> {

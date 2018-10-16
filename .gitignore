@@ -27,7 +27,7 @@ src/main/resources/log4j.properties
 #quick test
 src/main/java/test/
 
-#config
+#application.config
 src/main/resources/dream_tours.xml
 
 #myresources

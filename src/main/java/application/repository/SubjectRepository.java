@@ -1,6 +1,6 @@
-package repository;
+package application.repository;
 
-import domain.Subject;
+import application.domain.Subject;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SubjectRepository extends JpaRepository<Subject, Long> {

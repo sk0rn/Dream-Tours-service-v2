@@ -1,4 +1,4 @@
-package domain;
+package application.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -6,13 +6,13 @@ import java.util.Set;
 
 
 /**
- * The persistent class for the subject database table.
+ * The persistent class for the place database table.
  * 
  */
 @Entity
-@Table(name="subject")
-@NamedQuery(name="Subject.findAll", query="SELECT s FROM Subject s")
-public class Subject implements Serializable {
+@Table(name="place")
+@NamedQuery(name="Place.findAll", query="SELECT p FROM Place p")
+public class Place implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -27,10 +27,10 @@ public class Subject implements Serializable {
 	private String name;
 
 	//bi-directional many-to-many association to Tour
-	@ManyToMany(mappedBy="subjects", fetch=FetchType.EAGER)
+	@ManyToMany(mappedBy="places", fetch=FetchType.EAGER)
 	private Set<Tour> tours;
 
-	public Subject() {
+	public Place() {
 	}
 
 	public Integer getId() {
