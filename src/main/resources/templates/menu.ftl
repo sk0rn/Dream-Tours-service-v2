@@ -1,9 +1,6 @@
 <#ftl encoding="utf-8">
-<#import "index.ftl" as i>
-<@i.page>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="dropdown navbar-brand">
-
         <#if Session.options?? && Session.options == 0>
             <#include "clientMenu.ftl">
         <#elseif Session.options?? && Session.options == 1>
@@ -11,7 +8,6 @@
         <#else>
             <#include "guestMenu.ftl">
         </#if>
-
     </div>
 
     <!-- эта кнопка будет видна, когда для меню не хватит места -->
@@ -165,4 +161,3 @@
         </div>
     </div>
 </div>
-</@i.page>

@@ -1,5 +1,4 @@
-﻿<#ftl encoding="utf-8">
-<#import "index.ftl" as i>
+﻿<#import "index.ftl" as i>
 <@i.page>
 <div class="row">
     <div class="col-3">

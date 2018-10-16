@@ -1,6 +1,4 @@
 <#ftl encoding="utf-8">
-<#import "index.ftl" as i>
-<@i.page>
 <button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
     Меню клиента
@@ -11,4 +9,3 @@
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="/login?action=logout">Выйти</a>
 </div>
-</@i.page>

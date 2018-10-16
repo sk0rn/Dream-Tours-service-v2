@@ -1,6 +1,4 @@
 <#ftl encoding="utf-8">
-<#import "index.ftl" as i>
-<@i.page>
 <button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
     Войдите
@@ -22,4 +20,3 @@
     <a class="dropdown-item" href="/register">Регистрация</a>
 </form>
 </div>
-</@i.page>

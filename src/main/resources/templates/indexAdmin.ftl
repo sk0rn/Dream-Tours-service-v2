@@ -45,7 +45,7 @@
                         <input type="file" class="form-control-file" id="exampleFormControlFile1" name="imageTour">
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-primary">${tour!?then('Изменить','Добавить')}
+                    <button type="submit" class="btn btn-primary">${(tour??)?then('Изменить', 'Добавить')}
                     </button>
                 </form>
             </div>
