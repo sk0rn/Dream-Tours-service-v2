@@ -7,11 +7,13 @@ import application.repository.ParticipantRepository;
 import application.service.user.iface.ParticipantService;
 import application.utils.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Service
 public class ParticipantServiceImpl implements ParticipantService {
     @Autowired
     private ParticipantRepository participantRepository;

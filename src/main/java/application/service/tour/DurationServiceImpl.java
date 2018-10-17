@@ -5,9 +5,11 @@ import application.repository.DurationRepository;
 import application.service.tour.iface.DurationService;
 import application.utils.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DurationServiceImpl implements DurationService {
     @Autowired
     private DurationRepository durationRepository;
