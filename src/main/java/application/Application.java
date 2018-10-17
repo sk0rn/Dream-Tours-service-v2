@@ -18,11 +18,6 @@ public class Application {
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
-//            TourService tourService = ctx.getBean(TourService.class);
-//            tourService.getAll();
-//            findAllBySubjects
-//            LoginService tourService = ctx.getBean(LoginService.class);
-//            Integer role = tourService.getRole("Admin");
             System.out.println("Let's inspect the beans provided by Spring Boot:");
             System.out.println("no no no ... it's bad idea ... go out!");
             if (true) return;
