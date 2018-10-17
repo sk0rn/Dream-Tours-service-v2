@@ -8,6 +8,7 @@ public class HelloController {
 
     @RequestMapping("/")
     public String hello() {
+//        LoginService tourService = new LoginServiceImpl(); //ctx.getBean(LoginService.class);
         return "Greetings from Spring Boot";
     }
 }

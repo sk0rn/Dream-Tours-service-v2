@@ -32,4 +32,5 @@ dependencies {
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.10.0'
     compile group: 'org.postgresql', name: 'postgresql', version: '9.4.1212'
 //    compile group: 'com.github.jsimone', name: 'webapp-runner', version: '8.5.11.3'
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
 }

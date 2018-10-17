@@ -1,7 +1,7 @@
 package application.domain;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 /**
@@ -10,7 +10,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="tour_cost")
-@NamedQuery(name="TourCost.findAll", query="SELECT t FROM TourCost t")
 public class TourCost implements Serializable {
 	private static final long serialVersionUID = 1L;
 
