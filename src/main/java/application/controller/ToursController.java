@@ -20,7 +20,7 @@ public class ToursController {
         this.tourRepository = tourRepository;
     }
 
-    @GetMapping(value = {"/tours", "/", "туры"})
+    @GetMapping(value = {"/tours", "/"})
     public String tours(Model model) {
         List<Tour> tours = tourRepository.findAll();
         model.addAttribute("tours", tours);

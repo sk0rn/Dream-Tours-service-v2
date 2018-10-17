@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.repository.TourRepository;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
+@Api(value = "admin!", description = "admin!!!!") // Swagger annotation
 public class AdminController {
 
     TourRepository tourRepository;
