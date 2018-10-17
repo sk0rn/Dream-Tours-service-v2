@@ -18,7 +18,7 @@ public class UserController {
 
     @GetMapping("/profile")
     public String tour(Model model
-                       //TODO после включения security
+                       //TODO добавить после включения security
             /*, @AuthenticationPrincipal User user*/) {
 
         return "customer";
