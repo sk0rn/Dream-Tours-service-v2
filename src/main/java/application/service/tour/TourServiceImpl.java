@@ -32,7 +32,7 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public Tour getById(Integer id) {
+    public Tour getById(Long id) {
         return ServiceHelper.getById(tourRepository, id);
     }
 
@@ -42,17 +42,17 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public List<Tour> getBySubjectId(Integer subjectId) {
+    public List<Tour> getBySubjectId(Long subjectId) {
         return ServiceHelper.getListByParam(tourRepository::findAllBySubjects, ServiceHelper.getById(subjectRepository, subjectId));
     }
 
     @Override
-    public List<Tour> getByClientId(Integer clientId) {
+    public List<Tour> getByClientId(Long clientId) {
         return ServiceHelper.getListByParam(tourRepository::findAllByUsers, ServiceHelper.getById(userRepository, clientId));
     }
 
     @Override
-    public List<Tour> getByOrderId(Integer orderId) {
+    public List<Tour> getByOrderId(Long orderId) {
 //        TODO Пока метод не задействован,
 //        для ускорения разработки оставляю на потом
         return Collections.emptyList();
@@ -64,7 +64,7 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean deleteById(Long id) {
         return ServiceHelper.delete(tourRepository, id);
     }
 }

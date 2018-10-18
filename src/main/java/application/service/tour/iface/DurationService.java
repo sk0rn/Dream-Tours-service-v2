@@ -7,13 +7,13 @@ import java.util.List;
 public interface DurationService {
     boolean add(Duration duration);
 
-    Duration getById(Integer id);
+    Duration getById(Long id);
 
-    List<Duration> getAllByTourId(Integer tourId);
+    List<Duration> getAllByTourId(Long tourId);
 
     boolean updateById(Duration duration);
 
-    boolean deleteById(Integer id);
+    boolean deleteById(Long id);
 
     List<Duration> getAll();
 }

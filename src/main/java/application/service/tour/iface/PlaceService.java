@@ -7,11 +7,11 @@ import java.util.List;
 public interface PlaceService {
     boolean add(Place place);
 
-    Place getById(Integer id);
+    Place getById(Long id);
 
     List<Place> getAll();
 
     boolean updateById(Place place);
 
-    boolean deleteById(Integer id);
+    boolean deleteById(Long id);
 }

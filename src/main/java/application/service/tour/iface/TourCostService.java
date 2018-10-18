@@ -7,9 +7,9 @@ import java.util.List;
 public interface TourCostService {
     boolean add(TourCost tourCoast);
 
-    List<TourCost> getAllByTourRelease(Integer tourReleaseId);
+    List<TourCost> getAllByTourRelease(Long tourReleaseId);
 
     boolean updateById(TourCost tourCoast);
 
-    boolean deleteById(Integer id);
+    boolean deleteById(Long id);
 }

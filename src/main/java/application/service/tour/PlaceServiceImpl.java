@@ -20,7 +20,7 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public Place getById(Integer id) {
+    public Place getById(Long id) {
         return ServiceHelper.getById(placeRepository, id);
     }
 
@@ -35,7 +35,7 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean deleteById(Long id) {
         return ServiceHelper.delete(placeRepository, id);
     }
 }

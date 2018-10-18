@@ -7,11 +7,11 @@ import java.util.List;
 public interface SubjectService {
     boolean add(Subject subject);
 
-    Subject getById(Integer id);
+    Subject getById(Long id);
 
     List<Subject> getAll();
 
     boolean updateById(Subject subject);
 
-    boolean deleteById(Integer id);
+    boolean deleteById(Long id);
 }

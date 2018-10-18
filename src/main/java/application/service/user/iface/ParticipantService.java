@@ -7,11 +7,11 @@ import java.util.List;
 public interface ParticipantService {
     boolean add(Participant participant);
 
-    Participant getById(Integer id);
+    Participant getById(Long id);
 
-    List<Participant> getAllByOrderId(Integer orderId);
+    List<Participant> getAllByOrderId(Long orderId);
 
     boolean updateById(Participant participant);
 
-    boolean deleteById(Integer id);
+    boolean deleteById(Long id);
 }

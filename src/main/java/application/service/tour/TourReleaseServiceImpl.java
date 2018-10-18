@@ -26,12 +26,12 @@ public class TourReleaseServiceImpl implements TourReleaseService {
     }
 
     @Override
-    public TourRelease getById(Integer id) {
+    public TourRelease getById(Long id) {
         return ServiceHelper.getById(tourReleaseRepository, id);
     }
 
     @Override
-    public List<TourRelease> getAllByTourId(Integer tourId) {
+    public List<TourRelease> getAllByTourId(Long tourId) {
         Tour tour;
         List<TourRelease> releases;
 
@@ -49,7 +49,7 @@ public class TourReleaseServiceImpl implements TourReleaseService {
     }
 
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean deleteById(Long id) {
         return ServiceHelper.delete(tourReleaseRepository, id);
     }
 }

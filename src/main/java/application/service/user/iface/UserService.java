@@ -7,7 +7,7 @@ import java.util.List;
 public interface UserService {
     boolean add(User user);
 
-    User getById(Integer id);
+    User getById(Long id);
 
     User getByLogin(String login);
 

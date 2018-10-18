@@ -20,7 +20,7 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public Subject getById(Integer id) {
+    public Subject getById(Long id) {
         return ServiceHelper.getById(subjectRepository, id);
     }
 
@@ -35,7 +35,7 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean deleteById(Long id) {
         return ServiceHelper.delete(subjectRepository, id);
     }
 }

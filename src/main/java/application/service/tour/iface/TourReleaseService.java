@@ -7,11 +7,11 @@ import java.util.List;
 public interface TourReleaseService {
     boolean add(TourRelease tourRelease);
 
-    TourRelease getById(Integer id);
+    TourRelease getById(Long id);
 
-    List<TourRelease> getAllByTourId(Integer tourId);
+    List<TourRelease> getAllByTourId(Long tourId);
 
     boolean updateById(TourRelease tourRelease);
 
-    boolean deleteById(Integer id);
+    boolean deleteById(Long id);
 }

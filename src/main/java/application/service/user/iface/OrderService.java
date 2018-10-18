@@ -7,9 +7,9 @@ import java.util.List;
 public interface OrderService {
     boolean add(Order order);
 
-    Order getById(Integer id);
+    Order getById(Long id);
 
-    List<Order> getAllByUserId(Integer id);
+    List<Order> getAllByUserId(Long id);
 
     boolean update(Order order);
 }

@@ -27,12 +27,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getById(Integer id) {
+    public Order getById(Long id) {
         return ServiceHelper.getById(orderRepository, id);
     }
 
     @Override
-    public List<Order> getAllByUserId(Integer userId) {
+    public List<Order> getAllByUserId(Long userId) {
         User user;
         return (user = ServiceHelper.getById(userRepository, userId)) != null ?
                 new ArrayList<>(user.getOrders()) :
