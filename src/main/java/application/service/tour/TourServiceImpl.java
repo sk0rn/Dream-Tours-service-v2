@@ -14,7 +14,6 @@ import java.util.List;
 
 @Service
 public class TourServiceImpl implements TourService {
-    //    private static final Logger LOGGER = Logger.getLogger(TourServiceImpl.class);
 
     @Autowired
     private TourRepository tourRepository;
@@ -43,12 +42,14 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public List<Tour> getBySubjectId(Long subjectId) {
-        return ServiceHelper.getListByParam(tourRepository::findAllBySubjects, ServiceHelper.getById(subjectRepository, subjectId));
+        return ServiceHelper.getListByParam(tourRepository::findAllBySubjects,
+                                            ServiceHelper.getById(subjectRepository, subjectId));
     }
 
     @Override
     public List<Tour> getByClientId(Long clientId) {
-        return ServiceHelper.getListByParam(tourRepository::findAllByUsers, ServiceHelper.getById(userRepository, clientId));
+        return ServiceHelper.getListByParam(user -> tourRepository.findAllByUsers(user),
+                                            ServiceHelper.getById(userRepository, clientId));
     }
 
     @Override

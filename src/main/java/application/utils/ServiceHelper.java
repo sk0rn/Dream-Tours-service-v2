@@ -7,7 +7,6 @@ import java.util.List;
 
 public final class ServiceHelper {
     private ServiceHelper() {
-
     }
 
     public static <T> boolean delete(JpaRepository<T, Long> repository, Long id) {

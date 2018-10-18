@@ -7,8 +7,27 @@ buildscript {
         //For swagger2 works
         classpath('io.swagger:swagger-codegen:2.2.2')
     }
-}
+    repositories {
+        maven {
+            // путь до репозитория с плагином обработки аннотаций lombok
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        // данная версия ломбока подходит для работы с последней версией ломбока
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.10"
+    }
 
+}
+//          Lombok Requires Annotation Processing
+//			Annotation processing seems to be disabled for the project "tours".
+//			For the plugin to function correctly, please enable it under
+//			"Settings > Build > Compiler > Annotation Processors"
+//          Включить  пункт меню enable annotation processing
+
+
+//включение необходимого плагина
+apply plugin: 'net.ltgt.apt'
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
@@ -25,12 +44,16 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+
 //    compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-devtools")
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-freemarker', version: '2.0.5.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.0.5.RELEASE'
     //TODO resolve lombok issue
 //    provided group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
+    compileOnly 'org.projectlombok:lombok:1.18.2'
+    apt "org.projectlombok:lombok:1.18.2"
+
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.10.0'
     compile group: 'org.postgresql', name: 'postgresql', version: '9.4.1212'
 //    compile group: 'com.github.jsimone', name: 'webapp-runner', version: '8.5.11.3'
