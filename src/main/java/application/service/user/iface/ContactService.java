@@ -7,9 +7,9 @@ import java.util.List;
 public interface ContactService {
     boolean add(Contact contact);
 
-    List<Contact> getAllByUserId(Integer userId);
+    List<Contact> getAllByUserId(Long userId);
 
     boolean updateById(Contact contact);
 
-    boolean deleteById(Integer id);
+    boolean deleteById(Long id);
 }

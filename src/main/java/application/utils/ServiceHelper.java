@@ -10,12 +10,12 @@ public final class ServiceHelper {
 
     }
 
-    public static <T> boolean delete(JpaRepository<T, Long> repository, Integer id) {
+    public static <T> boolean delete(JpaRepository<T, Long> repository, Long id) {
         if (id != null &&
                 id > 0 &&
-                repository.existsById((Long) (long) (int) id)) {
-            repository.deleteById((Long) (long) (int) id);
-            return !repository.existsById((Long) (long) (int) id);
+                repository.existsById(id)) {
+            repository.deleteById(id);
+            return !repository.existsById(id);
         }
         return false;
     }
@@ -44,14 +44,14 @@ public final class ServiceHelper {
         return param == null ? null : getter.execute(param);
     }
 
-    public static <T> T getById(JpaRepository<T, Long> repository, Integer id) {
+    public static <T> T getById(JpaRepository<T, Long> repository, Long id) {
         return id == null ||
                 id < 1 ?
                 null :
-                repository.getOne((Long) (long) (int) id);
+                repository.getOne(id);
     }
 
-    public static <T> T getById(getter<T, Integer> getter, Integer id) {
+    public static <T> T getById(getter<T, Long> getter, Long id) {
         return id == null ||
                 id < 1 ?
                 null :

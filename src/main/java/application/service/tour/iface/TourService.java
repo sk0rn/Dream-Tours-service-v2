@@ -7,17 +7,17 @@ import java.util.List;
 public interface TourService {
     boolean add(Tour tour);
 
-    Tour getById(Integer id);
+    Tour getById(Long id);
 
     List<Tour> getAll();
 
-    List<Tour> getBySubjectId(Integer subjectId);
+    List<Tour> getBySubjectId(Long subjectId);
 
-    List<Tour> getByClientId(Integer clientId);
+    List<Tour> getByClientId(Long clientId);
 
-    List<Tour> getByOrderId(Integer orderId);
+    List<Tour> getByOrderId(Long orderId);
 
     boolean update(Tour tour);
 
-    boolean deleteById(Integer id);
+    boolean deleteById(Long id);
 }

@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getById(Integer id) {
+    public User getById(Long id) {
         return ServiceHelper.getById(userRepository, id);
     }
 

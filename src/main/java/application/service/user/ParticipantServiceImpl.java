@@ -27,12 +27,12 @@ public class ParticipantServiceImpl implements ParticipantService {
     }
 
     @Override
-    public Participant getById(Integer id) {
+    public Participant getById(Long id) {
         return ServiceHelper.getById(participantRepository, id);
     }
 
     @Override
-    public List<Participant> getAllByOrderId(Integer orderId) {
+    public List<Participant> getAllByOrderId(Long orderId) {
         Order order;
         return (order = ServiceHelper.getById(orderRepository, orderId)) != null ?
                 new ArrayList<>(order.getParticipants()) :
@@ -45,7 +45,7 @@ public class ParticipantServiceImpl implements ParticipantService {
     }
 
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean deleteById(Long id) {
         return ServiceHelper.delete(participantRepository, id);
     }
 }

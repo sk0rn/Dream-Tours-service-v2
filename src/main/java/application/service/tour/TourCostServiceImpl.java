@@ -24,7 +24,7 @@ public class TourCostServiceImpl implements TourCostService {
     }
 
     @Override
-    public List<TourCost> getAllByTourRelease(Integer tourReleaseId) {
+    public List<TourCost> getAllByTourRelease(Long tourReleaseId) {
         return ServiceHelper.getListByParam(tourCostRepository::findAllByTourRelease, ServiceHelper.getById(tourReleaseRepository, tourReleaseId));
     }
 
@@ -34,7 +34,7 @@ public class TourCostServiceImpl implements TourCostService {
     }
 
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean deleteById(Long id) {
         return ServiceHelper.delete(tourCostRepository, id);
     }
 }

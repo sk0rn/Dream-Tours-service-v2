@@ -17,7 +17,7 @@ public class Duration implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
-	private Integer id;
+	private Long id;
 
 	@Column(length=250)
 	private String name;
@@ -32,11 +32,11 @@ public class Duration implements Serializable {
 	public Duration() {
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

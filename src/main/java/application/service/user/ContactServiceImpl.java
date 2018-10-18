@@ -27,7 +27,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public List<Contact> getAllByUserId(Integer userId) {
+    public List<Contact> getAllByUserId(Long userId) {
         User user;
         return (user = ServiceHelper.getById(userRepository, userId)) != null ?
                 new ArrayList<>(user.getContacts()) :
@@ -40,7 +40,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean deleteById(Long id) {
         return ServiceHelper.delete(contactRepository, id);
     }
 }

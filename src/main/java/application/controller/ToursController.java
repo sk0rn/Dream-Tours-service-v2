@@ -29,9 +29,9 @@ public class ToursController {
 
     @GetMapping("/tours/{tourId}")
     public String tour(Model model,
-                       @PathVariable Integer tourId) {
+                       @PathVariable Long tourId) {
 
-        Tour tour = tourRepository.findById(tourId);
+        Tour tour = tourRepository.findOneById(tourId);
         model.addAttribute("tour", tour);
         return "tour";
     }

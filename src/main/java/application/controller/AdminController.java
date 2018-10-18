@@ -25,8 +25,8 @@ public class AdminController {
     }
 
     @GetMapping({"/content/{tourId}", "/content/"})
-    public String getEditContent(Model model, @PathVariable Optional<Integer> tourId) {
-        tourId.ifPresent(x -> model.addAttribute("tour", tourRepository.findById(x)));
+    public String getEditContent(Model model, @PathVariable Optional<Long> tourId) {
+        tourId.ifPresent(x -> model.addAttribute("tour", tourRepository.findOneById(x)));
         return "admin";
     }
 

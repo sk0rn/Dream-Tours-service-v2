@@ -20,12 +20,12 @@ public class DurationServiceImpl implements DurationService {
     }
 
     @Override
-    public Duration getById(Integer id) {
+    public Duration getById(Long id) {
         return ServiceHelper.getById(durationRepository, id);
     }
 
     @Override
-    public List<Duration> getAllByTourId(Integer tourId) {
+    public List<Duration> getAllByTourId(Long tourId) {
         return null;
     }
 
@@ -35,7 +35,7 @@ public class DurationServiceImpl implements DurationService {
     }
 
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean deleteById(Long id) {
         return ServiceHelper.delete(durationRepository, id);
     }
 
