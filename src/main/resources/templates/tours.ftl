@@ -9,35 +9,42 @@
                         <div class="card" style="width: 22rem;">
                             <img class="card-img-top"
                                  <#--TODO доавить поле в entity, проверить вывод картинки-->
-                                 src="/images?album=${tour.getTour().getAlbumGuid()}&filename=${tour.getImageName()}"
+                                 src="/images?album=${tour.getAlbumGuid()}&filename="
+
                                  alt="Card image cap" name="imgArea">
+
                         </div>
                     </div>
                     <div class="col-9">
                         <#if Session.options?? && Session.options == 1>
                          <button type="button" class="btn-sm btn-success"
-                                 onclick="document.location.href='/admin/add_content?id=${tour.getTour().getId()}'">
+                         <#--TODO Для админской панели не сделан перевод на спринг-->
+                                 <#--onclick="document.location.href='/admin/add_content?id=${tour.getTour().getId()}'">-->
+                             onclick="document.location.href='/admin/add_content?id=${tour.getId()}'">
                              Изменить
                          </button>&nbsp;
                         </#if>
-                        <a href="/tour?id=${tour.getTour().getId()}">${tour.getTour().getName()}
+                        <#--<a href="/tour?id=${tour.getTour().getId()}">${tour.getTour().getName()}-->
+                        <a href="/tour?id=${tour.getId()}">${tour.getName()}
+
                         </a><br>
                         <nobr>
                             <#list tour.getSubjects() as subj>
+
                                 <a href="/tours?subject=${subj.getId()}" title="${subj.getName()}"
-                                   data-content="${subj.getDesc()}" data-toggle="popover"
+                                   data-content="${subj.getDescr()}" data-toggle="popover"
                                    data-trigger="hover">
                                     ${subj.getName()}
                                 </a>
                             </#list>
                         </nobr>
                         <div class="form-group">
-                        <div class="form-control" id="exampleFormControlTextarea1" rows="5"
-                                  name="tourName">${tour.getTour().getDesc()}</div>
+                        <div class="form-tours-dream" id="exampleFormControlTextarea1" rows="5"
+                                  name="tourName">${tour.getDescr()}</div>
                             <nobr>
                             <#list tour.getPlaces() as place>
                                 <a href="/tours?place=${place.getId()}" title="${place.getName()}"
-                                   data-content="${place.getDesc()}" data-toggle="popover"
+                                   data-content="${place.getDescr()}" data-toggle="popover"
                                    data-trigger="hover">
                                     ${place.getName()}
                                 </a>
