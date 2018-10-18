@@ -17,7 +17,7 @@ public class Place implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
-	private Integer id;
+	private Long id;
 
 	@Column(length=2147483647)
 	private String descr;
@@ -32,11 +32,11 @@ public class Place implements Serializable {
 	public Place() {
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -16,7 +16,7 @@ public class Participant implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
-	private Integer id;
+	private Long id;
 
 	@Column(name="clipping_age")
 	private Integer clippingAge;
@@ -32,11 +32,11 @@ public class Participant implements Serializable {
 	public Participant() {
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

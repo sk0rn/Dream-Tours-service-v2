@@ -16,7 +16,7 @@ public class Contact implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
-	private Integer id;
+    private Long id;
 
 	@Column(nullable=false, length=300)
 	private String value;
@@ -29,11 +29,11 @@ public class Contact implements Serializable {
 	public Contact() {
 	}
 
-	public Integer getId() {
+    public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+    public void setId(Long id) {
 		this.id = id;
 	}
 
