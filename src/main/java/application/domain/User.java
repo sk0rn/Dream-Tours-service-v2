@@ -1,7 +1,7 @@
 package application.domain;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Set;
 
@@ -12,7 +12,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name="users")
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -44,15 +43,15 @@ public class User implements Serializable {
 	private Boolean subscribe;
 
 	//bi-directional many-to-one association to Contact
-	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Set<Contact> contacts;
 
 	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Set<Order> orders;
 
 	//bi-directional many-to-many association to Tour
-	@ManyToMany(fetch=FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 		name="wishlist"
 		, joinColumns={

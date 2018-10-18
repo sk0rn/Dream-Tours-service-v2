@@ -1,7 +1,7 @@
 package application.domain;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 
@@ -11,7 +11,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name="orders")
-@NamedQuery(name="Order.findAll", query="SELECT o FROM Order o")
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +35,7 @@ public class Order implements Serializable {
 	private User user;
 
 	//bi-directional many-to-one association to Participant
-	@OneToMany(mappedBy="order", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
 	private Set<Participant> participants;
 
 	public Order() {

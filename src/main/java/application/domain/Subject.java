@@ -1,7 +1,7 @@
 package application.domain;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 
@@ -11,7 +11,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name="subject")
-@NamedQuery(name="Subject.findAll", query="SELECT s FROM Subject s")
 public class Subject implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -27,7 +26,7 @@ public class Subject implements Serializable {
 	private String name;
 
 	//bi-directional many-to-many association to Tour
-	@ManyToMany(mappedBy="subjects", fetch=FetchType.EAGER)
+	@ManyToMany(mappedBy = "subjects", fetch = FetchType.LAZY)
 	private Set<Tour> tours;
 
 	public Subject() {

@@ -1,7 +1,7 @@
 package application.domain;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Set;
 
@@ -12,7 +12,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name="tour_release")
-@NamedQuery(name="TourRelease.findAll", query="SELECT t FROM TourRelease t")
 public class TourRelease implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -28,11 +27,11 @@ public class TourRelease implements Serializable {
 	private Integer capacity;
 
 	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="tourRelease", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "tourRelease", fetch = FetchType.LAZY)
 	private Set<Order> orders;
 
 	//bi-directional many-to-one association to TourCost
-	@OneToMany(mappedBy="tourRelease", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "tourRelease", fetch = FetchType.LAZY)
 	private Set<TourCost> tourCosts;
 
 	//bi-directional many-to-one association to Duration

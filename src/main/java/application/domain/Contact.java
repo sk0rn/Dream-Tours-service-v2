@@ -1,7 +1,7 @@
 package application.domain;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 /**
@@ -10,7 +10,6 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="contact")
-@NamedQuery(name="Contact.findAll", query="SELECT c FROM Contact c")
 public class Contact implements Serializable {
 	private static final long serialVersionUID = 1L;
 
