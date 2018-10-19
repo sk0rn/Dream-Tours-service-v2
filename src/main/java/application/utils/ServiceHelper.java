@@ -2,6 +2,7 @@ package application.utils;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
 
@@ -65,4 +66,54 @@ public final class ServiceHelper {
     public interface getter<T, P> {
         T execute(P param);
     }
+
+    public static Long StringToId(String source) {
+        try {
+            Long id;
+            return source != null &&
+                    !source.isEmpty() &&
+                    (id = Long.parseLong(source)) != null &&
+                    id > 0 ?
+                    id :
+                    -1L;
+        } catch (Exception e) {
+            //LOGGER
+        }
+        return -1L;
+    }
+
+    public static boolean StringToBool(String source) {
+        try {
+            if (source != null || !source.isEmpty()) {
+                return Integer.parseInt(source) == 1;
+            }
+        } catch (Exception e) {
+            //LOGGER
+        }
+        return false;
+    }
+
+    public static double StringToDouble(String source) {
+        try {
+            if (source == null || source.isEmpty()) return 0.0d;
+            else {
+                return Double.parseDouble(source);
+            }
+        } catch (Exception e) {
+            //LOGGER
+        }
+        return 0.0d;
+    }
+
+    public static Timestamp StringToTimeStamp(String source) {
+        try {
+            if (source != null && !source.isEmpty()) {
+                return Timestamp.valueOf(source);
+            }
+        } catch (Exception e) {
+            //LOGGER
+        }
+        return null;
+    }
+
 }
