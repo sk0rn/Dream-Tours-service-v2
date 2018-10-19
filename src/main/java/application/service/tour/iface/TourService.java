@@ -25,7 +25,7 @@ public interface TourService {
 
     boolean deleteById(Long id);
 
-    List<Tour> superPuperDuperSearch(String userId,
+    List<Tour> superPuperDuperSearch(Long userId,
                                      String subjectId, String placeId, String inWishList,
                                      String searchString, String dateBegin, String dateEnd,
                                      String costFrom, String costTo, String duration);

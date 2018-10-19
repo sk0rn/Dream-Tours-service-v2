@@ -47,12 +47,14 @@ public class ToursController {
                             //то поиск должен уже идти среди релизов
                             @RequestParam(name = "dateBegin", required = false, defaultValue = "") String dateBegin,
                             @RequestParam(name = "dateEnd", required = false, defaultValue = "") String dateEnd,
-                            @RequestParam(name = "costFrom", required = false, defaultValue = "-1") String costFrom,
-                            @RequestParam(name = "costTo", required = false, defaultValue = "-1") String costTo,
+                            @RequestParam(name = "costFrom", required = false, defaultValue = "") String costFrom,
+                            @RequestParam(name = "costTo", required = false, defaultValue = "") String costTo,
                             @RequestParam(name = "duration", required = false, defaultValue = "-1") String duration
     ) {
-        model.addAttribute("tours",
-                tourService
+//        TODO Добавить юзера когда с безопасностью срастётся
+        model.addAttribute("tours", tourService.superPuperDuperSearch(-1L,
+                subjectId, placeId, inWishList, searchString, dateBegin,
+                dateEnd, costFrom, costTo, duration)
         );
         return "tours";
     }
