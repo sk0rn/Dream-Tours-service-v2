@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import java.util.Optional;
 
-
 //TODO use Admin preAuthorize for auth
 @Controller
 @RequestMapping("/admin")
@@ -33,11 +32,9 @@ public class AdminController {
         this.sessionFactory = sessionFactory;
         this.tourRepository = tourRepository;
     }
-
-    @GetMapping({"/content/{tourId}", "/content/"})
-    public String getEditContent(Model model,
-                                 @PathVariable
-                                         Optional<Long> tourId) {
+  
+    @GetMapping({"/content/{tourId}", "/content"})
+    public String getEditContent(Model model, @PathVariable Optional<Long> tourId) {
         tourId.ifPresent(x -> model.addAttribute("tour", tourRepository.findOneById(x)));
         return "admin";
     }

@@ -6,9 +6,10 @@
 
 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     <form class="px-4 py-3" action="/login" method="post">
+        <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
     <div class="form-group">
         <label for="exampleDropdownFormEmail1">Логин</label>
-        <input type="text" class="form-control" id="exampleDropdownFormEmail1" placeholder="login" name="login">
+        <input type="text" class="form-control" id="exampleDropdownFormEmail1" placeholder="login" name="username">
     </div>
     <div class="form-group">
         <label for="exampleDropdownFormPassword1">Пароль</label>
