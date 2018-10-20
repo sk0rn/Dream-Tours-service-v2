@@ -5,7 +5,7 @@
 </button>
 
 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="/account">Личный профиль</a>
+    <a class="dropdown-item" href="/profile">Личный профиль</a>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="/login?action=logout">Выйти</a>
+    <a class="dropdown-item" href="/logout">Выйти</a>
 </div>

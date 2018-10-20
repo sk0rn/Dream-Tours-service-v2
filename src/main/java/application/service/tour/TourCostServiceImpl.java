@@ -25,7 +25,8 @@ public class TourCostServiceImpl implements TourCostService {
 
     @Override
     public List<TourCost> getAllByTourRelease(Long tourReleaseId) {
-        return ServiceHelper.getListByParam(tourCostRepository::findAllByTourRelease, ServiceHelper.getById(tourReleaseRepository, tourReleaseId));
+        return ServiceHelper.getListByParam(tourCostRepository::findAllByTourRelease,
+                                            ServiceHelper.getById(tourReleaseRepository, tourReleaseId));
     }
 
     @Override
