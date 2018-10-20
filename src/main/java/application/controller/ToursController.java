@@ -53,8 +53,10 @@ public class ToursController {
     ) {
 //        TODO Добавить юзера когда с безопасностью срастётся
         model.addAttribute("tours", tourService.superPuperDuperSearch(-1L,
-                subjectId, placeId, inWishList, searchString, dateBegin,
-                dateEnd, costFrom, costTo, duration)
+                subjectId, placeId, inWishList, searchString,
+//                TODO сделать на форме нормальные контролы для заполнения даты и парсить их здесь
+                null/*dateBegin*/, null/*dateEnd*/,
+                costFrom, costTo, duration)
         );
         return "tours";
     }

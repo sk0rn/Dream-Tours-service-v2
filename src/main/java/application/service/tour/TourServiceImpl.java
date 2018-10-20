@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -86,27 +88,27 @@ public class TourServiceImpl implements TourService {
     @Override
     public List<Tour> superPuperDuperSearch(Long userId,
                                             String subjectId, String placeId, String inWishList,
-                                            String searchString, String dateBegin, String dateEnd,
+                                            String searchString, Date dateBegin, Date dateEnd,
                                             String costFrom, String costTo, String duration) {
-        long subject_id = ServiceHelper.StringToId(subjectId);
-        long place_id = ServiceHelper.StringToId(placeId);
-        boolean wish_list = ServiceHelper.StringToBool(inWishList);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
 
-        Timestamp date_begin = ServiceHelper.StringToTimeStamp(dateBegin);
-        Timestamp date_end = ServiceHelper.StringToTimeStamp(dateEnd);
-        double cost_from = ServiceHelper.StringToDouble(costFrom);
-        double cost_to = ServiceHelper.StringToDouble(costTo);
-        Long duration_id = ServiceHelper.StringToId(duration);
-
-
-        return date_begin == null && date_end == null && cost_from == 0.0d && cost_to == 0.0d && duration_id == -1 ?
-                internalSuperPuperDuperToursSearch(userId, subject_id, place_id, wish_list, searchString) :
-                internalSuperPuperDuperRealisesSearch(userId, subject_id, place_id, wish_list, searchString, date_begin, date_end, cost_from, cost_to, duration_id);
+        List<Tour> tours = tourRepository.findAllBy(
+                ServiceHelper.StringToId(subjectId),
+                ServiceHelper.StringToId(placeId),
+                ServiceHelper.StringToBool(inWishList) ? userId : -1,
+                "%" + searchString + "%",
+                dateBegin == null ? "1970-01-01 08:00:00.000" : dateFormat.format(dateBegin),
+                dateEnd == null ? "1970-01-01 08:00:00.000" : dateFormat.format(dateEnd),
+                ServiceHelper.StringToDouble(costFrom),
+                ServiceHelper.StringToDouble(costTo),
+                ServiceHelper.StringToId(duration));
+        return tours == null ? Collections.emptyList() : tours;
     }
 
     private List<Tour> internalSuperPuperDuperRealisesSearch(long user_id, long subject_id, long place_id, boolean wish_list, String searchString, Timestamp date_begin, Timestamp date_end, double cost_from, double cost_to, Long duration_id) {
-        List<Tour> tours = tourRepository.findAllBy(subject_id, place_id, wish_list ? user_id : -1, searchString, date_begin, date_end, cost_from, cost_to, duration_id);
-        return tours == null ? Collections.emptyList() : tours;
+//        List<Tour> tours = tourRepository.findAllBy(subject_id, place_id, wish_list ? user_id : -1, searchString, date_begin, date_end, cost_from, cost_to, duration_id);
+//        return tours == null ? Collections.emptyList() : tours;
+        return Collections.emptyList();
     }
 
     private List<Tour> internalSuperPuperDuperToursSearch(long user_id, long subject_id, long place_id, boolean wish_list, String searchString) {

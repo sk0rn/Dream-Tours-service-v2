@@ -2,6 +2,7 @@ package application.service.tour.iface;
 
 import application.domain.Tour;
 
+import java.util.Date;
 import java.util.List;
 
 public interface TourService {
@@ -27,6 +28,6 @@ public interface TourService {
 
     List<Tour> superPuperDuperSearch(Long userId,
                                      String subjectId, String placeId, String inWishList,
-                                     String searchString, String dateBegin, String dateEnd,
+                                     String searchString, Date dateBegin, Date dateEnd,
                                      String costFrom, String costTo, String duration);
 }
