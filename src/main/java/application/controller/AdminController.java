@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Optional;
 
 @Controller
-//@RequestMapping("/admin")
+@RequestMapping("/admin")
 @Api(value = "admin!", description = "admin!!!!") // Swagger annotation
 public class AdminController {
 
@@ -24,7 +24,7 @@ public class AdminController {
         this.tourRepository = tourRepository;
     }
 
-    @GetMapping({"/content/{tourId}", "/content/"})
+    @GetMapping({"/content/{tourId}", "/content"})
     public String getEditContent(Model model, @PathVariable Optional<Long> tourId) {
         tourId.ifPresent(x -> model.addAttribute("tour", tourRepository.findOneById(x)));
         return "admin";
@@ -33,11 +33,6 @@ public class AdminController {
     @PostMapping({"/content/{tourId}", "/content/"})
     public String postEditContent(Model model, @PathVariable Optional<Integer> tourId) {
         //TODO realize
-        return "admin";
-    }
-
-    @GetMapping("/admin")
-    public String tour(Model model) {
         return "admin";
     }
 }
