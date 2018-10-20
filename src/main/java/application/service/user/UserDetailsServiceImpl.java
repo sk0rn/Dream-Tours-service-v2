@@ -26,6 +26,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findOneByLogin(username);
 
+        if (user == null) {
+            throw new UsernameNotFoundException("login error");
+        }
+
         String role;
         if (user.getOptions() == 1) {
             role = "ROLE_ADMIN";
