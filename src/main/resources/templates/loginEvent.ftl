@@ -4,7 +4,7 @@
 <div align="center">
     <#--TODO если будет время можно покрасивее обработать данные сообщения,-->
     <#--например показывать в всплывающем окошке-->
-    <#if  logout?? && logout!false>
+    <#if logout?? && logout!false>
         <a style="color: #4736ff">You've been logged out successfully.</a>
     <#elseif error?? && error!false>
          <a style="color: #4736ff">Invalid username or password.</a>

@@ -31,6 +31,11 @@ public class LoginController {
     @RequestMapping("/login")
     public String getLogin(@RequestParam(value = "error", required = false) String error,
                            Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        // if user already logged in
+        if (!auth.getAuthorities().toString().equals("[ROLE_ANONYMOUS]")) {
+            return "redirect:/tours";
+        }
         model.addAttribute("error", error != null);
         return "loginEvent";
     }
@@ -43,14 +48,9 @@ public class LoginController {
 
     @RequestMapping("/welcome")
     public String login(Model model, HttpServletRequest request) {
+        // set user role to session
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        int role = -1;
-        if("[ROLE_ADMIN]".equals(auth.getAuthorities().toString())){
-            role = 1;
-        }else if("[ROLE_USER]".equals(auth.getAuthorities().toString())){
-            role = 0;
-        }
-        request.getSession().setAttribute("options", role);
+        request.getSession().setAttribute("role", auth.getAuthorities().toString());
         return "redirect:/tours";
     }
 }

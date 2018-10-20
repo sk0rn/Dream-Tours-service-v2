@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="col-9">
-                        <#if Session.options?? && Session.options == 1>
+                        <#if role?? && role == "[ROLE_ADMIN]">
                          <button type="button" class="btn-sm btn-success"
                          <#--TODO Для админской панели не сделан перевод на спринг-->
                                  <#--onclick="document.location.href='/admin/add_content?id=${tour.getTour().getId()}'">-->

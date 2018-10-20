@@ -1,9 +1,9 @@
 <#ftl encoding="utf-8">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="dropdown navbar-brand">
-        <#if Session.options?? && Session.options == 0>
+        <#if role?? && role == "[ROLE_USER]">
             <#include "clientMenu.ftl">
-        <#elseif Session.options?? && Session.options == 1>
+        <#elseif role?? && role == "[ROLE_ADMIN]">
             <#include "employeeMenu.ftl">
         <#else>
             <#include "guestMenu.ftl">
