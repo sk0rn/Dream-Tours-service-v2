@@ -5,189 +5,187 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Set;
 
-
 /**
  * The persistent class for the users database table.
- * 
+ *
  */
 @Entity
 @Table(name="users")
 public class User implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(unique=true, nullable=false)
+    private Long id;
 
-	@Column(name="album_guid", length=60)
-	private String albumGuid;
+    @Column(name="album_guid", length=60)
+    private String albumGuid;
 
-	private double bonus;
+    private double bonus;
 
-	@Column(name="call_time")
-	private Timestamp callTime;
+    @Column(name="call_time")
+    private Timestamp callTime;
 
-	@Column(length=250)
-	private String fio;
+    @Column(length=250)
+    private String fio;
 
-	@Column(nullable=false, length=250)
-	private String login;
+    @Column(nullable=false, length=250)
+    private String login;
 
-	@Column(nullable=false)
-	private Integer options;
+    @Column(nullable=false)
+    private Integer options;
 
-	@Column(nullable=false, length=60)
-	private String pass;
+    @Column(nullable=false, length=60)
+    private String pass;
 
-	private Boolean subscribe;
+    private Boolean subscribe;
 
-	//bi-directional many-to-one association to Contact
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private Set<Contact> contacts;
+    //bi-directional many-to-one association to Contact
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Contact> contacts;
 
-	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private Set<Order> orders;
+    //bi-directional many-to-one association to Order
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Order> orders;
 
-	//bi-directional many-to-many association to Tour
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-		name="wishlist"
-		, joinColumns={
-			@JoinColumn(name="client_id", nullable=false)
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="tour_id", nullable=false)
-			}
-		)
-	private Set<Tour> tours;
+    //bi-directional many-to-many association to Tour
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name="wishlist"
+            , joinColumns={
+            @JoinColumn(name="client_id", nullable=false)
+    }
+            , inverseJoinColumns={
+            @JoinColumn(name="tour_id", nullable=false)
+    }
+    )
+    private Set<Tour> tours;
 
-	public User() {
-	}
+    public User() {
+    }
 
-	public Long getId() {
-		return this.id;
-	}
+    public Long getId() {
+        return this.id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getAlbumGuid() {
-		return this.albumGuid;
-	}
+    public String getAlbumGuid() {
+        return this.albumGuid;
+    }
 
-	public void setAlbumGuid(String albumGuid) {
-		this.albumGuid = albumGuid;
-	}
+    public void setAlbumGuid(String albumGuid) {
+        this.albumGuid = albumGuid;
+    }
 
-	public double getBonus() {
-		return this.bonus;
-	}
+    public double getBonus() {
+        return this.bonus;
+    }
 
-	public void setBonus(double bonus) {
-		this.bonus = bonus;
-	}
+    public void setBonus(double bonus) {
+        this.bonus = bonus;
+    }
 
-	public Timestamp getCallTime() {
-		return this.callTime;
-	}
+    public Timestamp getCallTime() {
+        return this.callTime;
+    }
 
-	public void setCallTime(Timestamp callTime) {
-		this.callTime = callTime;
-	}
+    public void setCallTime(Timestamp callTime) {
+        this.callTime = callTime;
+    }
 
-	public String getFio() {
-		return this.fio;
-	}
+    public String getFio() {
+        return this.fio;
+    }
 
-	public void setFio(String fio) {
-		this.fio = fio;
-	}
+    public void setFio(String fio) {
+        this.fio = fio;
+    }
 
-	public String getLogin() {
-		return this.login;
-	}
+    public String getLogin() {
+        return this.login;
+    }
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
-	public Integer getOptions() {
-		return this.options;
-	}
+    public Integer getOptions() {
+        return this.options;
+    }
 
-	public void setOptions(Integer options) {
-		this.options = options;
-	}
+    public void setOptions(Integer options) {
+        this.options = options;
+    }
 
-	public String getPass() {
-		return this.pass;
-	}
+    public String getPass() {
+        return this.pass;
+    }
 
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
 
-	public Boolean getSubscribe() {
-		return this.subscribe;
-	}
+    public Boolean getSubscribe() {
+        return this.subscribe;
+    }
 
-	public void setSubscribe(Boolean subscribe) {
-		this.subscribe = subscribe;
-	}
+    public void setSubscribe(Boolean subscribe) {
+        this.subscribe = subscribe;
+    }
 
-	public Set<Contact> getContacts() {
-		return this.contacts;
-	}
+    public Set<Contact> getContacts() {
+        return this.contacts;
+    }
 
-	public void setContacts(Set<Contact> contacts) {
-		this.contacts = contacts;
-	}
+    public void setContacts(Set<Contact> contacts) {
+        this.contacts = contacts;
+    }
 
-	public Contact addContact(Contact contact) {
-		getContacts().add(contact);
-		contact.setUser(this);
+    public Contact addContact(Contact contact) {
+        getContacts().add(contact);
+        contact.setUser(this);
 
-		return contact;
-	}
+        return contact;
+    }
 
-	public Contact removeContact(Contact contact) {
-		getContacts().remove(contact);
-		contact.setUser(null);
+    public Contact removeContact(Contact contact) {
+        getContacts().remove(contact);
+        contact.setUser(null);
 
-		return contact;
-	}
+        return contact;
+    }
 
-	public Set<Order> getOrders() {
-		return this.orders;
-	}
+    public Set<Order> getOrders() {
+        return this.orders;
+    }
 
-	public void setOrders(Set<Order> orders) {
-		this.orders = orders;
-	}
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
 
-	public Order addOrder(Order order) {
-		getOrders().add(order);
-		order.setUser(this);
+    public Order addOrder(Order order) {
+        getOrders().add(order);
+        order.setUser(this);
 
-		return order;
-	}
+        return order;
+    }
 
-	public Order removeOrder(Order order) {
-		getOrders().remove(order);
-		order.setUser(null);
+    public Order removeOrder(Order order) {
+        getOrders().remove(order);
+        order.setUser(null);
 
-		return order;
-	}
+        return order;
+    }
 
-	public Set<Tour> getTours() {
-		return this.tours;
-	}
+    public Set<Tour> getTours() {
+        return this.tours;
+    }
 
-	public void setTours(Set<Tour> tours) {
-		this.tours = tours;
-	}
-
+    public void setTours(Set<Tour> tours) {
+        this.tours = tours;
+    }
 }

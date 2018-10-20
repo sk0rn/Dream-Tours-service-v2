@@ -20,7 +20,6 @@ public class UserController {
     public String tour(Model model
                        //TODO добавить после включения security
             /*, @AuthenticationPrincipal User user*/) {
-
         return "customer";
     }
 }
