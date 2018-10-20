@@ -21,6 +21,6 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("application"))
                 .paths(regex(".*"))
                 .build()
-                /*.apiInfo(metaInfo())*/;
-    }
+//                .apiInfo(metaInfo())
+    ;}
 }

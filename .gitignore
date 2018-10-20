@@ -22,7 +22,7 @@ hs_err_pid*
 *.iml
 
 #log4j prop
-src/main/resources/log4j.properties
+!src/main/resources/log4j.properties
 
 #quick test
 src/main/java/test/
