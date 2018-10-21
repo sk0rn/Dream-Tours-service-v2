@@ -57,7 +57,7 @@ public class ToursController {
                             @RequestParam(name = "dateEnd", required = false, defaultValue = "") String dateEnd,
                             @RequestParam(name = "costFrom", required = false, defaultValue = "") String costFrom,
                             @RequestParam(name = "costTo", required = false, defaultValue = "") String costTo,
-                            @RequestParam(name = "duration", required = false, defaultValue = "-1") String duration
+                            @RequestParam(name = "durationId", required = false, defaultValue = "-1") String duration
     ) {
         if (subjectId.equals("-1") &&
                 placeId.equals("-1") &&
