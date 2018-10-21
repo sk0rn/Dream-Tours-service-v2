@@ -3,6 +3,7 @@ package application.controller;
 import application.domain.Tour;
 import application.service.tour.iface.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,19 +12,17 @@ import java.util.List;
 
 @Controller
 public class ToursController {
+    @Value("${remote-connection-host}")
+    private String remoteConnectionHost;
 
     @Autowired
     private TourService tourService;
-
-//    @Autowired
-//    public ToursController(TourRepository tourRepository) {
-//        this.tourRepository = tourRepository;
-//    }
 
     @GetMapping(value = {"/tours", "/"})
     public String tours(Model model) {
         List<Tour> tours = tourService.getAll();
         model.addAttribute("tours", tours);
+        model.addAttribute("remoteConnectionHost", remoteConnectionHost);
         return "tours";
     }
 
@@ -32,6 +31,7 @@ public class ToursController {
                        @PathVariable Long tourId) {
         Tour tour = tourService.getById(tourId);
         model.addAttribute("tour", tour);
+        model.addAttribute("remoteConnectionHost", remoteConnectionHost);
         return "tour";
     }
 
