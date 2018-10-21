@@ -76,7 +76,7 @@
             </li>
         </ul>
     </div>
-    <form class="form-inline my-2 my-lg-0" action="/tours" method="get">
+    <form class="form-inline my-2 my-lg-0" action="/tours" method="post">
         <input type="hidden" id="searchSubject" name="subjectId" value="-1">
         <input type="hidden" id="searchPlace" name="placeId" value="-1">
         <input type="hidden" id="searchInWishList" name="inWishList" value="0">
