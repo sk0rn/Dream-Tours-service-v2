@@ -9,8 +9,7 @@
                         <div class="card" style="width: 22rem;">
                             <img class="card-img-top"
                                  <#--TODO доавить поле в entity, проверить вывод картинки-->
-                                 src="/images?album=${tour.getAlbumGuid()}&filename="
-
+                                 src="${remoteConnectionHost}${tour.getAlbumGuid()}/01.jpg"
                                  alt="Card image cap" name="imgArea">
 
                         </div>

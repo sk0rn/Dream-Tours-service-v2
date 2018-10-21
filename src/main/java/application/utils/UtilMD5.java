@@ -1,8 +1,6 @@
 package application.utils;
 
 import lombok.extern.log4j.Log4j;
-import lombok.extern.log4j.Log4j2;
-import org.apache.log4j.Logger;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -25,7 +23,7 @@ public class UtilMD5 {
             messageDigest.update(st.getBytes());
             digest = messageDigest.digest();
         } catch (NoSuchAlgorithmException e) {
-            log.error(e);
+            //log.error(e);
         }
 
         BigInteger bigInt = new BigInteger(1, digest);
