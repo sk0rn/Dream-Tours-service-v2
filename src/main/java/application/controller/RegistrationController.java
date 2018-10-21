@@ -1,6 +1,5 @@
 package application.controller;
 
-import application.domain.User;
 import application.domain.dto.RegistrationForm;
 import application.service.user.iface.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +22,16 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registrationPage(ModelMap model, RegistrationForm registrationForm) {
+    public String registrationPage(ModelMap model,
+                                   RegistrationForm registrationForm) {
         model.put("registrationForm", registrationForm);
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@Valid RegistrationForm registrationForm, BindingResult bindingResult, ModelMap model) {
+    public String registration(@Valid RegistrationForm registrationForm,
+                               BindingResult bindingResult,
+                               ModelMap model) {
         if (bindingResult.hasErrors()) {
             return registrationPage(model, registrationForm);
         }

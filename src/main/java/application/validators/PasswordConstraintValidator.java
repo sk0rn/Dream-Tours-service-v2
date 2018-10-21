@@ -22,6 +22,7 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
 	public boolean isValid(final String password, final ConstraintValidatorContext context) {
 		Properties props = new Properties();
 		try {
+			// override default error messages
 			props.load(new FileInputStream("src/main/resources/messages.properties"));
 		} catch (IOException e) {
 			log.error(e);

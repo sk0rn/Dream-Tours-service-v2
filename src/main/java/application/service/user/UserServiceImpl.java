@@ -51,12 +51,11 @@ public class UserServiceImpl implements UserService {
     public User registerUser(RegistrationForm registrationForm) {
         final String encodedPassword = passwordEncoder.encode(registrationForm.getPassword());
 
-        // mapping user from registerform dto
+        // mapping user from regform dto
         User user = registrationForm.transformTo(new RegistrationFormUserTransformer());
         user.setPass(encodedPassword);
         user.setOptions(0);
         userRepository.save(user);
-
         return user;
     }
 }

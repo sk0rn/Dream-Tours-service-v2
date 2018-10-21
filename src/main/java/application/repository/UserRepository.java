@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+
     User findOneByLogin(String login);
 
     @Query(value = "select pass from users where login = :login", nativeQuery = true)

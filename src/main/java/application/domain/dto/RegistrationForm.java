@@ -20,6 +20,7 @@ public class RegistrationForm implements Transformable<RegistrationForm> {
 
 	@Email
 	@NotEmpty
+    //TODO будет время - неплохо бы проверять на дубль, так же как логин.
 	private String email;
 
 	@NotEmpty
@@ -49,6 +50,14 @@ public class RegistrationForm implements Transformable<RegistrationForm> {
 		this.email = email;
 	}
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
 	public String getPassword() {
 		return password;
 	}
@@ -63,14 +72,6 @@ public class RegistrationForm implements Transformable<RegistrationForm> {
 
 	public void setRepeatPassword(String repeatPassword) {
 		this.repeatPassword = repeatPassword;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
 	}
 
 	@Override

@@ -1,12 +1,12 @@
 <#ftl encoding="utf-8">
-<#import "/spring.ftl" as spring />
+<#import "/spring.ftl" as spring /> <#--юзаем полезные макросы-->
 <#import "parts/index.ftl" as i>
 <@i.page>
 <div class="container">
 
     <form class="form-registration" method="POST" action="/registration">
         <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
-        <h2 class="form-heading">Please fill all fields</h2>
+        <h2 class="form-heading">Пожалуйста, заполните все поля</h2>
 
 	    <@spring.bind "registrationForm"/>
 	    <#assign fieldError>
@@ -46,6 +46,9 @@
             <#if fieldError?has_content>
                 <div class="invalid-feedback">${fieldError}</div>
             </#if>
+            <small id="passwordHelpInline" class="text-muted">
+                Длина 10 цифр
+            </small>
         </div>
 
 
@@ -79,6 +82,9 @@
             <#if fieldError?has_content>
                 <div class="invalid-feedback">${fieldError}</div>
             </#if>
+            <small id="passwordHelpInline" class="text-muted">
+                Минимальная длина 8 символов (минимум 2 строчные буквы, 2 заглавные буквы, 2 цифры)
+            </small>
         </div>
 
         <div class="form-group">
@@ -97,7 +103,7 @@
             </#if>
         </div>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Registration</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
     </form>
 
 </div>
