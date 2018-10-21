@@ -3,6 +3,7 @@ package application.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -48,7 +49,9 @@ public class User implements Serializable {
     private Boolean subscribe;
 
     //bi-directional many-to-one association to Contact
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     private Set<Contact> contacts;
 
     //bi-directional many-to-one association to Order
@@ -69,6 +72,7 @@ public class User implements Serializable {
     private Set<Tour> tours;
 
     public User() {
+        this.contacts = new HashSet<>();
     }
 
     public Long getId() {

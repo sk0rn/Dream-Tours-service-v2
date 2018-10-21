@@ -33,9 +33,7 @@ public class RegistrationController {
         if (bindingResult.hasErrors()) {
             return registrationPage(model, registrationForm);
         }
-
-        User user = userService.registerUser(registrationForm);
-
+        userService.registerUser(registrationForm);
         return "redirect:/";
     }
 }

@@ -1,6 +1,6 @@
 package application.domain.dto;
 
-import application.domain.transformers.Convertible;
+import application.domain.transformers.Transformable;
 import application.validators.LoginUnique;
 import application.validators.PasswordMatches;
 import application.validators.ValidPassword;
@@ -12,7 +12,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @PasswordMatches
-public class RegistrationForm implements Convertible<RegistrationForm> {
+public class RegistrationForm implements Transformable<RegistrationForm> {
 
     @NotEmpty
 	@LoginUnique

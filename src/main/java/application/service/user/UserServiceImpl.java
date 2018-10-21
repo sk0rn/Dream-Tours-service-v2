@@ -2,7 +2,7 @@ package application.service.user;
 
 import application.domain.User;
 import application.domain.dto.RegistrationForm;
-import application.domain.transformers.RegistrationFormUserConverter;
+import application.domain.transformers.RegistrationFormUserTransformer;
 import application.repository.UserRepository;
 import application.service.user.iface.UserService;
 import application.utils.ServiceHelper;
@@ -48,15 +48,15 @@ public class UserServiceImpl implements UserService {
         return ServiceHelper.save(userRepository, user);
     }
 
-
     public User registerUser(RegistrationForm registrationForm) {
         final String encodedPassword = passwordEncoder.encode(registrationForm.getPassword());
 
-        // маппинг юзера из регистрационной формы
-        User user = registrationForm.convertTo(new RegistrationFormUserConverter());
+        // mapping user from registerform dto
+        User user = registrationForm.transformTo(new RegistrationFormUserTransformer());
         user.setPass(encodedPassword);
         user.setOptions(0);
+        userRepository.save(user);
 
-        return userRepository.save(user);
+        return user;
     }
 }

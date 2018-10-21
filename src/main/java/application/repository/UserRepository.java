@@ -15,6 +15,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "select options from users where login = :login", nativeQuery = true)
     Integer findUserRoleByLogin(@Param("login") String login);
 
+    @Query(value = "select id from users where login = :login", nativeQuery = true)
+    Integer findUserIdByLogin(@Param("login") String login);
+
     PasswordOnly findByLoginIs(String login);
 
     User findOneById(Integer id);
