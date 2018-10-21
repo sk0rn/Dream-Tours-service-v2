@@ -15,7 +15,8 @@ public class Place implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+    @SequenceGenerator(name = "placeSeq", sequenceName = "place_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "placeSeq")
 	@Column(unique=true, nullable=false)
 	private Long id;
 
@@ -31,6 +32,11 @@ public class Place implements Serializable {
 
 	public Place() {
 	}
+
+    public Place(String name, String descr) {
+        this.name = name;
+        this.descr = descr;
+    }
 
 	public Long getId() {
 		return this.id;

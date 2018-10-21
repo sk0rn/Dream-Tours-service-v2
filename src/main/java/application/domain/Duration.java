@@ -15,7 +15,8 @@ public class Duration implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+    @SequenceGenerator(name = "durationSeq", sequenceName = "duration_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "durationSeq")
 	@Column(unique=true, nullable=false)
 	private Long id;
 
@@ -31,6 +32,11 @@ public class Duration implements Serializable {
 
 	public Duration() {
 	}
+
+    public Duration(Integer numberDays, String name) {
+        this.name = name;
+        this.numberDays = numberDays;
+    }
 
 	public Long getId() {
 		return this.id;

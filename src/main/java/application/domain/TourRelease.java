@@ -16,7 +16,8 @@ public class TourRelease implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+    @SequenceGenerator(name = "releaseSeq", sequenceName = "tour_release_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "releaseSeq")
 	@Column(unique=true, nullable=false)
 	private Long id;
 
@@ -46,6 +47,13 @@ public class TourRelease implements Serializable {
 
 	public TourRelease() {
 	}
+
+    public TourRelease(Tour tour, Duration duration, Timestamp beginTime, Integer capacity) {
+        this.beginTime = beginTime;
+        this.capacity = capacity;
+        this.duration = duration;
+        this.tour = tour;
+    }
 
 	public Long getId() {
 		return this.id;
