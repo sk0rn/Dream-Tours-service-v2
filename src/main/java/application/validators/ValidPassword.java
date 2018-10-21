@@ -1,5 +1,6 @@
 package application.validators;
 
+import static application.consts.Messages.INCORRECT_PASS;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.TYPE;
@@ -18,7 +19,7 @@ import javax.validation.Payload;
 @Retention(RUNTIME)
 public @interface ValidPassword {
 
-    String message() default "Invalid Password";
+    String message() default INCORRECT_PASS;
 
     Class<?>[] groups() default {};
 

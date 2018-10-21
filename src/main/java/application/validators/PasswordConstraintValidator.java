@@ -1,6 +1,7 @@
 package application.validators;
 
 import com.google.common.base.Joiner;
+import lombok.extern.log4j.Log4j;
 import org.passay.*;
 
 import javax.validation.ConstraintValidator;
@@ -10,10 +11,12 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
 
+@Log4j
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {
 
-	@Override
-	public void initialize(final ValidPassword arg0) {}
+
+    @Override
+	public void initialize(final ValidPassword constraintAnnotation) {}
 
 	@Override
 	public boolean isValid(final String password, final ConstraintValidatorContext context) {
@@ -21,7 +24,7 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
 		try {
 			props.load(new FileInputStream("src/main/resources/messages.properties"));
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error(e);
 		}
 		MessageResolver resolver = new PropertiesMessageResolver(props);
 		final PasswordValidator validator = new PasswordValidator(resolver, Arrays.asList(

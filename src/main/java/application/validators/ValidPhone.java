@@ -6,21 +6,21 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import static application.consts.Messages.PASS_NOT_MATCHES;
+import static application.consts.Messages.INCORRECT_PHONE;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Target({TYPE,ANNOTATION_TYPE})
-@Retention(RUNTIME)
-@Constraint(validatedBy = PasswordMatchesValidator.class)
 @Documented
-public @interface PasswordMatches {
+@Constraint(validatedBy = PhoneValidator.class)
+@Target({ TYPE, FIELD, ANNOTATION_TYPE })
+@Retention(RUNTIME)
+public @interface ValidPhone {
 
-	String message() default PASS_NOT_MATCHES;
+    String message() default INCORRECT_PHONE;
 
-	Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-	Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 }
-

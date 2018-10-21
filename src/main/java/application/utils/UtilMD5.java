@@ -23,7 +23,7 @@ public class UtilMD5 {
             messageDigest.update(st.getBytes());
             digest = messageDigest.digest();
         } catch (NoSuchAlgorithmException e) {
-            //log.error(e);
+            log.error(e);
         }
 
         BigInteger bigInt = new BigInteger(1, digest);

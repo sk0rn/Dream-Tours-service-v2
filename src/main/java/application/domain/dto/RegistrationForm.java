@@ -1,8 +1,10 @@
 package application.domain.dto;
 
 import application.domain.transformers.Convertible;
+import application.validators.LoginUnique;
 import application.validators.PasswordMatches;
 import application.validators.ValidPassword;
+import application.validators.ValidPhone;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -13,6 +15,7 @@ import javax.validation.constraints.NotEmpty;
 public class RegistrationForm implements Convertible<RegistrationForm> {
 
     @NotEmpty
+	@LoginUnique
     private String login;
 
 	@Email
@@ -20,6 +23,7 @@ public class RegistrationForm implements Convertible<RegistrationForm> {
 	private String email;
 
 	@NotEmpty
+	@ValidPhone
 	private String phone;
 
 	@NotEmpty
