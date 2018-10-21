@@ -58,6 +58,7 @@ public class ToursController {
                 null/*dateBegin*/, null/*dateEnd*/,
                 costFrom, costTo, duration)
         );
+        model.addAttribute("remoteConnectionHost", remoteConnectionHost);
         return "tours";
     }
 }
