@@ -1,10 +1,7 @@
 package application.domain.dto;
 
 import application.domain.transformers.Transformable;
-import application.validators.LoginUnique;
-import application.validators.PasswordMatches;
-import application.validators.ValidPassword;
-import application.validators.ValidPhone;
+import application.validators.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -20,7 +17,7 @@ public class RegistrationForm implements Transformable<RegistrationForm> {
 
 	@Email
 	@NotEmpty
-    //TODO будет время - неплохо бы проверять на дубль, так же как логин.
+    @EmailUnique
 	private String email;
 
 	@NotEmpty
