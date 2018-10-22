@@ -19,7 +19,7 @@
                          <button type="button" class="btn-sm btn-success"
                          <#--TODO Для админской панели не сделан перевод на спринг-->
                                  <#--onclick="document.location.href='/admin/add_content?id=${tour.getTour().getId()}'">-->
-                             onclick="document.location.href='/admin/add_content?id=${tour.getId()}'">
+                                 onclick="document.location.href='/admin/content/${tour.getId()}'">
                              Изменить
                          </button>&nbsp;
                         </#if>

@@ -1,5 +1,6 @@
 <#ftl encoding="utf-8">
 <head>
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon.ico">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

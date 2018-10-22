@@ -18,6 +18,6 @@
     </div>
     <button type="submit" class="btn btn-primary">Войти</button>
     <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="/register">Регистрация</a>
+    <a class="dropdown-item" href="/registration">Регистрация</a>
 </form>
 </div>

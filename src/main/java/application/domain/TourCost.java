@@ -14,7 +14,8 @@ public class TourCost implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@SequenceGenerator(name = "costSeq", sequenceName = "tour_cost_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "costSeq")
 	@Column(unique=true, nullable=false)
 	private Long id;
 
@@ -36,6 +37,14 @@ public class TourCost implements Serializable {
 	private TourRelease tourRelease;
 
 	public TourCost() {
+	}
+
+	public TourCost(TourRelease tourRelease, Boolean kind, double cost, Integer clippingAge, Boolean isParticipant) {
+		this.clippingAge = clippingAge;
+		this.cost = cost;
+		this.isParticipant = isParticipant;
+		this.kind = kind;
+		this.tourRelease = tourRelease;
 	}
 
 	public Long getId() {
