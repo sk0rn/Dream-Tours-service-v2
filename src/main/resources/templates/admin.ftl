@@ -14,15 +14,15 @@
                aria-controls="v-pills-duration" aria-selected="false">Продолжительность тура</a>
             <a class="nav-link" id="v-pills-release-tab" data-toggle="pill" href="#v-pills-release" role="tab"
                aria-controls="v-pills-release" aria-selected="false">Туристическая группа</a>
-            <a class="nav-link" id="v-pills-coast-tab" data-toggle="pill" href="#v-pills-coast" role="tab"
-               aria-controls="v-pills-coast" aria-selected="false">Цены</a>
+            <a class="nav-link" id="v-pills-cost-tab" data-toggle="pill" href="#v-pills-cost" role="tab"
+               aria-controls="v-pills-cost" aria-selected="false">Цены</a>
         </div>
     </div>
     <div class="col-8">
         <div class="tab-content" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-tour" role="tabpanel" aria-labelledby="v-pills-tour-tab">
-                <form action="/admin/add_content" method="post" enctype="multipart/form-data">
-                    <#--TODO здесь будет необходимо заполнять данные тура при обновлении тура-->
+                <form action="/admin/content" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <input class="form-control" type="hidden"
                            placeholder="название" name="idTour" value="${(tour.getId())!}">
                     <br><input class="form-control" type="text" placeholder="название" name="tourName" required
@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1"></label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="описание"
-                                  name="descTour" required>${(tour.getDesc())!}</textarea>
+                                  name="descTour" required>${(tour.getDescr())!}</textarea>
                     </div>
                     <label for="basic-url">Ссылка на видео:</label>
                     <div class="input-group mb-3">
@@ -50,7 +50,8 @@
                 </form>
             </div>
             <div class="tab-pane fade" id="v-pills-place" role="tabpanel" aria-labelledby="v-pills-place-tab">
-                <form action="/admin/add_content" method="post">
+                <form action="/admin/content" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <br><input class="form-control" type="text" placeholder="название" name="placeName" required>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea2"></label>
@@ -62,7 +63,8 @@
                 </form>
             </div>
             <div class="tab-pane fade" id="v-pills-subject" role="tabpanel" aria-labelledby="v-pills-subject-tab">
-                <form action="/admin/add_content" method="post">
+                <form action="/admin/content" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <br><input class="form-control" type="text" placeholder="название" name="subjectName" required>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea3"></label>
@@ -74,20 +76,22 @@
                 </form>
             </div>
             <div class="tab-pane fade" id="v-pills-duration" role="tabpanel" aria-labelledby="v-pills-duration-tab">
-                <form action="/admin/add_content" method="post">
+                <form action="/admin/content" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <br><input class="form-control" type="text" placeholder="продолжительность (дней)"
                                name="numberDays" required>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea4"></label>
                         <textarea class="form-control" id="exampleFormControlTextarea4" rows="5" placeholder="описание"
-                                  name="descDuration"></textarea>
+                                  name="nameDuration"></textarea>
                     </div>
                     <br>
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 </form>
             </div>
             <div class="tab-pane fade" id="v-pills-release" role="tabpanel" aria-labelledby="v-pills-release-tab">
-                <form action="/admin/add_content" method="post">
+                <form action="/admin/content" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <label>Название тура:</label>
                     <br><select class="form-control" name="tourList">
                     <#list tours! as tour>
@@ -99,7 +103,7 @@
                     <label>Продолжительность тура:</label>
                     <br><select class="form-control" name="tourDurationList">
                     <#list durations! as dur>
-                        <option value="${dur.getId()}"><${dur.getNumberDays()} (дней),  ${dur.getName()}
+                        <option value="${dur.getId()}">${dur.getNumberDays()} (дней),  ${dur.getName()}
                         </option>
                     </#list>
                 </select><br>
@@ -112,13 +116,16 @@
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 </form>
             </div>
-            <div class="tab-pane fade" id="v-pills-coast" role="tabpanel" aria-labelledby="v-pills-coast-tab">
-                <form action="/admin/add_content" method="post">
-                    <br><label>Продолжительность тура:</label>
-                    <br><select class="form-control" name="tourDurationList">
+            <div class="tab-pane fade" id="v-pills-cost" role="tabpanel" aria-labelledby="v-pills-cost-tab">
+                <form action="/admin/content" method="post">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <br><label>Туристическая группа:</label>
+                    <br><select class="form-control" name="tourReleaseList">
                         <#list tourReleases! as tr>
                         <#--TODO здесь необходмо настроить вывод тут релизов-->
-                        <option value="${tr.getId()}">${tr.getId()}
+                            <option value="${tr.getId()}">${tr.getTour().getName()}; ${tr.getDuration().getNumberDays()}
+                                (дней), ${tr.getDuration().getName()}; дата начала тура:
+                                ${tr.getBeginTime()}; количество мест: ${tr.getCapacity()}.
                         </option>
                         </#list>
                 </select><br>
@@ -132,7 +139,7 @@
                             <span class="input-group-text">руб</span>
                         </div>
                         <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
-                               name="tourCoast" required>
+                               name="tourCost" required>
                         <div class="input-group-append">
                             <span class="input-group-text">.00</span>
                         </div>

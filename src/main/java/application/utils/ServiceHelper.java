@@ -1,11 +1,13 @@
 package application.utils;
 
+import lombok.extern.log4j.Log4j;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
 
+@Log4j
 public final class ServiceHelper {
     private ServiceHelper() {
     }
@@ -76,7 +78,7 @@ public final class ServiceHelper {
                     id :
                     -1L;
         } catch (Exception e) {
-            //LOGGER
+            log.error(e.getMessage(), e);
         }
         return -1L;
     }
@@ -87,7 +89,7 @@ public final class ServiceHelper {
                 return Integer.parseInt(source) == 1;
             }
         } catch (Exception e) {
-            //LOGGER
+            log.error(e.getMessage(), e);
         }
         return false;
     }
@@ -99,7 +101,7 @@ public final class ServiceHelper {
                 return Double.parseDouble(source);
             }
         } catch (Exception e) {
-            //LOGGER
+            log.error(e.getMessage(), e);
         }
         return 0.0d;
     }
@@ -110,9 +112,8 @@ public final class ServiceHelper {
                 return Timestamp.valueOf(source);
             }
         } catch (Exception e) {
-            //LOGGER
+            log.error(e.getMessage(), e);
         }
         return null;
     }
-
 }

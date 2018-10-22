@@ -15,15 +15,23 @@ import java.util.List;
 
 @Service
 public class ContactServiceImpl implements ContactService {
-    @Autowired
-    private ContactRepository contactRepository;
+    private final ContactRepository contactRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    public ContactServiceImpl(ContactRepository contactRepository, UserRepository userRepository) {
+        this.contactRepository = contactRepository;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public boolean add(Contact contact) {
         return ServiceHelper.save(contactRepository, contact);
+    }
+
+    @Override
+    public boolean checkForMatch(String value) {
+        return contactRepository.existsByValue(value);
     }
 
     @Override

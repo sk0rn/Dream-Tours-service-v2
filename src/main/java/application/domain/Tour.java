@@ -14,7 +14,8 @@ public class Tour implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "tourSeq", sequenceName = "tour_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tourSeq")
     @Column(unique = true, nullable = false)
     private Long id;
 
@@ -65,6 +66,21 @@ public class Tour implements Serializable {
     private Set<User> users;
 
     public Tour() {
+    }
+
+    public Tour(Long id, String name, String descr, String youtubeUrl, String albumGuid) {
+        this.id = id;
+        this.descr = descr;
+        this.name = name;
+        this.youtubeUrl = youtubeUrl;
+        this.albumGuid = albumGuid;
+    }
+
+    public Tour(String name, String descr, String youtubeUrl, String albumGuid) {
+        this.albumGuid = albumGuid;
+        this.descr = descr;
+        this.name = name;
+        this.youtubeUrl = youtubeUrl;
     }
 
     public Long getId() {

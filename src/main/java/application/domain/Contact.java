@@ -14,7 +14,13 @@ public class Contact implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,
+			generator = "contact_id_seq")
+	@SequenceGenerator(
+			name="contact_id_seq",
+			sequenceName="contact_id_seq",
+			allocationSize=1
+	)
 	@Column(unique=true, nullable=false)
     private Long id;
 
@@ -29,7 +35,11 @@ public class Contact implements Serializable {
 	public Contact() {
 	}
 
-    public Long getId() {
+	public Contact(String value) {
+		this.value = value;
+	}
+
+	public Long getId() {
 		return this.id;
 	}
 
