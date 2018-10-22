@@ -20,7 +20,10 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/admin")
 @Api(value = "admin!", description = "admin!!!!") // Swagger annotation
-public class AdminController {
+public class AdminController extends ProtoController {
+//    TODO при любом изменении тематик в базе обнулить коллекцию subjects
+//    TODO при любом изменении мест в базе обнулить коллекцию places
+//    TODO при любом изменении длительностей в базе обнулить коллекцию durations
 
     private SessionFactory sessionFactory;
     private TourRepository tourRepository;
@@ -37,10 +40,10 @@ public class AdminController {
         }
         sessionFactory = factory.unwrap(SessionFactory.class);
     }
-  
+
     @GetMapping({"/content/{tourId}", "/content"})
     public String getEditContent(Model model, @PathVariable Optional<Long> tourId) {
-        tourId.ifPresent(x -> model.addAttribute("tour", tourRepository.findOneById(x)));
+        tourId.ifPresent(x -> model.addAttribute("tour", tourRepository.getOne(x)));
         return "admin";
     }
 

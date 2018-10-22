@@ -37,7 +37,7 @@ public class TourReleaseServiceImpl implements TourReleaseService {
 
         return tourId == null ||
                 tourId < 1 ||
-                (tour = tourRepository.findOneById(tourId)) == null ||
+                (tour = tourRepository.getOne(tourId)) == null ||
                 (releases = tourReleaseRepository.findAllByTour(tour)) == null ?
                 Collections.emptyList() :
                 releases;

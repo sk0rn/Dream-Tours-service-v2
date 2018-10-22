@@ -94,15 +94,15 @@ public class TourServiceImpl implements TourService {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
 
         List<Tour> tours = tourRepository.findAllBy(
-                ServiceHelper.StringToId(subjectId),
-                ServiceHelper.StringToId(placeId),
-                ServiceHelper.StringToBool(inWishList) ? userId : -1,
+                ServiceHelper.stringToId(subjectId),
+                ServiceHelper.stringToId(placeId),
+                ServiceHelper.stringToBool(inWishList) ? userId : -1,
                 "%" + searchString + "%",
                 dateBegin == null ? "1970-01-01 08:00:00.000" : dateFormat.format(dateBegin),
                 dateEnd == null ? "1970-01-01 08:00:00.000" : dateFormat.format(dateEnd),
-                ServiceHelper.StringToDouble(costFrom),
-                ServiceHelper.StringToDouble(costTo),
-                ServiceHelper.StringToId(duration));
+                ServiceHelper.stringToDouble(costFrom),
+                ServiceHelper.stringToDouble(costTo),
+                ServiceHelper.stringToId(duration));
         return tours == null ? Collections.emptyList() : tours;
     }
 

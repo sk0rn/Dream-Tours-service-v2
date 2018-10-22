@@ -1,7 +1,6 @@
 package application.repository;
 
 import application.domain.User;
-import application.service.subsets.PasswordOnly;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,8 +13,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "select options from users where login = :login", nativeQuery = true)
     Integer findUserRoleByLogin(@Param("login") String login);
-
-    PasswordOnly findByLoginIs(String login);
-
-    User findOneById(Integer id);
 }
