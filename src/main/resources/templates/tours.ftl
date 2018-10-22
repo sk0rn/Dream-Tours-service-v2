@@ -17,13 +17,18 @@
                     <div class="col-9">
                         <#if role?? && role == "[ROLE_ADMIN]">
                          <button type="button" class="btn-sm btn-success"
-                         <#--TODO Для админской панели не сделан перевод на спринг-->
-                                 <#--onclick="document.location.href='/admin/add_content?id=${tour.getTour().getId()}'">-->
                                  onclick="document.location.href='/admin/content/${tour.getId()}'">
                              Изменить
                          </button>&nbsp;
+                        <#elseif role?? && role == "[ROLE_USER]">
+                        <form action="/addInWishlist" method="post">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <input class="form-control" type="hidden" name="idTour" value="${(tour.getId())!}">
+                            <button type="submit" class="btn-sm btn-success">В избранное</button>&nbsp;
+                        </form>
                         </#if>
-                        <a href="/tour?id=${tour.getId()}">${tour.getName()}</a><br>
+                        <a href="/tour?id=${tour.getId()}">${tour.getName()}
+                        </a><br>
                         <nobr>
                             <#list tour.getSubjects() as subj>
                                 <a href="#"

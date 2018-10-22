@@ -1,6 +1,7 @@
 package application.service.tour;
 
 import application.domain.Tour;
+import application.domain.User;
 import application.repository.PlaceRepository;
 import application.repository.SubjectRepository;
 import application.repository.TourRepository;
@@ -15,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TourServiceImpl implements TourService {
@@ -120,4 +122,13 @@ public class TourServiceImpl implements TourService {
         else if (subject_id == -1 && place_id == -1 && !wish_list) return this.getBySearchString(searchString);
         return tourRepository.findAllBy(subject_id, place_id, wish_list ? user_id : -1, searchString);
     }
+
+    @Override
+    public boolean addUserInSetUsers(Tour tour, User user) {
+        Set<User> users = tour.getUsers();
+        users.add(user);
+        tour.setUsers(users);
+        return true;
+    }
+
 }
