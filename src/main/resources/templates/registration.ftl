@@ -6,7 +6,7 @@
 
     <form class="form-registration" method="POST" action="/registration">
         <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
-        <h2 class="form-heading">Пожалуйста, заполните все поля</h2>
+        <h5 class="form-heading">Пожалуйста, заполните все поля</h5>
 
 	    <@spring.bind "registrationForm"/>
 	    <#assign fieldError>
@@ -16,7 +16,7 @@
 		    <div class="alert alert-danger" role="alert">${fieldError}</div>
         </#if>
 
-        <div class="form-group">
+        <div class="form-group col-md-3">
             <@spring.bind "registrationForm.login"/>
             <#assign fieldError>
                 <@spring.showErrors "<br/>"/>
@@ -32,7 +32,7 @@
             </#if>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-3">
             <@spring.bind "registrationForm.phone"/>
             <#assign fieldError>
                 <@spring.showErrors "<br/>"/>
@@ -51,8 +51,7 @@
             </small>
         </div>
 
-
-        <div class="form-group">
+        <div class="form-group col-md-3">
             <@spring.bind "registrationForm.email"/>
             <#assign fieldError>
                 <@spring.showErrors "<br/>"/>
@@ -68,7 +67,7 @@
             </#if>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-3">
             <@spring.bind "registrationForm.password"/>
             <#assign fieldError>
                 <@spring.showErrors "<br/>"/>
@@ -87,7 +86,7 @@
             </small>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-3">
             <@spring.bind "registrationForm.repeatPassword"/>
             <#assign fieldError>
                 <@spring.showErrors "<br/>"/>
@@ -101,9 +100,10 @@
             <#if fieldError?has_content>
                 <div class="invalid-feedback">${fieldError}</div>
             </#if>
+            <div class="dropdown-divider"></div>
+        <button class="btn btn-lg btn-primary" type="submit">Зарегистрироваться</button>
         </div>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
     </form>
 
 </div>
