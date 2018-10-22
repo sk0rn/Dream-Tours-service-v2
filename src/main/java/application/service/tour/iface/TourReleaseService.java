@@ -11,6 +11,8 @@ public interface TourReleaseService {
 
     List<TourRelease> getAllByTourId(Long tourId);
 
+    List<TourRelease> getAll();
+
     boolean updateById(TourRelease tourRelease);
 
     boolean deleteById(Long id);

@@ -15,7 +15,8 @@ public class Subject implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+    @SequenceGenerator(name = "subjectSeq", sequenceName = "subject_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "subjectSeq")
 	@Column(unique=true, nullable=false)
 	private Long id;
 
@@ -31,6 +32,11 @@ public class Subject implements Serializable {
 
 	public Subject() {
 	}
+
+    public Subject(String name, String descr) {
+        this.name = name;
+        this.descr = descr;
+    }
 
 	public Long getId() {
 		return this.id;
