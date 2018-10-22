@@ -1,5 +1,6 @@
 package application.service.user.iface;
 
+import application.domain.Tour;
 import application.domain.User;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface UserService {
     List<User> getAll();
 
     boolean update(User user);
+
+    boolean addTourInSetTours(User user, Tour tour);
 }
