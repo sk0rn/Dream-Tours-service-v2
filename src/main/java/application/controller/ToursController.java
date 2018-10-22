@@ -1,6 +1,9 @@
 package application.controller;
 
 import application.domain.Tour;
+import application.service.tour.iface.DurationService;
+import application.service.tour.iface.PlaceService;
+import application.service.tour.iface.SubjectService;
 import application.service.tour.iface.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,13 +20,18 @@ public class ToursController {
 
     @Autowired
     private TourService tourService;
+    @Autowired
+    private SubjectService subjectService;
+    @Autowired
+    private PlaceService placeService;
+    @Autowired
+    private DurationService durationService;
 
     @GetMapping(value = {"/tours", "/"})
     public String tours(Model model) {
         List<Tour> tours = tourService.getAll();
         model.addAttribute("tours", tours);
-        model.addAttribute("remoteConnectionHost", remoteConnectionHost);
-        return "tours";
+        return internalFillLists(model);
     }
 
     @GetMapping("/tours/{tourId}")
@@ -49,15 +57,40 @@ public class ToursController {
                             @RequestParam(name = "dateEnd", required = false, defaultValue = "") String dateEnd,
                             @RequestParam(name = "costFrom", required = false, defaultValue = "") String costFrom,
                             @RequestParam(name = "costTo", required = false, defaultValue = "") String costTo,
-                            @RequestParam(name = "duration", required = false, defaultValue = "-1") String duration
+                            @RequestParam(name = "durationId", required = false, defaultValue = "-1") String duration
     ) {
-//        TODO Добавить юзера когда с безопасностью срастётся
-        model.addAttribute("tours", tourService.superPuperDuperSearch(-1L,
-                subjectId, placeId, inWishList, searchString,
+        if (subjectId.equals("-1") &&
+                placeId.equals("-1") &&
+//        TODO Раскоментить вишлист, когда с безопасностью срастётся
+                //inWishList.equals("0") &&
+                searchString.isEmpty() &&
 //                TODO сделать на форме нормальные контролы для заполнения даты и парсить их здесь
-                null/*dateBegin*/, null/*dateEnd*/,
-                costFrom, costTo, duration)
-        );
+                //dateBegin.isEmpty() &&
+                //dateEnd.isEmpty() &&
+                costFrom.isEmpty() &&
+                costTo.isEmpty() &&
+                duration.equals("-1")
+        ) {
+            return tours(model);
+        } else {
+//        TODO Добавить юзера когда с безопасностью срастётся
+            model.addAttribute("tours", tourService.superPuperDuperSearch(-1L,
+                    subjectId, placeId, inWishList, searchString,
+//                TODO сделать на форме нормальные контролы для заполнения даты и парсить их здесь
+                    null/*dateBegin*/, null/*dateEnd*/,
+                    costFrom, costTo, duration)
+            );
+            return internalFillLists(model);
+        }
+    }
+
+    private String internalFillLists(Model model) {
+        model.addAttribute("remoteConnectionHost", remoteConnectionHost);
+
+        model.addAttribute("subjects", subjectService.getAll());
+        model.addAttribute("places", placeService.getAll());
+        model.addAttribute("durations", durationService.getAll());
+
         return "tours";
     }
 }
