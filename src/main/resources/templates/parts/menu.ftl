@@ -25,9 +25,12 @@
                 <a class="nav-link dropdown-toggle" href="#" id="subjectDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Тематика</a>
                 <div class="dropdown-menu" aria-labelledby="subjectDropdown">
+                    <a class='dropdown-item' href='#'
+                       onclick="onOptionClick('subjectDropdown', 'Тематика', 'searchSubject', -1)">Любая тематика</a>
+                    <div class="dropdown-divider"></div>
                     <#list subjects![] as subj>
-                        "<a class='dropdown-item' href='#'
-                            onclick="onOptionClick('subjectDropdown', '${subj.getName()}', 'searchSubject', ${subj.getId()})">${subj.getName()}</a>
+                        <a class='dropdown-item' href='#'
+                           onclick="onOptionClick('subjectDropdown', '${subj.getName()}', 'searchSubject', ${subj.getId()})">${subj.getName()}</a>
                         <#else >
                         <a class='dropdown-item' href='#'>Пусто</a>
                     </#list>
@@ -38,11 +41,12 @@
                 <a class="nav-link dropdown-toggle" href="#" id="placeDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Места</a>
                 <div class="dropdown-menu" aria-labelledby="placeDropdown">
+                    <a class='dropdown-item' href='#'
+                       onclick="onOptionClick('placeDropdown', 'Места', 'searchPlace', -1)">Любое место</a>
+                    <div class="dropdown-divider"></div>
                     <#list places![] as place>
-                        "<a class='dropdown-item' href='#'
-                            onclick="onOptionClick('subjectDropdown', '${place.getName()}', 'searchSubject', ${place.getId()})">${place.getName()}</a>
-                    <#else >
-                        <a class='dropdown-item' href='#'>Пусто</a>
+                        <a class='dropdown-item' href='#'
+                           onclick="onOptionClick('placeDropdown', '${place.getName()}', 'searchPlace', ${place.getId()})">${place.getName()}</a>
                     </#list>
                 </div>
             </li>
@@ -51,14 +55,17 @@
                 <a class="nav-link dropdown-toggle" href="#" id="durationDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Длительность</a>
                 <div class="dropdown-menu" aria-labelledby="durationDropdown">
+                    <a class='dropdown-item' href='#'
+                       onclick="onOptionClick('durationDropdown', 'Длительность', 'searchDuration', -1)">Любая
+                        длительность</a>
+                    <div class="dropdown-divider"></div>
                     <#list durations![] as dur>
-                        "<a class='dropdown-item' href='#'
-                            onclick="onOptionClick('subjectDropdown', '${dur.getName()}', 'searchSubject', ${dur.getId()})">${dur.getName()}</a>
-                    <#else >
-                        <a class='dropdown-item' href='#'>Пусто</a>
+                        <a class='dropdown-item' href='#'
+                           onclick="onOptionClick('durationDropdown', '${dur.getName()}', 'searchDuration', ${dur.getId()})">${dur.getName()}</a>
                     </#list>
                 </div>
             </li>
+<#if role?? && role == "[ROLE_USER]">
 
             <li class="nav-item">
                 <a class="nav-link" href="#">
@@ -71,15 +78,17 @@
                     </div>
                     <span class="sr-only">(current)</span></a>
             </li>
+</#if>
             <li class="nav-item">
                 <a class="nav-link" href="#" id="advBtn">Дополнительно<span class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>
-    <form class="form-inline my-2 my-lg-0" action="/tours" method="post">
+    <form class="form-inline my-2 my-lg-0" action="/tours" method="post" id="searchToursForm" name="searchToursForm">
         <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
         <input type="hidden" id="searchSubject" name="subjectId" value="-1">
         <input type="hidden" id="searchPlace" name="placeId" value="-1">
+        <input type="hidden" id="searchDuration" name="durationId" value="-1">
         <input type="hidden" id="searchInWishList" name="inWishList" value="0">
         <input type="hidden" id="searchDateBegin" name="DateBegin">
         <input type="hidden" id="searchDateEnd" name="DateEnd">

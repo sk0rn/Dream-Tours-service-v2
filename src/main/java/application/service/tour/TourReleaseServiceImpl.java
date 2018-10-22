@@ -44,6 +44,11 @@ public class TourReleaseServiceImpl implements TourReleaseService {
     }
 
     @Override
+    public List<TourRelease> getAll() {
+        return ServiceHelper.getAll(tourReleaseRepository);
+    }
+
+    @Override
     public boolean updateById(TourRelease tourRelease) {
         return ServiceHelper.save(tourReleaseRepository, tourRelease);
     }

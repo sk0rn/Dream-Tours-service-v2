@@ -19,7 +19,7 @@
                          <button type="button" class="btn-sm btn-success"
                          <#--TODO Для админской панели не сделан перевод на спринг-->
                                  <#--onclick="document.location.href='/admin/add_content?id=${tour.getTour().getId()}'">-->
-                             onclick="document.location.href='/admin/add_content?id=${tour.getId()}'">
+                                 onclick="document.location.href='/admin/content/${tour.getId()}'">
                              Изменить
                          </button>&nbsp;
                         </#if>
@@ -29,8 +29,9 @@
                         </a><br>
                         <nobr>
                             <#list tour.getSubjects() as subj>
-
-                                <a href="/tours?subject=${subj.getId()}" title="${subj.getName()}"
+                                <a href="#"
+                                   onclick="submitSearchToursByItem('searchSubject', ${subj.getId()});"
+                                   title="${subj.getName()}"
                                    data-content="${subj.getDescr()}" data-toggle="popover"
                                    data-trigger="hover">
                                     ${subj.getName()}
@@ -42,7 +43,9 @@
                                   name="tourName">${tour.getDescr()}</div>
                             <nobr>
                             <#list tour.getPlaces() as place>
-                                <a href="/tours?place=${place.getId()}" title="${place.getName()}"
+                                <a href="#"
+                                   onclick="submitSearchToursByItem('searchPlace', ${place.getId()});"
+                                   title="${place.getName()}"
                                    data-content="${place.getDescr()}" data-toggle="popover"
                                    data-trigger="hover">
                                     ${place.getName()}
