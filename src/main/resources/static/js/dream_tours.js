@@ -1,10 +1,4 @@
 //--------------------------------------------------------------------------
-function onOptionClick(textTarget, textValue, valueTarget, value) {
-    document.getElementById(textTarget).innerText = textValue;
-    document.getElementById(valueTarget).value = value;
-}
-
-//--------------------------------------------------------------------------
 function val2val(idName, toForm) {
     $("#search" + idName + (toForm ? "" : "View")).val($("#search" + idName + (toForm ? "View" : "")).val());
 }
@@ -32,6 +26,7 @@ function clearFindToursForm() {
     $("#searchDurationBegin").val("");
     $("#searchDurationEnd").val("");
 }
+
 //--------------------------------------------------------------------------
 $(document).ready(function () {
 
