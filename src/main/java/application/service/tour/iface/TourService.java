@@ -1,6 +1,7 @@
 package application.service.tour.iface;
 
 import application.domain.Tour;
+import application.domain.User;
 
 import java.util.Date;
 import java.util.List;
@@ -30,4 +31,6 @@ public interface TourService {
                                      String subjectId, String placeId, String inWishList,
                                      String searchString, Date dateBegin, Date dateEnd,
                                      String costFrom, String costTo, String duration);
+
+    boolean addUserInSetUsers(Tour tour, User user);
 }

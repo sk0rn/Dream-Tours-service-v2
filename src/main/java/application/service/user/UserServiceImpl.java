@@ -1,5 +1,6 @@
 package application.service.user;
 
+import application.domain.Tour;
 import application.domain.User;
 import application.domain.dto.RegistrationForm;
 import application.domain.transformers.RegistrationFormUserTransformer;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -57,5 +59,13 @@ public class UserServiceImpl implements UserService {
         user.setOptions(0);
         userRepository.save(user);
         return user;
+    }
+
+    @Override
+    public boolean addTourInSetTours(User user, Tour tour) {
+        Set<Tour> tours = user.getTours();
+        tours.add(tour);
+        user.setTours(tours);
+        return true;
     }
 }

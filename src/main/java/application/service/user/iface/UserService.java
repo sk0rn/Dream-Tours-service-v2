@@ -1,5 +1,6 @@
 package application.service.user.iface;
 
+import application.domain.Tour;
 import application.domain.User;
 import application.domain.dto.RegistrationForm;
 
@@ -17,4 +18,6 @@ public interface UserService {
     boolean update(User user);
 
     public User registerUser(RegistrationForm registrationForm);
+
+    boolean addTourInSetTours(User user, Tour tour);
 }
