@@ -10,7 +10,7 @@
                             <img class="card-img-top"
                                  <#--TODO доавить поле в entity, проверить вывод картинки-->
                                  src="${remoteConnectionHost}${tour.getAlbumGuid()}/01.jpg"
-                                 alt="Card image cap" name="imgArea">
+                                 alt="${tour.getName()}">
 
                         </div>
                     </div>
@@ -23,14 +23,13 @@
                              Изменить
                          </button>&nbsp;
                         </#if>
-                        <#--<a href="/tour?id=${tour.getTour().getId()}">${tour.getTour().getName()}-->
-                        <a href="/tour?id=${tour.getId()}">${tour.getName()}
-
-                        </a><br>
+                        <a href="/tour?id=${tour.getId()}">${tour.getName()}</a><br>
                         <nobr>
                             <#list tour.getSubjects() as subj>
                                 <a href="#"
-                                   onclick="submitSearchToursByItem('searchSubject', ${subj.getId()});"
+                                   submit-param="#searchSubject"
+                                   submit-value="${subj.getId()}"
+                                   class="form-submit-link"
                                    title="${subj.getName()}"
                                    data-content="${subj.getDescr()}" data-toggle="popover"
                                    data-trigger="hover">
@@ -44,7 +43,9 @@
                             <nobr>
                             <#list tour.getPlaces() as place>
                                 <a href="#"
-                                   onclick="submitSearchToursByItem('searchPlace', ${place.getId()});"
+                                   submit-param="#searchPlace"
+                                   submit-value="${place.getId()}"
+                                   class="form-submit-link"
                                    title="${place.getName()}"
                                    data-content="${place.getDescr()}" data-toggle="popover"
                                    data-trigger="hover">
