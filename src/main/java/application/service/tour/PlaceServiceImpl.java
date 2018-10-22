@@ -5,6 +5,7 @@ import application.repository.PlaceRepository;
 import application.service.tour.iface.PlaceService;
 import application.utils.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,5 +38,10 @@ public class PlaceServiceImpl implements PlaceService {
     @Override
     public boolean deleteById(Long id) {
         return ServiceHelper.delete(placeRepository, id);
+    }
+
+    @Override
+    public List<Place> findAllOrderByName() {
+        return ServiceHelper.getListByParam(placeRepository::findAll, Sort.by(Sort.Order.by("name")));
     }
 }

@@ -14,4 +14,6 @@ public interface PlaceService {
     boolean updateById(Place place);
 
     boolean deleteById(Long id);
+
+    List<Place> findAllOrderByName();
 }

@@ -5,6 +5,7 @@ import application.repository.DurationRepository;
 import application.service.tour.iface.DurationService;
 import application.utils.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,5 +43,10 @@ public class DurationServiceImpl implements DurationService {
     @Override
     public List<Duration> getAll() {
         return ServiceHelper.getAll(durationRepository);
+    }
+
+    @Override
+    public List<Duration> findAllOrderByName() {
+        return ServiceHelper.getListByParam(durationRepository::findAll, Sort.by(Sort.Order.by("numberDays")));
     }
 }

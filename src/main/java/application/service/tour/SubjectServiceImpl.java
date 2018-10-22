@@ -42,8 +42,6 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public List<Subject> findAllOrderByName() {
-        return ServiceHelper.getListByParam(subjectRepository::findAll, Sort.by(Sort.Order.by("name")));
-//        subjectRepository.findAll(Sort.by(Sort.Order.by("name")));
-//        return ServiceHelper.getAll(subjectRepository::findAllOrderByName);
+        return ServiceHelper.getListByParam(subjectRepository::findAll, Sort.by(Sort.Order.by("Name")));
     }
 }

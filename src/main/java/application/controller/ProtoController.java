@@ -13,8 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Загрузка данных для выпадающих списков
@@ -29,9 +29,9 @@ import java.util.Set;
 @Setter(onMethod = @__({@Autowired}))
 @Getter
 public class ProtoController {
-    private static final Set<Subject> subjects = new HashSet<>();
-    private static final Set<Place> places = new HashSet<>();
-    private static final Set<Duration> durations = new HashSet<>();
+    private static final List<Subject> subjects = new ArrayList<>();
+    private static final List<Place> places = new ArrayList<>();
+    private static final List<Duration> durations = new ArrayList<>();
 
     private SubjectService subjectService;
     private PlaceService placeService;
@@ -48,11 +48,11 @@ public class ProtoController {
         }
 
         synchronized (places) {
-            if (places.isEmpty()) places.addAll(placeService.getAll());
+            if (places.isEmpty()) places.addAll(placeService.findAllOrderByName());
         }
 
         synchronized (durations) {
-            if (durations.isEmpty()) durations.addAll(durationService.getAll());
+            if (durations.isEmpty()) durations.addAll(durationService.findAllOrderByName());
         }
     }
 }

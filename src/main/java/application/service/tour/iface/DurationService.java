@@ -16,4 +16,6 @@ public interface DurationService {
     boolean deleteById(Long id);
 
     List<Duration> getAll();
+
+    List<Duration> findAllOrderByName();
 }
