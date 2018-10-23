@@ -1,9 +1,6 @@
 package application.controller;
 
 import application.domain.Tour;
-import application.service.tour.iface.DurationService;
-import application.service.tour.iface.PlaceService;
-import application.service.tour.iface.SubjectService;
 import application.service.tour.iface.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,24 +11,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-public class ToursController {
+public class ToursController extends ProtoController {
+    private final TourService tourService;
+
     @Value("${remote-connection-host}")
     private String remoteConnectionHost;
 
     @Autowired
-    private TourService tourService;
-    @Autowired
-    private SubjectService subjectService;
-    @Autowired
-    private PlaceService placeService;
-    @Autowired
-    private DurationService durationService;
+    public ToursController(TourService tourService) {
+        this.tourService = tourService;
+    }
 
     @GetMapping(value = {"/tours", "/"})
     public String tours(Model model) {
         List<Tour> tours = tourService.getAll();
         model.addAttribute("tours", tours);
-        return internalFillLists(model);
+        return "tours";
     }
 
     @GetMapping("/tours/{tourId}")
@@ -39,7 +34,6 @@ public class ToursController {
                        @PathVariable Long tourId) {
         Tour tour = tourService.getById(tourId);
         model.addAttribute("tour", tour);
-        model.addAttribute("remoteConnectionHost", remoteConnectionHost);
         return "tour";
     }
 
@@ -59,38 +53,31 @@ public class ToursController {
                             @RequestParam(name = "costTo", required = false, defaultValue = "") String costTo,
                             @RequestParam(name = "durationId", required = false, defaultValue = "-1") String duration
     ) {
-        if (subjectId.equals("-1") &&
-                placeId.equals("-1") &&
+        model.addAttribute("tours",
+                (subjectId.equals("-1") &&
+                        placeId.equals("-1") &&
 //        TODO Раскоментить вишлист, когда с безопасностью срастётся
-                //inWishList.equals("0") &&
-                searchString.isEmpty() &&
+                        //inWishList.equals("0") &&
+                        searchString.isEmpty() &&
 //                TODO сделать на форме нормальные контролы для заполнения даты и парсить их здесь
-                //dateBegin.isEmpty() &&
-                //dateEnd.isEmpty() &&
-                costFrom.isEmpty() &&
-                costTo.isEmpty() &&
-                duration.equals("-1")
-        ) {
-            return tours(model);
-        } else {
+                        //dateBegin.isEmpty() &&
+                        //dateEnd.isEmpty() &&
+                        costFrom.isEmpty() &&
+                        costTo.isEmpty() &&
+                        duration.equals("-1")
+                ) ?
+                        tourService.getAll() :
 //        TODO Добавить юзера когда с безопасностью срастётся
-            model.addAttribute("tours", tourService.superPuperDuperSearch(-1L,
-                    subjectId, placeId, inWishList, searchString,
+                        tourService.superPuperDuperSearch(-1L,
+                                subjectId, placeId, inWishList, searchString,
 //                TODO сделать на форме нормальные контролы для заполнения даты и парсить их здесь
-                    null/*dateBegin*/, null/*dateEnd*/,
-                    costFrom, costTo, duration)
-            );
-            return internalFillLists(model);
-        }
+                                null/*dateBegin*/, null/*dateEnd*/,
+                                costFrom, costTo, duration));
+        return "tours";
     }
 
-    private String internalFillLists(Model model) {
-        model.addAttribute("remoteConnectionHost", remoteConnectionHost);
-
-        model.addAttribute("subjects", subjectService.getAll());
-        model.addAttribute("places", placeService.getAll());
-        model.addAttribute("durations", durationService.getAll());
-
-        return "tours";
+    @ModelAttribute(value = "remoteConnectionHost")
+    public String internalFillConnectionHost() {
+        return remoteConnectionHost;
     }
 }

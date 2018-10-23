@@ -26,7 +26,10 @@ import java.util.UUID;
 @RequestMapping("/admin")
 @Api(value = "admin!", description = "admin!!!!") // Swagger annotation
 @Log4j
-public class AdminController {
+public class AdminController extends ProtoController {
+//    TODO при любом изменении тематик в базе обнулить коллекцию subjects
+//    TODO при любом изменении мест в базе обнулить коллекцию places
+//    TODO при любом изменении длительностей в базе обнулить коллекцию durations
 
     private SessionFactory sessionFactory;
     private TourService tourService;
@@ -62,9 +65,6 @@ public class AdminController {
     public String getEditContent(Model model,
                                  @PathVariable Optional<Long> tourId) {
         tourId.ifPresent(x -> model.addAttribute("tour", tourService.getById(x)));
-        model.addAttribute("tours", tourService.getAll());
-        model.addAttribute("durations", durationService.getAll());
-        model.addAttribute("tourReleases", tourReleaseService.getAll());
         return "admin";
     }
 
@@ -156,5 +156,4 @@ public class AdminController {
         }
         return "admin";
     }
-
 }
