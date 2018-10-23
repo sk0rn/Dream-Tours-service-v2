@@ -50,6 +50,7 @@ public class LoginController {
         // set user role to session
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         request.getSession().setAttribute("role", auth.getAuthorities().toString());
+        System.out.println(auth.getAuthorities().toString());
         return "redirect:/tours";
     }
 }

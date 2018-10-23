@@ -1,8 +1,12 @@
 package application.domain;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +16,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name="users")
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -40,13 +44,16 @@ public class User implements Serializable {
     @Column(nullable=false, length=250)
     private String login;
 
-    @Column(nullable=false)
-    private Integer options;
-
     @Column(nullable=false, length=60)
     private String pass;
 
     private Boolean subscribe;
+    private Boolean isActive;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
     //bi-directional many-to-one association to Contact
     @OneToMany(mappedBy = "user",
@@ -73,6 +80,7 @@ public class User implements Serializable {
 
     public User() {
         this.contacts = new HashSet<>();
+        this.roles = new HashSet<>();
     }
 
     public Long getId() {
@@ -121,14 +129,6 @@ public class User implements Serializable {
 
     public void setLogin(String login) {
         this.login = login;
-    }
-
-    public Integer getOptions() {
-        return this.options;
-    }
-
-    public void setOptions(Integer options) {
-        this.options = options;
     }
 
     public String getPass() {
@@ -191,11 +191,62 @@ public class User implements Serializable {
         return order;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
     public Set<Tour> getTours() {
         return this.tours;
     }
 
     public void setTours(Set<Tour> tours) {
         this.tours = tours;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
+
+    @Override
+    public String getPassword() {
+        return pass;
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isActive;
     }
 }

@@ -28,20 +28,22 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("login not found");
         }
 
-        String role;
-        if (user.getOptions() == 1) {
-            role = "ROLE_ADMIN";
-        } else {
-            role = "ROLE_USER";
-        }
+//        String role;
+//        if (user.getOptions() == 1) {
+//            role = "ADMIN";
+//        } else {
+//            role = "USER";
+//        }
+//
+//        List<GrantedAuthority> grantList = new ArrayList<>();
+//        GrantedAuthority authority = new SimpleGrantedAuthority(role);
+//        grantList.add(authority);
+//
+//        return new org.springframework.security.core.userdetails.User(
+//                user.getLogin(),
+//                user.getPass(),
+//                grantList);
 
-        List<GrantedAuthority> grantList = new ArrayList<>();
-        GrantedAuthority authority = new SimpleGrantedAuthority(role);
-        grantList.add(authority);
-
-        return new org.springframework.security.core.userdetails.User(
-                user.getLogin(),
-                user.getPass(),
-                grantList);
+        return user;
     }
 }

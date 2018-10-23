@@ -1,5 +1,6 @@
 package application.service.user;
 
+import application.domain.Role;
 import application.domain.Tour;
 import application.domain.User;
 import application.domain.dto.RegistrationForm;
@@ -50,13 +51,15 @@ public class UserServiceImpl implements UserService {
         return ServiceHelper.save(userRepository, user);
     }
 
+    @Override
     public User registerUser(RegistrationForm registrationForm) {
         final String encodedPassword = passwordEncoder.encode(registrationForm.getPassword());
+        final Role role = Role.ROLE_USER;
 
-        // mapping user from regform dto
         User user = registrationForm.transformTo(new RegistrationFormUserTransformer());
         user.setPass(encodedPassword);
-        user.setOptions(0);
+        user.getRoles().add(role);
+        user.setActive(true);
         userRepository.save(user);
         return user;
     }
