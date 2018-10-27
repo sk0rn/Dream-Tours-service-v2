@@ -22,7 +22,7 @@ public class UserModelInterceptor implements HandlerInterceptor {
                            Object aHandler, ModelAndView modelAndView) throws Exception {
         if(modelAndView != null) {
             Principal user = request.getUserPrincipal();
-            // its allow get username in view by _user.getName()
+            // its allow get username in view by ${_user.getName()}
             modelAndView.addObject("_user", user);
         }
     }

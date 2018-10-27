@@ -19,6 +19,9 @@
             <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
                  aria-labelledby="v-pills-profile-tab">
                 <form action="" method="">
+                    <#if (__user??)>
+  <span class="badge badge-secondary">${__user}</span>
+                    </#if>
                     <br>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">

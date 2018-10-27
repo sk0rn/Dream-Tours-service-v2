@@ -50,9 +50,10 @@ public class User implements Serializable, UserDetails {
     private Boolean subscribe;
     private Boolean isActive;
 
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     //bi-directional many-to-one association to Contact
@@ -199,6 +200,10 @@ public class User implements Serializable, UserDetails {
         this.roles = roles;
     }
 
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
+
     public Boolean getActive() {
         return isActive;
     }
@@ -249,4 +254,6 @@ public class User implements Serializable, UserDetails {
     public boolean isEnabled() {
         return isActive;
     }
+
+
 }

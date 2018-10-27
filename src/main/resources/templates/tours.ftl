@@ -14,12 +14,12 @@
                         </div>
                     </div>
                     <div class="col-9">
-                        <#if role?? && role == "[ROLE_ADMIN]">
+                        <#if roles?? && roles?seq_contains("ROLE_ADMIN")>
                          <button type="button" class="btn-sm btn-success"
                                  onclick="document.location.href='/admin/content/${tour.getId()}'">
                              Изменить
                          </button>&nbsp;
-                        <#elseif role?? && role == "[ROLE_USER]">
+                        <#elseif roles?? && roles?seq_contains("ROLE_USER")>
                         <form action="/addInWishlist" method="post">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <input class="form-control" type="hidden" name="idTour" value="${(tour.getId())!}">

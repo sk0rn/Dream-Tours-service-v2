@@ -1,5 +1,7 @@
 package application.controller;
 
+import application.domain.Role;
+import application.domain.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -8,13 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class LoginController {
 
     @RequestMapping("/login")
-    public String getLogin(@RequestParam(value = "error", required = false) String error,
+    public String login(@RequestParam(value = "error", required = false) String error,
                            Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         // if user already logged in
@@ -26,10 +29,14 @@ public class LoginController {
     }
 
     @RequestMapping("/welcome")
-    public String login(Model model, HttpServletRequest request) {
+    public String welcome(Model model, HttpServletRequest request) {
         // set user role to session
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        request.getSession().setAttribute("role", auth.getAuthorities().toString());
+        Set<Role> authorities = new HashSet<>((Collection<? extends Role>) auth.getAuthorities());
+        Set<String> roles = authorities.stream().map(Role::getAuthority).collect(Collectors.toSet());
+        User user = (User) auth.getPrincipal();
+        request.getSession().setAttribute("roles", roles);
+        request.getSession().setAttribute("__user", user.getLogin());
         return "redirect:/tours";
     }
 
@@ -41,4 +48,5 @@ public class LoginController {
         model.addAttribute("denied", denied != null);
         return "loginEvent";
     }
+
 }
