@@ -1,9 +1,9 @@
 <#ftl encoding="utf-8">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="dropdown navbar-brand">
-        <#if role?? && role == "[ROLE_USER]">
+        <#if roles?? && roles?seq_contains("ROLE_USER")>
             <#include "clientMenu.ftl">
-        <#elseif role?? && role == "[ROLE_ADMIN]">
+        <#elseif roles?? && roles?seq_contains("ROLE_ADMIN")>
             <#include "employeeMenu.ftl">
         <#else>
             <#include "guestMenu.ftl">

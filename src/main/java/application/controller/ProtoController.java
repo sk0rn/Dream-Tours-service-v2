@@ -3,16 +3,20 @@ package application.controller;
 import application.domain.Duration;
 import application.domain.Place;
 import application.domain.Subject;
+import application.domain.User;
 import application.service.tour.iface.DurationService;
 import application.service.tour.iface.PlaceService;
 import application.service.tour.iface.SubjectService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +42,12 @@ public class ProtoController {
     private DurationService durationService;
 
     @ModelAttribute
-    public void fillCollectionsForDropDowns(Model model) {
+    public void fillCollectionsForDropDowns(HttpServletRequest request, Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() instanceof User) {
+            User user = (User) auth.getPrincipal();
+            request.getSession().setAttribute("user_name", user.getLogin());
+        }
         model.addAttribute("subjects", subjects);
         model.addAttribute("places", places);
         model.addAttribute("durations", durations);
