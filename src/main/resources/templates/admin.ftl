@@ -78,7 +78,7 @@
             <div class="tab-pane fade" id="v-pills-duration" role="tabpanel" aria-labelledby="v-pills-duration-tab">
                 <form action="/admin/content" method="post">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    <br><input class="form-control" type="text" placeholder="продолжительность (дней)"
+                    <br><input class="form-control" type="number" placeholder="продолжительность (дней)"
                                name="numberDays" required>
                     <div class="form-group">
                         <label for="exampleFormControlTextarea4"></label>
@@ -111,7 +111,7 @@
                         <label>Дата начала тура:</label>
                         <input type="datetime-local" class="form-control" name="dateStart" required>
                     </div>
-                    <br><input class="form-control" type="text" placeholder="кол-во мест" name="capacity">
+                    <br><input class="form-control" type="number" placeholder="кол-во мест" name="capacity">
                     <br>
                     <button type="submit" class="btn btn-primary">Добавить</button>
                 </form>
@@ -122,7 +122,6 @@
                     <br><label>Туристическая группа:</label>
                     <br><select class="form-control" name="tourReleaseList">
                         <#list tourReleases! as tr>
-                        <#--TODO здесь необходмо настроить вывод тут релизов-->
                             <option value="${tr.getId()}">${tr.getTour().getName()}; ${tr.getDuration().getNumberDays()}
                                 (дней), ${tr.getDuration().getName()}; дата начала тура:
                                 ${tr.getBeginTime()}; количество мест: ${tr.getCapacity()}.
@@ -138,13 +137,13 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">руб</span>
                         </div>
-                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+                        <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)"
                                name="tourCost" required>
                         <div class="input-group-append">
                             <span class="input-group-text">.00</span>
                         </div>
                     </div>
-                    <br><input class="form-control" type="text" placeholder="возраст бесплатного перелета/проживания"
+                    <br><input class="form-control" type="number" placeholder="возраст бесплатного перелета/проживания"
                                name="clippingAge">
                     <br>
                     <div class="form-group form-check">
