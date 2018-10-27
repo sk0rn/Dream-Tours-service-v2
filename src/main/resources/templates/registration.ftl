@@ -100,6 +100,19 @@
             <#if fieldError?has_content>
                 <div class="invalid-feedback">${fieldError}</div>
             </#if>
+
+            <div class="dropdown-divider"></div>
+
+            <div class="col-md-3">
+                <div class="g-recaptcha" data-sitekey="6LetCHcUAAAAAGKHjugtm-98Sl_1dyG2uu6hsYP7"></div>
+            <#if captchaError??>
+                <div class="alert alert-danger" role="alert">
+                    ${captchaError}
+                </div>
+            </#if>
+            </div>
+
+
             <div class="dropdown-divider"></div>
         <button class="btn btn-lg btn-primary" type="submit">Зарегистрироваться</button>
         </div>
