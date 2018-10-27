@@ -1,7 +1,6 @@
 package application.controller;
 
 import application.domain.Role;
-import application.domain.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -14,11 +13,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
-public class LoginController {
+public class LoginController extends ProtoController {
 
     @RequestMapping("/login")
     public String login(@RequestParam(value = "error", required = false) String error,
-                           Model model) {
+                           Model  model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         // if user already logged in
         if (!auth.getAuthorities().toString().equals("[ROLE_ANONYMOUS]")) {
@@ -34,10 +33,8 @@ public class LoginController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Set<Role> authorities = new HashSet<>((Collection<? extends Role>) auth.getAuthorities());
         Set<String> roles = authorities.stream().map(Role::getAuthority).collect(Collectors.toSet());
-        User user = (User) auth.getPrincipal();
         request.getSession().setAttribute("roles", roles);
-        request.getSession().setAttribute("__user", user.getLogin());
-        return "redirect:/tours";
+        return "redirect:/tours?welcome";
     }
 
     @RequestMapping("/loginevents")
