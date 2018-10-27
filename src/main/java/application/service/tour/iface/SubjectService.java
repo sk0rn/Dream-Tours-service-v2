@@ -14,4 +14,6 @@ public interface SubjectService {
     boolean updateById(Subject subject);
 
     boolean deleteById(Long id);
+
+    List<Subject> findAllOrderByName();
 }

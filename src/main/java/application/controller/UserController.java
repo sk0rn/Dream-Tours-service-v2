@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class UserController {
+public class UserController extends ProtoController {
 
     private final UserRepository userRepository;
     private UserService userService;

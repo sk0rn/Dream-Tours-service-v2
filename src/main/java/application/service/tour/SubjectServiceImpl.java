@@ -5,6 +5,7 @@ import application.repository.SubjectRepository;
 import application.service.tour.iface.SubjectService;
 import application.utils.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,5 +38,10 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public boolean deleteById(Long id) {
         return ServiceHelper.delete(subjectRepository, id);
+    }
+
+    @Override
+    public List<Subject> findAllOrderByName() {
+        return ServiceHelper.getListByParam(subjectRepository::findAll, Sort.by(Sort.Order.by("Name")));
     }
 }

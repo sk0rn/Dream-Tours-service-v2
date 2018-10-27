@@ -25,12 +25,20 @@
                 <a class="nav-link dropdown-toggle" href="#" id="subjectDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Тематика</a>
                 <div class="dropdown-menu" aria-labelledby="subjectDropdown">
-                    <a class='dropdown-item' href='#'
-                       onclick="onOptionClick('subjectDropdown', 'Тематика', 'searchSubject', -1)">Любая тематика</a>
+                    <a class='dropdown-item menu-item-click' href='#'
+                       menu-id="#subjectDropdown"
+                       menu-value="Тематика"
+                       target-id="#searchSubject"
+                       target-value="-1"
+                    >Любая тематика</a>
                     <div class="dropdown-divider"></div>
                     <#list subjects![] as subj>
-                        <a class='dropdown-item' href='#'
-                           onclick="onOptionClick('subjectDropdown', '${subj.getName()}', 'searchSubject', ${subj.getId()})">${subj.getName()}</a>
+                        <a class='dropdown-item menu-item-click' href='#'
+                           menu-id="#subjectDropdown"
+                           menu-value="${subj.getName()}"
+                           target-id="#searchSubject"
+                           target-value="${subj.getId()}">
+                            ${subj.getName()}</a>
                         <#else >
                         <a class='dropdown-item' href='#'>Пусто</a>
                     </#list>
@@ -41,12 +49,19 @@
                 <a class="nav-link dropdown-toggle" href="#" id="placeDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Места</a>
                 <div class="dropdown-menu" aria-labelledby="placeDropdown">
-                    <a class='dropdown-item' href='#'
-                       onclick="onOptionClick('placeDropdown', 'Места', 'searchPlace', -1)">Любое место</a>
+                    <a class='dropdown-item menu-item-click' href='#'
+                       menu-id="#placeDropdown"
+                       menu-value="Места"
+                       target-id="#searchPlace"
+                       target-value="-1">Любое место</a>
                     <div class="dropdown-divider"></div>
                     <#list places![] as place>
-                        <a class='dropdown-item' href='#'
-                           onclick="onOptionClick('placeDropdown', '${place.getName()}', 'searchPlace', ${place.getId()})">${place.getName()}</a>
+                        <a class='dropdown-item menu-item-click' href='#'
+                           menu-id="#placeDropdown"
+                           menu-value="${place.getName()}"
+                           target-id="#searchPlace"
+                           target-value="${place.getId()}"
+                        >${place.getName()}</a>
                     </#list>
                 </div>
             </li>
@@ -55,13 +70,19 @@
                 <a class="nav-link dropdown-toggle" href="#" id="durationDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Длительность</a>
                 <div class="dropdown-menu" aria-labelledby="durationDropdown">
-                    <a class='dropdown-item' href='#'
-                       onclick="onOptionClick('durationDropdown', 'Длительность', 'searchDuration', -1)">Любая
-                        длительность</a>
+                    <a class='dropdown-item menu-item-click' href='#'
+                       menu-id="#durationDropdown"
+                       menu-value="Длительность"
+                       target-id="#searchDuration"
+                       target-value="-1">Любая&nbsp;длительность</a>
                     <div class="dropdown-divider"></div>
                     <#list durations![] as dur>
-                        <a class='dropdown-item' href='#'
-                           onclick="onOptionClick('durationDropdown', '${dur.getName()}', 'searchDuration', ${dur.getId()})">${dur.getName()}</a>
+                        <a class='dropdown-item menu-item-click' href='#'
+                           menu-id="#durationDropdown"
+                           menu-value="${dur.getName()}"
+                           target-id="#searchDuration"
+                           target-value="${dur.getId()}"
+                        >${dur.getName()}</a>
                     </#list>
                 </div>
             </li>
@@ -119,43 +140,32 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="searchDateBeginView">Дата&nbsp;вылета</label>
-                            <input type="email" class="form-control" id="searchDateBeginView"
-                                   placeholder="с"
-                                   onchange="document.getElementById('searchDateBegin').value = this.value;">
+                            <input type="email" class="form-control" id="searchDateBeginView" placeholder="с">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="searchDateEndView">&nbsp;</label>
-                            <input type="email" class="form-control" id="searchDateEndView"
-                                   placeholder="по"
-                                   onchange="document.getElementById('searchDateEnd').value = this.value;">
+                            <input type="email" class="form-control" id="searchDateEndView" placeholder="по">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="searchCostBeginView">Стоимость</label>
                             <input type="email" class="form-control" id="searchCostBeginView"
-                                   placeholder="от"
-                                   onchange="document.getElementById('searchCostBegin').value = this.value;">
+                                   placeholder="от">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="searchCostEndView">&nbsp;</label>
-                            <input type="email" class="form-control" id="searchCostEndView"
-                                   placeholder="до"
-                                   onchange="document.getElementById('searchCostEnd').value = this.value;">
+                            <input type="email" class="form-control" id="searchCostEndView" placeholder="до">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="searchDurationBeginView">Продолжительность</label>
-                            <input type="email" class="form-control" id="searchDurationBeginView"
-                                   placeholder="от"
-                                   onchange="document.getElementById('searchDurationBegin').value = this.value;">
+                            <input type="email" class="form-control" id="searchDurationBeginView" placeholder="от">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="searchDurationEndView">&nbsp;</label>
-                            <input type="email" class="form-control" id="searchDurationEndView"
-                                   placeholder="до"
-                                   onchange="document.getElementById('searchDurationEnd').value = this.value;">
+                            <input type="email" class="form-control" id="searchDurationEndView" placeholder="до">
                         </div>
                     </div>
                 </form>
