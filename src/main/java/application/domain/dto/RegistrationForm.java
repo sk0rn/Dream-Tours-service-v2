@@ -32,8 +32,6 @@ public class RegistrationForm implements Transformable<RegistrationForm> {
 	@NotEmpty
 	private String repeatPassword;
 
-    private String gRrecaptchaResponse;
-
     public String getLogin() {
         return login;
     }
