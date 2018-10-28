@@ -16,11 +16,11 @@ import org.springframework.web.client.RestTemplate;
 import javax.validation.Valid;
 import java.util.Collections;
 
+import static application.consts.Messages.FILL_CAPTCHA;
+
 @Controller
 public class RegistrationController {
-
     private final UserService userService;
-
     private final RestTemplate restTemplate;
 
     @Value("${captcha_url}")
@@ -44,8 +44,8 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String registration(@Valid RegistrationForm registrationForm,
-                               @RequestParam("g-recaptcha-response") String captchaResponse,
+    public String registration( @RequestParam("g-recaptcha-response") String captchaResponse,
+                                @Valid RegistrationForm registrationForm,
                                BindingResult bindingResult,
                                ModelMap model) {
 
@@ -53,12 +53,8 @@ public class RegistrationController {
         CaptchaResponseDto response = restTemplate.postForObject(url
                                                                 ,Collections.emptyList()
                                                                 , CaptchaResponseDto.class);
-
-        if (!response.isSuccess()) {
-            model.addAttribute("captchaError", "Fill captcha");
-        }
-
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors() || !response.isSuccess()) {
+            if(!response.isSuccess())model.addAttribute("captchaError", FILL_CAPTCHA);
             return registrationPage(model, registrationForm);
         }
 

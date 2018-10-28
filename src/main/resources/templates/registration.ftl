@@ -16,7 +16,7 @@
 		    <div class="alert alert-danger" role="alert">${fieldError}</div>
         </#if>
 
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-4">
             <@spring.bind "registrationForm.login"/>
             <#assign fieldError>
                 <@spring.showErrors "<br/>"/>
@@ -26,13 +26,13 @@
                    class="form-control ${fieldError?has_content?then('is-invalid','')}"
                    placeholder="Login"
                    value="${registrationForm.login!''}"
-                   autofocus required />
+                   autofocus required/>
             <#if fieldError?has_content>
                 <div class="invalid-feedback">${fieldError}</div>
             </#if>
         </div>
 
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-4">
             <@spring.bind "registrationForm.phone"/>
             <#assign fieldError>
                 <@spring.showErrors "<br/>"/>
@@ -42,7 +42,7 @@
                    class="form-control ${fieldError?has_content?then('is-invalid','')}"
                    placeholder="Phone"
                    value="${registrationForm.phone!''}"
-                   autofocus required />
+                   autofocus required/>
             <#if fieldError?has_content>
                 <div class="invalid-feedback">${fieldError}</div>
             </#if>
@@ -51,7 +51,7 @@
             </small>
         </div>
 
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-4">
             <@spring.bind "registrationForm.email"/>
             <#assign fieldError>
                 <@spring.showErrors "<br/>"/>
@@ -61,13 +61,13 @@
                    class="form-control ${fieldError?has_content?then('is-invalid','')}"
                    placeholder="Email address"
                    value="${registrationForm.email!''}"
-                   autofocus required />
+                   autofocus required/>
             <#if fieldError?has_content>
                 <div class="invalid-feedback">${fieldError}</div>
             </#if>
         </div>
 
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-4">
             <@spring.bind "registrationForm.password"/>
             <#assign fieldError>
                 <@spring.showErrors "<br/>"/>
@@ -77,7 +77,7 @@
                    class="form-control ${fieldError?has_content?then('is-invalid','')}"
                    placeholder="Password"
                    value="${registrationForm.password!''}"
-                   required />
+                   required/>
             <#if fieldError?has_content>
                 <div class="invalid-feedback">${fieldError}</div>
             </#if>
@@ -86,7 +86,7 @@
             </small>
         </div>
 
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-4">
             <@spring.bind "registrationForm.repeatPassword"/>
             <#assign fieldError>
                 <@spring.showErrors "<br/>"/>
@@ -96,27 +96,24 @@
                    class="form-control ${fieldError?has_content?then('is-invalid','')}"
                    placeholder="Repeat password"
                    value="${registrationForm.repeatPassword!''}"
-                   required />
+                   required/>
             <#if fieldError?has_content>
                 <div class="invalid-feedback">${fieldError}</div>
             </#if>
-
-            <div class="dropdown-divider"></div>
-
-            <div class="col-md-3">
-                <div class="g-recaptcha" data-sitekey="6LetCHcUAAAAAGKHjugtm-98Sl_1dyG2uu6hsYP7"></div>
-            <#if captchaError??>
-                <div class="alert alert-danger" role="alert">
-                    ${captchaError}
-                </div>
-            </#if>
-            </div>
-
-
-            <div class="dropdown-divider"></div>
-        <button class="btn btn-lg btn-primary" type="submit">Зарегистрироваться</button>
         </div>
 
+        <div class="form-group col-md-4">
+
+            <div class="g-recaptcha" data-sitekey="6LetCHcUAAAAAGKHjugtm-98Sl_1dyG2uu6hsYP7"></div>
+            <#if captchaError??>
+              <div class="invalid-feedback" style=" display: inline; font-weight:700; height:auto; width: auto;">
+                  ${captchaError}</div>
+            </#if>
+
+
+        <div class="dropdown-divider"></div>
+        <button class="btn btn-lg btn-primary" type="submit">Зарегистрироваться</button>
+        </div>
     </form>
 
 </div>
