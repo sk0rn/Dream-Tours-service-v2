@@ -5,7 +5,6 @@ import application.validators.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
