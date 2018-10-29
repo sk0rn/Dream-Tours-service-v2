@@ -11,6 +11,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface TourRepository extends JpaRepository<Tour, Long> {
+
+    Tour findOneById(Long tourId);
+
     List<Tour> findAllBySubjects(Subject subject);
 
     List<Tour> findAllByUsers(User user);

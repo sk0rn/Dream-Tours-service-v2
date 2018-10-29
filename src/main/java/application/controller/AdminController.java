@@ -64,7 +64,8 @@ public class AdminController extends ProtoController {
     @RequestMapping(value = {"/content/{tourId}", "/content"}, method = RequestMethod.GET)
     public String getEditContent(Model model,
                                  @PathVariable Optional<Long> tourId) {
-        tourId.ifPresent(x -> model.addAttribute("tour", tourService.getById(x)));
+        //TODO нужно получать только один тур
+        //tourId.ifPresent(x -> model.addAttribute("tour", tourService.getById(x)));
         model.addAttribute("tours", tourService.getAll());
         model.addAttribute("durations", durationService.getAll());
         model.addAttribute("tourReleases", tourReleaseService.getAll());

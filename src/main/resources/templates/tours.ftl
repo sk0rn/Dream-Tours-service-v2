@@ -27,7 +27,7 @@
                             <button type="submit" class="btn-sm btn-success">В избранное</button>&nbsp;
                         </form>
                         </#if>
-                        <a href="/tour?id=${tour.getId()}">${tour.getName()}
+                        <a href="/tour/${tour.getId()}">${tour.getName()}
                         </a><br>
                         <nobr>
                             <#list tour.getSubjects() as subj>
