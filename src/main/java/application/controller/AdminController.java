@@ -101,9 +101,9 @@ public class AdminController extends ProtoController {
                                   @RequestParam(value = "clippingAge", required = false) Integer clippingAge,
                                   @RequestParam(value = "isParticipant", required = false) String isParticipant) {
         if (tourName != null) {
-            String albumGuid = null;
+            Album albumGuid = new Album();
             if ("".equals(idTour)) {
-                albumGuid = UUID.randomUUID().toString();
+                albumGuid.setName(UUID.randomUUID().toString());
             } else {
                 albumGuid = tourService.getById(Long.parseLong(idTour)).getAlbumGuid();
             }
@@ -117,7 +117,8 @@ public class AdminController extends ProtoController {
                 ftpWrite.writeInHost(albumGuid, "01.jpg", fileContent);
             }
             if ("".equals(idTour)) {
-                tourService.add(new Tour(tourName, descTour, youtubeUrl, albumGuid.trim()));
+                albumGuid.setName(albumGuid.getName().trim());
+                tourService.add(new Tour(tourName, descTour, youtubeUrl, albumGuid));
             } else {
                 tourService.update(new Tour(Long.parseLong(idTour), tourName, descTour, youtubeUrl,
                         tourService.getById(Long.parseLong(idTour)).getAlbumGuid()));

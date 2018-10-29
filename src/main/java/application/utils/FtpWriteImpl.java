@@ -1,5 +1,6 @@
 package application.utils;
 
+import application.domain.Album;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -20,7 +21,7 @@ public class FtpWriteImpl implements FtpWrite {
     private String remoteConnectionPassword;
 
     @Override
-    public boolean writeInHost(String albumGuid, String fileName, InputStream inputStream) {
+    public boolean writeInHost(Album albumGuid, String fileName, InputStream inputStream) {
         FTPClient ftpClient = new FTPClient();
         String fileInHost = "/public_html/" + albumGuid + "/" + fileName;
         try {
@@ -28,8 +29,8 @@ public class FtpWriteImpl implements FtpWrite {
             ftpClient.login(remoteConnectionUsername, remoteConnectionPassword);
             ftpClient.enterLocalPassiveMode();
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
-            if (!ftpClient.changeWorkingDirectory("/public_html/" + albumGuid)) {
-                ftpClient.makeDirectory("/public_html/" + albumGuid);
+            if (!ftpClient.changeWorkingDirectory("/public_html/" + albumGuid.getName())) {
+                ftpClient.makeDirectory("/public_html/" + albumGuid.getName());
             }
             ftpClient.storeFile(fileInHost, inputStream);
             ftpClient.logout();

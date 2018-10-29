@@ -19,8 +19,9 @@ public class Tour implements Serializable {
     @Column(unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "album_guid", nullable = false, length = 60)
-    private String albumGuid;
+    @OneToOne
+    @JoinColumn(name="album_guid_id")
+    private Album albumGuid;
 
     @Column(length = 2147483647)
     private String descr;
@@ -68,7 +69,7 @@ public class Tour implements Serializable {
     public Tour() {
     }
 
-    public Tour(Long id, String name, String descr, String youtubeUrl, String albumGuid) {
+    public Tour(Long id, String name, String descr, String youtubeUrl, Album albumGuid) {
         this.id = id;
         this.descr = descr;
         this.name = name;
@@ -76,7 +77,7 @@ public class Tour implements Serializable {
         this.albumGuid = albumGuid;
     }
 
-    public Tour(String name, String descr, String youtubeUrl, String albumGuid) {
+    public Tour(String name, String descr, String youtubeUrl, Album albumGuid) {
         this.albumGuid = albumGuid;
         this.descr = descr;
         this.name = name;
@@ -91,11 +92,11 @@ public class Tour implements Serializable {
         this.id = id;
     }
 
-    public String getAlbumGuid() {
-        return this.albumGuid;
+    public Album getAlbumGuid() {
+        return albumGuid;
     }
 
-    public void setAlbumGuid(String albumGuid) {
+    public void setAlbumGuid(Album albumGuid) {
         this.albumGuid = albumGuid;
     }
 
