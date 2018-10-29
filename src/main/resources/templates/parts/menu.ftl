@@ -39,8 +39,6 @@
                            target-id="#searchSubject"
                            target-value="${subj.getId()}">
                             ${subj.getName()}</a>
-                        <#else >
-                        <a class='dropdown-item' href='#'>Пусто</a>
                     </#list>
                 </div>
             </li>
@@ -86,8 +84,7 @@
                     </#list>
                 </div>
             </li>
-<#if role?? && role == "[ROLE_USER]">
-
+<#if role!"" == "[ROLE_USER]">
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <div class="form-check">
@@ -140,32 +137,35 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="searchDateBeginView">Дата&nbsp;вылета</label>
-                            <input type="email" class="form-control" id="searchDateBeginView" placeholder="с">
+                            <input type="date" class="form-control" id="searchDateBeginView" placeholder="с"
+                                   value="${.now}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="searchDateEndView">&nbsp;</label>
-                            <input type="email" class="form-control" id="searchDateEndView" placeholder="по">
+                            <input type="date" class="form-control" id="searchDateEndView" placeholder="по">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="searchCostBeginView">Стоимость</label>
-                            <input type="email" class="form-control" id="searchCostBeginView"
+                            <input type="number" class="form-control" id="searchCostBeginView"
                                    placeholder="от">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="searchCostEndView">&nbsp;</label>
-                            <input type="email" class="form-control" id="searchCostEndView" placeholder="до">
+                            <input type="number" class="form-control" id="searchCostEndView" placeholder="до">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="searchDurationBeginView">Продолжительность</label>
-                            <input type="email" class="form-control" id="searchDurationBeginView" placeholder="от">
+                            <input type="number" class="form-control" id="searchDurationBeginView" placeholder="от"
+                                   min="0" max="365">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="searchDurationEndView">&nbsp;</label>
-                            <input type="email" class="form-control" id="searchDurationEndView" placeholder="до">
+                            <input type="number" class="form-control" id="searchDurationEndView" placeholder="до"
+                                   min="0" max="365">
                         </div>
                     </div>
                 </form>
