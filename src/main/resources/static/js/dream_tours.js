@@ -40,8 +40,8 @@ $(document).ready(function () {
     //закрыть окно дополнительных параметров
     //поиска туров
     $("#advOkButton").click(function () {
-        updateExtBadge();
         form2form(true);
+        updateExtBadge();
         $("#advModal").modal("hide");
     });
 
