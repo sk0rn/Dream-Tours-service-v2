@@ -98,9 +98,9 @@
             </li>
 </#if>
             <li class="nav-item">
-                <a class="nav-link" href="#" id="advBtn">Дополнительно<span class="badge badge-warning"
-                                                                            style="display: none;" id="ExtBadge"></span><span
-                        class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#" id="advBtn">Дополнительно
+                    <span class="badge badge-warning" style="display: none;" id="ExtBadge"></span>
+                    <span class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>
