@@ -69,8 +69,8 @@ public class AdminController extends ProtoController {
                                  @PathVariable Optional<Long> tourId) {
         tourId.ifPresent(x -> model.addAttribute("tour", tourService.getById(x)));
         model.addAttribute("tours", tourService.getAll());
-        model.addAttribute("durations", durationService.getAll());
-        model.addAttribute("tourReleases", releaseService.getAll());
+//        model.addAttribute("durations", durationService.getAll());
+        model.addAttribute("tourReleases", tourReleaseService.getAll());
         return "admin";
     }
 
