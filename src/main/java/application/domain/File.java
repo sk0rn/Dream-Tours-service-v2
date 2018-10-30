@@ -4,19 +4,16 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
-@Entity(name = "album")
-public class Album implements Serializable {
+@Entity(name = "files")
+public class File {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator = "album_id_seq")
+            generator = "files_id_seq")
     @SequenceGenerator(
-            name = "album_id_seq",
-            sequenceName = "album_id_seq",
+            name = "files_id_seq",
+            sequenceName = "roles_id_seq",
             allocationSize = 1
     )
     @Column(unique = true, nullable = false)
@@ -25,12 +22,9 @@ public class Album implements Serializable {
     @Column(nullable = false, length = 60)
     private String name;
 
-    @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
-    private Set<File> files;
-
-    public Album() {
-        this.files = new HashSet<>();
-    }
+    @ManyToOne
+    @JoinColumn(name = "album_id", nullable = false)
+    private Album album;
 
     public Long getId() {
         return id;
@@ -48,26 +42,12 @@ public class Album implements Serializable {
         this.name = name;
     }
 
-    public Set<File> getFiles() {
-        return files;
+    public Album getAlbum() {
+        return album;
     }
 
-    public void setFiles(Set<File> files) {
-        this.files = files;
-    }
-
-    public File addFile(File file) {
-        getFiles().add(file);
-        file.setAlbum(this);
-
-        return file;
-    }
-
-    public File removeTourReleas(File file) {
-        getFiles().remove(file);
-        file.setAlbum(null);
-
-        return file;
+    public void setAlbum(Album album) {
+        this.album = album;
     }
 
     @Override
@@ -76,7 +56,7 @@ public class Album implements Serializable {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        Album that = (Album) o;
+        File that = (File) o;
 
         return new EqualsBuilder()
                 .append(id, that.id)
