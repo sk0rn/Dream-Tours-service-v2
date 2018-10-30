@@ -40,6 +40,7 @@ $(document).ready(function () {
     //закрыть окно дополнительных параметров
     //поиска туров
     $("#advOkButton").click(function () {
+        updateExtBadge();
         form2form(true);
         $("#advModal").modal("hide");
     });
@@ -64,4 +65,25 @@ $(document).ready(function () {
         $($(this).attr("target-id")).val($(this).attr("target-value"));
     });
 });
+
+//--------------------------------------------------------------------------
+function updateExtBadge() {
+    var paramsSetted = 0;
+    if (hasValue($("#searchDateBegin").val())) ++paramsSetted;
+    if (hasValue($("#searchDateEnd").val())) ++paramsSetted;
+    if (hasValue($("#searchCostBegin").val())) ++paramsSetted;
+    if (hasValue($("#searchCostEnd").val())) ++paramsSetted;
+    if (hasValue($("#searchDurationBegin").val())) ++paramsSetted;
+    if (hasValue($("#searchDurationEnd").val())) ++paramsSetted;
+
+    if (paramsSetted) {
+        $("#ExtBadge").text(paramsSetted);
+        $("#ExtBadge").show();
+    } else $("#ExtBadge").hide();
+}
+
+//--------------------------------------------------------------------------
+function hasValue(val) {
+    return val != "" && val != "0";
+}
 //--------------------------------------------------------------------------

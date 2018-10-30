@@ -98,7 +98,9 @@
             </li>
 </#if>
             <li class="nav-item">
-                <a class="nav-link" href="#" id="advBtn">Дополнительно<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#" id="advBtn">Дополнительно<span class="badge badge-warning"
+                                                                            style="display: none;" id="ExtBadge"></span><span
+                        class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>
@@ -138,22 +140,23 @@
                         <div class="form-group col-md-6">
                             <label for="searchDateBeginView">Дата&nbsp;вылета</label>
                             <input type="date" class="form-control" id="searchDateBeginView" placeholder="с"
-                                   value="${.now}">
+                                   min="${.now?date?iso_utc}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="searchDateEndView">&nbsp;</label>
-                            <input type="date" class="form-control" id="searchDateEndView" placeholder="по">
+                            <input type="date" class="form-control" id="searchDateEndView" placeholder="по"
+                                   min="${.now?date?iso_utc}">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="searchCostBeginView">Стоимость</label>
                             <input type="number" class="form-control" id="searchCostBeginView"
-                                   placeholder="от">
+                                   placeholder="от" min="0">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="searchCostEndView">&nbsp;</label>
-                            <input type="number" class="form-control" id="searchCostEndView" placeholder="до">
+                            <input type="number" class="form-control" id="searchCostEndView" placeholder="до" min="0">
                         </div>
                     </div>
                     <div class="form-row">
@@ -171,8 +174,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-success" id="advOkButton"><span
-                        class="glyphicon glyphicon-off"></span> Ок
+                <button type="submit" class="btn btn-success" id="advOkButton">
+                    <span class="glyphicon glyphicon-off"></span> Ок
                 </button>
                 <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
                     <span class="glyphicon glyphicon-remove"></span> Отмена
