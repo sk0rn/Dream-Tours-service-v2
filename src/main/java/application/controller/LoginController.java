@@ -1,35 +1,23 @@
 package application.controller;
 
+import application.domain.Role;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class LoginController extends ProtoController {
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logoutPage(HttpServletRequest request,
-                             HttpServletResponse response,
-                             Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null) {
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-            model.addAttribute("logout", true);
-        }
-        return "loginEvent";
-    }
-
     @RequestMapping("/login")
-    public String getLogin(@RequestParam(value = "error", required = false) String error,
-                           Model model) {
+    public String login(@RequestParam(value = "error", required = false) String error,
+                           Model  model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         // if user already logged in
         if (!auth.getAuthorities().toString().equals("[ROLE_ANONYMOUS]")) {
@@ -39,17 +27,23 @@ public class LoginController extends ProtoController {
         return "loginEvent";
     }
 
-    @RequestMapping("/403")
-    public String error403(Model model) {
-        model.addAttribute("denied", true);
-        return "/loginEvent";
-    }
-
     @RequestMapping("/welcome")
-    public String login(Model model, HttpServletRequest request) {
+    public String welcome(Model model, HttpServletRequest request) {
         // set user role to session
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        request.getSession().setAttribute("role", auth.getAuthorities().toString());
-        return "redirect:/tours";
+        Set<Role> authorities = new HashSet<>((Collection<? extends Role>) auth.getAuthorities());
+        Set<String> roles = authorities.stream().map(Role::getAuthority).collect(Collectors.toSet());
+        request.getSession().setAttribute("roles", roles);
+        return "redirect:/tours?welcome";
     }
+
+    @RequestMapping("/loginevents")
+    public String handleLoginEvents(@RequestParam(value = "logout", required = false) String logout,
+                                    @RequestParam(value = "denied", required = false) String denied,
+                                    Model model) {
+        model.addAttribute("logout", logout != null);
+        model.addAttribute("denied", denied != null);
+        return "loginEvent";
+    }
+
 }

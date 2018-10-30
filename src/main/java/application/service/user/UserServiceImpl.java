@@ -1,9 +1,11 @@
 package application.service.user;
 
+import application.domain.Role;
 import application.domain.Tour;
 import application.domain.User;
 import application.domain.dto.RegistrationForm;
 import application.domain.transformers.RegistrationFormUserTransformer;
+import application.repository.RoleRepository;
 import application.repository.UserRepository;
 import application.service.user.iface.UserService;
 import application.utils.ServiceHelper;
@@ -17,11 +19,15 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository,
+                           RoleRepository roleRepository,
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -50,13 +56,15 @@ public class UserServiceImpl implements UserService {
         return ServiceHelper.save(userRepository, user);
     }
 
+    @Override
     public User registerUser(RegistrationForm registrationForm) {
         final String encodedPassword = passwordEncoder.encode(registrationForm.getPassword());
+        final Role defaultRole = roleRepository.findOneByName("ROLE_USER");
 
-        // mapping user from regform dto
         User user = registrationForm.transformTo(new RegistrationFormUserTransformer());
         user.setPass(encodedPassword);
-        user.setOptions(0);
+        user.getRoles().add(defaultRole);
+        user.setActive(true);
         userRepository.save(user);
         return user;
     }
