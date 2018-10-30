@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-
 /**
  * The persistent class for the tour database table.
  */

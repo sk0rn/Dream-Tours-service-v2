@@ -39,11 +39,13 @@ public class AdminController extends ProtoController {
     private DurationService durationService;
     private TourReleaseService tourReleaseService;
     private TourCostService tourCostService;
+    private AlbumService albumService;
 
     @Autowired
     public AdminController(TourService tourService, FtpWrite ftpWrite, PlaceService placeService,
                            SubjectService subjectService, DurationService durationService,
-                           TourReleaseService tourReleaseService, TourCostService tourCostService) {
+                           TourReleaseService tourReleaseService, TourCostService tourCostService,
+                           AlbumService albumService) {
         this.tourService = tourService;
         this.ftpWrite = ftpWrite;
         this.placeService = placeService;
@@ -51,6 +53,7 @@ public class AdminController extends ProtoController {
         this.durationService = durationService;
         this.tourReleaseService = tourReleaseService;
         this.tourCostService = tourCostService;
+        this.albumService = albumService;
     }
 
     @Autowired
@@ -118,6 +121,7 @@ public class AdminController extends ProtoController {
             }
             if ("".equals(idTour)) {
                 albumGuid.setName(albumGuid.getName().trim());
+                albumService.add(albumGuid);
                 tourService.add(new Tour(tourName, descTour, youtubeUrl, albumGuid));
             } else {
                 tourService.update(new Tour(Long.parseLong(idTour), tourName, descTour, youtubeUrl,
