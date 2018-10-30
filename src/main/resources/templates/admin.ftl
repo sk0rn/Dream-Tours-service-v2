@@ -121,7 +121,7 @@
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <br><label>Туристическая группа:</label>
                     <br><select class="form-control" name="tourReleaseList">
-                        <#list tourReleases! as tr>
+                        <#list releases! as tr>
                             <option value="${tr.getId()}">${tr.getTour().getName()}; ${tr.getDuration().getNumberDays()}
                                 (дней), ${tr.getDuration().getName()}; дата начала тура:
                                 ${tr.getBeginTime()}; количество мест: ${tr.getCapacity()}.
@@ -138,7 +138,7 @@
                             <span class="input-group-text">руб</span>
                         </div>
                         <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)"
-                               name="tourCost" required>
+                               name="cost" required>
                         <div class="input-group-append">
                             <span class="input-group-text">.00</span>
                         </div>

@@ -23,7 +23,7 @@ public class FtpWriteImpl implements FtpWrite {
     @Override
     public boolean writeInHost(Album albumGuid, String fileName, InputStream inputStream) {
         FTPClient ftpClient = new FTPClient();
-        String fileInHost = "/public_html/" + albumGuid + "/" + fileName;
+        String fileInHost = "/public_html/" + albumGuid.getName() + "/" + fileName;
         try {
             ftpClient.connect(remoteConnectionUrl);
             ftpClient.login(remoteConnectionUsername, remoteConnectionPassword);

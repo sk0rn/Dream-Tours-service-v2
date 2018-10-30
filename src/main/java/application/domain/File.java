@@ -26,6 +26,13 @@ public class File {
     @JoinColumn(name = "album_id", nullable = false)
     private Album album;
 
+    public File() {
+    }
+
+    public File(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

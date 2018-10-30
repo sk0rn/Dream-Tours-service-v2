@@ -25,8 +25,12 @@ public class Album implements Serializable {
     @Column(nullable = false, length = 60)
     private String name;
 
-    @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "album",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     private Set<File> files;
+
+
 
     public Album() {
         this.files = new HashSet<>();

@@ -1,9 +1,9 @@
 package application.service.tour;
 
-import application.domain.TourCost;
+import application.domain.Cost;
 import application.repository.TourCostRepository;
 import application.repository.TourReleaseRepository;
-import application.service.tour.iface.TourCostService;
+import application.service.tour.iface.CostService;
 import application.utils.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TourCostServiceImpl implements TourCostService {
+public class CostServiceImpl implements CostService {
     @Autowired
     private TourCostRepository tourCostRepository;
 
@@ -19,18 +19,18 @@ public class TourCostServiceImpl implements TourCostService {
     private TourReleaseRepository tourReleaseRepository;
 
     @Override
-    public boolean add(TourCost tourCoast) {
+    public boolean add(Cost tourCoast) {
         return ServiceHelper.save(tourCostRepository, tourCoast);
     }
 
     @Override
-    public List<TourCost> getAllByTourRelease(Long tourReleaseId) {
-        return ServiceHelper.getListByParam(tourCostRepository::findAllByTourRelease,
+    public List<Cost> getAllByTourRelease(Long tourReleaseId) {
+        return ServiceHelper.getListByParam(tourCostRepository::findAllByRelease,
                                             ServiceHelper.getById(tourReleaseRepository, tourReleaseId));
     }
 
     @Override
-    public boolean updateById(TourCost tourCoast) {
+    public boolean updateById(Cost tourCoast) {
         return ServiceHelper.save(tourCostRepository, tourCoast);
     }
 

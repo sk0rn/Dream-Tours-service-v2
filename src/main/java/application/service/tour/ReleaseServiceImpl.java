@@ -1,10 +1,10 @@
 package application.service.tour;
 
+import application.domain.Release;
 import application.domain.Tour;
-import application.domain.TourRelease;
 import application.repository.TourReleaseRepository;
 import application.repository.TourRepository;
-import application.service.tour.iface.TourReleaseService;
+import application.service.tour.iface.ReleaseService;
 import application.utils.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class TourReleaseServiceImpl implements TourReleaseService {
+public class ReleaseServiceImpl implements ReleaseService {
     @Autowired
     private TourReleaseRepository tourReleaseRepository;
 
@@ -21,19 +21,19 @@ public class TourReleaseServiceImpl implements TourReleaseService {
     private TourRepository tourRepository;
 
     @Override
-    public boolean add(TourRelease tourRelease) {
-        return ServiceHelper.save(tourReleaseRepository, tourRelease);
+    public boolean add(Release release) {
+        return ServiceHelper.save(tourReleaseRepository, release);
     }
 
     @Override
-    public TourRelease getById(Long id) {
+    public Release getById(Long id) {
         return ServiceHelper.getById(tourReleaseRepository, id);
     }
 
     @Override
-    public List<TourRelease> getAllByTourId(Long tourId) {
+    public List<Release> getAllByTourId(Long tourId) {
         Tour tour;
-        List<TourRelease> releases;
+        List<Release> releases;
 
         return tourId == null ||
                 tourId < 1 ||
@@ -44,13 +44,13 @@ public class TourReleaseServiceImpl implements TourReleaseService {
     }
 
     @Override
-    public List<TourRelease> getAll() {
+    public List<Release> getAll() {
         return ServiceHelper.getAll(tourReleaseRepository);
     }
 
     @Override
-    public boolean updateById(TourRelease tourRelease) {
-        return ServiceHelper.save(tourReleaseRepository, tourRelease);
+    public boolean updateById(Release release) {
+        return ServiceHelper.save(tourReleaseRepository, release);
     }
 
     @Override

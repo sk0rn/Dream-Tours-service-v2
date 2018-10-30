@@ -92,18 +92,18 @@ public interface TourRepository extends JpaRepository<Tour, Long> {
             "            :cost_from <> 0.0 or\n" +
             "            :cost_to <> 0.0)\n" +
             "         or exists(select id\n" +
-            "                   from tour_release\n" +
+            "                   from release\n" +
             "                   where (:date_begin = '1970-01-01 08:00:00.000' or\n" +
-            "                          tour_release.begin_time >= cast(:date_begin as timestamp))\n" +
-            "                     and (:date_end = '1970-01-01 08:00:00.000' or tour_release.begin_time <= cast(:date_end as timestamp))\n" +
-            "                     and (:duration_id is null or :duration_id = tour_release.duration_id)\n" +
+            "                          release.begin_time >= cast(:date_begin as timestamp))\n" +
+            "                     and (:date_end = '1970-01-01 08:00:00.000' or release.begin_time <= cast(:date_end as timestamp))\n" +
+            "                     and (:duration_id is null or :duration_id = release.duration_id)\n" +
             "                     and ((:cost_from = 0.0 and :cost_to = 0.0) or exists(select id\n" +
-            "                                                                              from tour_cost\n" +
-            "                                                                              where tour_cost.tour_release_id = tour_release.id\n" +
-            "                                                                                and tour_cost.is_participant = true\n" +
-            "                                                                                and tour_cost.clipping_age is null\n" +
-            "                                                                                and (:cost_from <> 0.0 or :cost_from <= tour_cost.cost)\n" +
-            "                                                                                and (:cost_to <> 0.0 or :cost_to >= tour_cost.cost)\n" +
+            "                                                                              from costs\n" +
+            "                                                                              where costs.release_id = release.id\n" +
+            "                                                                                and costs.is_participant = true\n" +
+            "                                                                                and costs.clipping_age is null\n" +
+            "                                                                                and (:cost_from <> 0.0 or :cost_from <= costs.cost)\n" +
+            "                                                                                and (:cost_to <> 0.0 or :cost_to >= costs.cost)\n" +
             "                                                                              limit 1\n" +
             "                       ))\n" +
             "                   limit 1)\n" +
