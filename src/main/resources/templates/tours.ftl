@@ -9,7 +9,7 @@
                         <div class="card" style="width: 22rem;">
                             <img class="card-img-top"
                                  <#--TODO доавить поле в entity, проверить вывод картинки-->
-                                 src="${remoteConnectionHost}${tour.getAlbumGuid()}/01.jpg"
+                                 src="${remoteConnectionHost}${tour.getAlbumGuid().getName()}/01.jpg"
                                  alt="${tour.getName()}">
 
                         </div>
@@ -27,7 +27,7 @@
                             <button type="submit" class="btn-sm btn-success">В избранное</button>&nbsp;
                         </form>
                         </#if>
-                        <a href="/tour?id=${tour.getId()}">${tour.getName()}
+                        <a href="/tour/${tour.getId()}">${tour.getName()}
                         </a><br>
                         <nobr>
                             <#list tour.getSubjects() as subj>

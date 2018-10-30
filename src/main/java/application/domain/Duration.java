@@ -26,9 +26,9 @@ public class Duration implements Serializable {
 	@Column(name="number_days", nullable=false)
 	private Integer numberDays;
 
-	//bi-directional many-to-one association to TourRelease
+	//bi-directional many-to-one association to Release
 	@OneToMany(mappedBy = "duration", fetch = FetchType.LAZY)
-	private Set<TourRelease> tourReleases;
+	private Set<Release> releases;
 
 	public Duration() {
 	}
@@ -62,23 +62,23 @@ public class Duration implements Serializable {
 		this.numberDays = numberDays;
 	}
 
-	public Set<TourRelease> getTourReleases() {
-		return this.tourReleases;
+	public Set<Release> getReleases() {
+		return this.releases;
 	}
 
-	public void setTourReleases(Set<TourRelease> tourReleases) {
-		this.tourReleases = tourReleases;
+	public void setReleases(Set<Release> releases) {
+		this.releases = releases;
 	}
 
-	public TourRelease addTourReleas(TourRelease tourReleas) {
-		getTourReleases().add(tourReleas);
+	public Release addTourReleas(Release tourReleas) {
+		getReleases().add(tourReleas);
 		tourReleas.setDuration(this);
 
 		return tourReleas;
 	}
 
-	public TourRelease removeTourReleas(TourRelease tourReleas) {
-		getTourReleases().remove(tourReleas);
+	public Release removeTourReleas(Release tourReleas) {
+		getReleases().remove(tourReleas);
 		tourReleas.setDuration(null);
 
 		return tourReleas;

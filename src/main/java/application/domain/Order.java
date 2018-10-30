@@ -24,10 +24,10 @@ public class Order implements Serializable {
 	@Column(nullable=false)
 	private Integer status;
 
-	//bi-directional many-to-one association to TourRelease
+	//bi-directional many-to-one association to Release
 	@ManyToOne
 	@JoinColumn(name="tour_release_id", nullable=false)
-	private TourRelease tourRelease;
+	private Release release;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
@@ -65,12 +65,12 @@ public class Order implements Serializable {
 		this.status = status;
 	}
 
-	public TourRelease getTourRelease() {
-		return this.tourRelease;
+	public Release getRelease() {
+		return this.release;
 	}
 
-	public void setTourRelease(TourRelease tourRelease) {
-		this.tourRelease = tourRelease;
+	public void setRelease(Release release) {
+		this.release = release;
 	}
 
 	public User getUser() {

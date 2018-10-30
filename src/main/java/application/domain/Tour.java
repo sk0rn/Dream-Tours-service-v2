@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-
 /**
  * The persistent class for the tour database table.
  */
@@ -19,8 +18,9 @@ public class Tour implements Serializable {
     @Column(unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "album_guid", nullable = false, length = 60)
-    private String albumGuid;
+    @OneToOne
+    @JoinColumn(name="album_guid_id")
+    private Album albumGuid;
 
     @Column(length = 2147483647)
     private String descr;
@@ -44,9 +44,9 @@ public class Tour implements Serializable {
     )
     private Set<Place> places;
 
-    //bi-directional many-to-one association to TourRelease
+    //bi-directional many-to-one association to Release
     @OneToMany(mappedBy = "tour", fetch = FetchType.LAZY)
-    private Set<TourRelease> tourReleases;
+    private Set<Release> releases;
 
     //bi-directional many-to-many association to Subject
     @ManyToMany(fetch = FetchType.LAZY)
@@ -68,7 +68,7 @@ public class Tour implements Serializable {
     public Tour() {
     }
 
-    public Tour(Long id, String name, String descr, String youtubeUrl, String albumGuid) {
+    public Tour(Long id, String name, String descr, String youtubeUrl, Album albumGuid) {
         this.id = id;
         this.descr = descr;
         this.name = name;
@@ -76,7 +76,7 @@ public class Tour implements Serializable {
         this.albumGuid = albumGuid;
     }
 
-    public Tour(String name, String descr, String youtubeUrl, String albumGuid) {
+    public Tour(String name, String descr, String youtubeUrl, Album albumGuid) {
         this.albumGuid = albumGuid;
         this.descr = descr;
         this.name = name;
@@ -91,11 +91,11 @@ public class Tour implements Serializable {
         this.id = id;
     }
 
-    public String getAlbumGuid() {
-        return this.albumGuid;
+    public Album getAlbumGuid() {
+        return albumGuid;
     }
 
-    public void setAlbumGuid(String albumGuid) {
+    public void setAlbumGuid(Album albumGuid) {
         this.albumGuid = albumGuid;
     }
 
@@ -131,23 +131,23 @@ public class Tour implements Serializable {
         this.places = places;
     }
 
-    public Set<TourRelease> getTourReleases() {
-        return this.tourReleases;
+    public Set<Release> getReleases() {
+        return this.releases;
     }
 
-    public void setTourReleases(Set<TourRelease> tourReleases) {
-        this.tourReleases = tourReleases;
+    public void setReleases(Set<Release> releases) {
+        this.releases = releases;
     }
 
-    public TourRelease addTourReleas(TourRelease tourReleas) {
-        getTourReleases().add(tourReleas);
+    public Release addTourReleas(Release tourReleas) {
+        getReleases().add(tourReleas);
         tourReleas.setTour(this);
 
         return tourReleas;
     }
 
-    public TourRelease removeTourReleas(TourRelease tourReleas) {
-        getTourReleases().remove(tourReleas);
+    public Release removeTourReleas(Release tourReleas) {
+        getReleases().remove(tourReleas);
         tourReleas.setTour(null);
 
         return tourReleas;

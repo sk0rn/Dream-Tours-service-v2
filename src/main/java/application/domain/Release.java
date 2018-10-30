@@ -7,12 +7,12 @@ import java.util.Set;
 
 
 /**
- * The persistent class for the tour_release database table.
+ * The persistent class for the release database table.
  * 
  */
 @Entity
-@Table(name="tour_release")
-public class TourRelease implements Serializable {
+@Table(name="release")
+public class Release implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -28,12 +28,12 @@ public class TourRelease implements Serializable {
 	private Integer capacity;
 
 	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy = "tourRelease", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "release", fetch = FetchType.LAZY)
 	private Set<Order> orders;
 
-	//bi-directional many-to-one association to TourCost
-	@OneToMany(mappedBy = "tourRelease", fetch = FetchType.LAZY)
-	private Set<TourCost> tourCosts;
+	//bi-directional many-to-one association to Cost
+	@OneToMany(mappedBy = "release", fetch = FetchType.LAZY)
+	private Set<Cost> costs;
 
 	//bi-directional many-to-one association to Duration
 	@ManyToOne
@@ -45,10 +45,10 @@ public class TourRelease implements Serializable {
 	@JoinColumn(name="tour_id", nullable=false)
 	private Tour tour;
 
-	public TourRelease() {
+	public Release() {
 	}
 
-    public TourRelease(Tour tour, Duration duration, Timestamp beginTime, Integer capacity) {
+    public Release(Tour tour, Duration duration, Timestamp beginTime, Integer capacity) {
         this.beginTime = beginTime;
         this.capacity = capacity;
         this.duration = duration;
@@ -89,38 +89,38 @@ public class TourRelease implements Serializable {
 
 	public Order addOrder(Order order) {
 		getOrders().add(order);
-		order.setTourRelease(this);
+		order.setRelease(this);
 
 		return order;
 	}
 
 	public Order removeOrder(Order order) {
 		getOrders().remove(order);
-		order.setTourRelease(null);
+		order.setRelease(null);
 
 		return order;
 	}
 
-	public Set<TourCost> getTourCosts() {
-		return this.tourCosts;
+	public Set<Cost> getCosts() {
+		return this.costs;
 	}
 
-	public void setTourCosts(Set<TourCost> tourCosts) {
-		this.tourCosts = tourCosts;
+	public void setCosts(Set<Cost> costs) {
+		this.costs = costs;
 	}
 
-	public TourCost addTourCost(TourCost tourCost) {
-		getTourCosts().add(tourCost);
-		tourCost.setTourRelease(this);
+	public Cost addTourCost(Cost cost) {
+		getCosts().add(cost);
+		cost.setRelease(this);
 
-		return tourCost;
+		return cost;
 	}
 
-	public TourCost removeTourCost(TourCost tourCost) {
-		getTourCosts().remove(tourCost);
-		tourCost.setTourRelease(null);
+	public Cost removeTourCost(Cost cost) {
+		getCosts().remove(cost);
+		cost.setRelease(null);
 
-		return tourCost;
+		return cost;
 	}
 
 	public Duration getDuration() {
