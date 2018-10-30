@@ -84,7 +84,7 @@
                     </#list>
                 </div>
             </li>
-<#if role!"" == "[ROLE_USER]">
+<#if roles?? && roles?seq_contains("ROLE_USER")>
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <div class="form-check">
