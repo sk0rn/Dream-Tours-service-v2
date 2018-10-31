@@ -62,6 +62,10 @@
                     </div>
                 </div>
             </div>
+        <#sep>
+        <div class="dropdown-divider"></div>
+        </#sep>
+
     <#else>
         <a style="color: #4736ff">К сожалению, по Вашему запросу ничего не найдено</a>
     </#list>
