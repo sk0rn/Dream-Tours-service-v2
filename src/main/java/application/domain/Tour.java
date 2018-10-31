@@ -31,6 +31,9 @@ public class Tour implements Serializable {
     @Column(name = "youtube_url", length = 50)
     private String youtubeUrl;
 
+    @Column(columnDefinition = "text")
+    private String features;
+
     //bi-directional many-to-many association to Place
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -121,6 +124,15 @@ public class Tour implements Serializable {
 
     public void setYoutubeUrl(String youtubeUrl) {
         this.youtubeUrl = youtubeUrl;
+    }
+
+    public String getFeatures() {
+        return features;
+    }
+
+    // TODO необходимо заполнять данное поле при добавлении тура (в админке)
+    public void setFeatures(String features) {
+        this.features = features;
     }
 
     public Set<Place> getPlaces() {
