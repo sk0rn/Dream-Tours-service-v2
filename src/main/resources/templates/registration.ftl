@@ -37,12 +37,17 @@
             <#assign fieldError>
                 <@spring.showErrors "<br/>"/>
             </#assign>
-            <label class="sr-only">Phone</label>
-            <input name="phone" type="text"
-                   class="form-control ${fieldError?has_content?then('is-invalid','')}"
-                   placeholder="Phone"
-                   value="${registrationForm.phone!''}"
-                   autofocus required/>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">+7</div>
+                </div>
+                <label class="sr-only">Phone</label>
+                <input name="phone" type="text"
+                       class="form-control ${fieldError?has_content?then('is-invalid','')}"
+                       placeholder="Phone"
+                       value="${registrationForm.phone!''}"
+                       autofocus required/>
+            </div>
             <#if fieldError?has_content>
                 <div class="invalid-feedback">${fieldError}</div>
             </#if>
@@ -110,9 +115,8 @@
                   ${captchaError}</div>
             </#if>
 
-
-        <div class="dropdown-divider"></div>
-        <button class="btn btn-lg btn-primary" type="submit">Зарегистрироваться</button>
+            <div class="dropdown-divider"></div>
+            <button class="btn btn-lg btn-primary" type="submit">Зарегистрироваться</button>
         </div>
     </form>
 
