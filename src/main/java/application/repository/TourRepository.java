@@ -4,11 +4,13 @@ import application.domain.Place;
 import application.domain.Subject;
 import application.domain.Tour;
 import application.domain.User;
+import application.service.subsets.IdOnly;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Set;
 
 public interface TourRepository extends JpaRepository<Tour, Long> {
     List<Tour> findAllBySubjects(Subject subject);
@@ -116,4 +118,7 @@ public interface TourRepository extends JpaRepository<Tour, Long> {
             @Param(value = "cost_to") double cost_to,
             @Param(value = "duration_id") Long duration_id
     );
+
+    @Query(value = "select tour_id as id from wishlist where client_id = :user_id", nativeQuery = true)
+    Set<IdOnly> getWishList(@Param("user_id") long user_id);
 }

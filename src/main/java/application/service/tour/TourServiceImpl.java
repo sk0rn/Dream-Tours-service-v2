@@ -6,6 +6,7 @@ import application.repository.PlaceRepository;
 import application.repository.SubjectRepository;
 import application.repository.TourRepository;
 import application.repository.UserRepository;
+import application.service.subsets.IdOnly;
 import application.service.tour.iface.TourService;
 import application.utils.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class TourServiceImpl implements TourService {
@@ -131,4 +129,16 @@ public class TourServiceImpl implements TourService {
         return true;
     }
 
+    @Override
+    public Set<Long> getWishList(long userId) {
+        Set<Long> result = new HashSet<>();
+
+        for (IdOnly id : ServiceHelper.getById(userRepository::getWishList, userId)) {
+            result.add(id.getId());
+        }
+
+        return result;
+
+//        return ServiceHelper.getById(userRepository::getWishList, userId).stream().map(val->val.getId()).collect(Collectors.toSet());
+    }
 }

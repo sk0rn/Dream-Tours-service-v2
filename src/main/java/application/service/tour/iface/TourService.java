@@ -5,6 +5,7 @@ import application.domain.User;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public interface TourService {
     boolean add(Tour tour);
@@ -33,4 +34,6 @@ public interface TourService {
                                      String costFrom, String costTo, String duration);
 
     boolean addUserInSetUsers(Tour tour, User user);
+
+    Set<Long> getWishList(long userId);
 }

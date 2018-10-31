@@ -1,14 +1,18 @@
 package application.controller;
 
 import application.domain.Tour;
+import application.domain.User;
 import application.service.tour.iface.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Collections;
+import java.util.Set;
 
 @Controller
 public class ToursController extends ProtoController {
@@ -24,8 +28,8 @@ public class ToursController extends ProtoController {
 
     @GetMapping(value = {"/tours", "/"})
     public String tours(Model model) {
-        List<Tour> tours = tourService.getAll();
-        model.addAttribute("tours", tours);
+        model.addAttribute("tours", tourService.getAll());
+
         return "tours";
     }
 
@@ -79,5 +83,18 @@ public class ToursController extends ProtoController {
     @ModelAttribute(value = "remoteConnectionHost")
     public String internalFillConnectionHost() {
         return remoteConnectionHost;
+    }
+
+    @ModelAttribute(value = "wishList")
+    public Set<Long> internalFillWishList() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() instanceof User) {
+            User user = (User) auth.getPrincipal();
+            if (user != null) {
+                return tourService.getWishList(user.getId());
+            }
+        }
+
+        return Collections.emptySet();
     }
 }

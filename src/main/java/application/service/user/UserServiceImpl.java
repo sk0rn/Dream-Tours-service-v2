@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -75,5 +76,10 @@ public class UserServiceImpl implements UserService {
         tours.add(tour);
         user.setTours(tours);
         return true;
+    }
+
+    @Override
+    public Set<Long> getWishList(long userId) {
+        return ServiceHelper.getById(userRepository::getWishList, userId).stream().map(val -> val.getId()).collect(Collectors.toSet());
     }
 }

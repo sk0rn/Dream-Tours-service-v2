@@ -21,6 +21,8 @@
                              Изменить
                          </button>&nbsp;
                         <#elseif roles?? && roles?seq_contains("ROLE_USER")>
+                            ${wishList?seq_contains(tour.getId())?string("in wishList", "not in wishList")}
+
                         <form action="/addInWishlist" method="post">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <input class="form-control" type="hidden" name="idTour" value="${(tour.getId())!}">
