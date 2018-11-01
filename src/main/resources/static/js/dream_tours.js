@@ -97,6 +97,20 @@ $(document).ready(function () {
             }
         });
     });
+
+
+    $(".RESTpay").submit(function (e) {
+        e.preventDefault();
+
+        jQuery.ajax({
+            method: "POST",
+            url: "https://restfordreamtours.herokuapp.com/",
+            contentType: "application/json",
+            data: JSON.stringify({tour: $("#tour").val(), cardNumber: $("#cardNumber").val(), cost: $("#cost").val()})
+        }).done(function (msg) {
+            alert(msg);
+        });
+    });
 });
 
 //--------------------------------------------------------------------------
