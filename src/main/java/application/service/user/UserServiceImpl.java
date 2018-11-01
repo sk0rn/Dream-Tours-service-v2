@@ -7,6 +7,7 @@ import application.domain.dto.RegistrationForm;
 import application.domain.transformers.RegistrationFormUserTransformer;
 import application.repository.RoleRepository;
 import application.repository.UserRepository;
+import application.service.subsets.IdOnly;
 import application.service.user.iface.UserService;
 import application.utils.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,15 +72,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean addTourInSetTours(User user, Tour tour) {
+    public boolean addTourToSetTours(User user, Tour tour) {
         Set<Tour> tours = user.getTours();
         tours.add(tour);
         user.setTours(tours);
+        userRepository.save(user);
+        return true;
+    }
+
+    @Override
+    public boolean removeTourFromSetTours(User user, Tour tour) {
+        user.getTours().remove(tour);
+        userRepository.save(user);
         return true;
     }
 
     @Override
     public Set<Long> getWishList(long userId) {
-        return ServiceHelper.getById(userRepository::getWishList, userId).stream().map(val -> val.getId()).collect(Collectors.toSet());
+        return ServiceHelper.getById(userRepository::getWishList, userId).stream().map(IdOnly::getId).collect(Collectors.toSet());
     }
 }

@@ -12,6 +12,7 @@ import application.utils.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -122,11 +123,29 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public boolean addUserInSetUsers(Tour tour, User user) {
-        Set<User> users = tour.getUsers();
-        users.add(user);
-        tour.setUsers(users);
+    public boolean addUserToSetUsers(Tour tour, User user) {
+        tour.getUsers().add(user);
+        update(tour);
         return true;
+    }
+
+    @Override
+    public boolean addUserToSetUsers(long tourId, User user) {
+        return addUserToSetUsers(getById(tourId), user);
+    }
+
+    @Override
+    @Transactional
+    public boolean removeUserFromSetUsers(Tour tour, User user) {
+        tour.getUsers().remove(user);
+        update(tour);
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public boolean removeUserFromSetUsers(long tourId, User user) {
+        return removeUserFromSetUsers(getById(tourId), user);
     }
 
     @Override
@@ -138,7 +157,5 @@ public class TourServiceImpl implements TourService {
         }
 
         return result;
-
-//        return ServiceHelper.getById(userRepository::getWishList, userId).stream().map(val->val.getId()).collect(Collectors.toSet());
     }
 }

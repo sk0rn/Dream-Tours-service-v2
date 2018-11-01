@@ -3,35 +3,32 @@
 <@i.page>
 <div align="center">
     <#list tours![] as tour>
-            <div class="col-12" align="left">
-                <div class="form-row">
-                    <div class="col-3">
-                        <div class="card" style="width: 22rem;">
-                            <img class="card-img-top"
-                                 <#--TODO доавить поле в entity, проверить вывод картинки-->
-                                 src="${remoteConnectionHost}${tour.getAlbumGuid()}/01.jpg"
-                                 alt="${tour.getName()}">
-
-                        </div>
+        <div class="col-12" align="left">
+            <div class="form-row">
+                <div class="col-3">
+                    <div class="card" style="width: 22rem;">
+                        <img class="card-img-top"
+                        <#--TODO доавить поле в entity, проверить вывод картинки-->
+                             src="${remoteConnectionHost}${tour.getAlbumGuid()}/01.jpg"
+                             alt="${tour.getName()}">
                     </div>
-                    <div class="col-9">
+                </div>
+                <div class="col-9">
                         <#if roles?? && roles?seq_contains("ROLE_ADMIN")>
                          <button type="button" class="btn-sm btn-success"
                                  onclick="document.location.href='/admin/content/${tour.getId()}'">
                              Изменить
                          </button>&nbsp;
                         <#elseif roles?? && roles?seq_contains("ROLE_USER")>
-                            ${wishList?seq_contains(tour.getId())?string("in wishList", "not in wishList")}
-
-                        <form action="/addInWishlist" method="post">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <input class="form-control" type="hidden" name="idTour" value="${(tour.getId())!}">
-                            <button type="submit" class="btn-sm btn-success">В избранное</button>&nbsp;
-                        </form>
+                            <#assign inWishList=wishList?seq_contains(tour.getId()) />
+                        <a href="#" class="a-wishList" tour-id="${(tour.getId())!}">
+                            <img src="/static/image/star.ico" id="wl-${tour.getId()}"
+                                 width="24" ${inWishList?string("", "class='not-in-wish-list'")}>
+                        </a>
                         </#if>
-                        <a href="/tour?id=${tour.getId()}">${tour.getName()}
-                        </a><br>
-                        <nobr>
+                    <a href="/tour?id=${tour.getId()}">${tour.getName()}
+                    </a><br>
+                    <nobr>
                             <#list tour.getSubjects() as subj>
                                 <a href="#"
                                    submit-param="#searchSubject"
@@ -43,11 +40,11 @@
                                     ${subj.getName()}
                                 </a>
                             </#list>
-                        </nobr>
-                        <div class="form-group">
+                    </nobr>
+                    <div class="form-group">
                         <div class="form-tours-dream" id="exampleFormControlTextarea1" rows="5"
-                                  name="tourName">${tour.getDescr()}</div>
-                            <nobr>
+                             name="tourName">${tour.getDescr()}</div>
+                        <nobr>
                             <#list tour.getPlaces() as place>
                                 <a href="#"
                                    submit-param="#searchPlace"
@@ -59,13 +56,17 @@
                                     ${place.getName()}
                                 </a>
                             </#list>
-                            </nobr>
-                        </div>
+                        </nobr>
                     </div>
                 </div>
             </div>
+        </div>
     <#else>
         <a style="color: #4736ff">К сожалению, по Вашему запросу ничего не найдено</a>
     </#list>
 </div>
+<script>
+    var csrfParamName = "${_csrf.parameterName}";
+    var csrfParamValue = "${_csrf.token}";
+</script>
 </@i.page>

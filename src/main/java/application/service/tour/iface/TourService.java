@@ -33,7 +33,13 @@ public interface TourService {
                                      String searchString, Date dateBegin, Date dateEnd,
                                      String costFrom, String costTo, String duration);
 
-    boolean addUserInSetUsers(Tour tour, User user);
+    boolean addUserToSetUsers(Tour tour, User user);
+
+    boolean addUserToSetUsers(long tourId, User user);
+
+    boolean removeUserFromSetUsers(Tour tour, User user);
+
+    boolean removeUserFromSetUsers(long tourId, User user);
 
     Set<Long> getWishList(long userId);
 }

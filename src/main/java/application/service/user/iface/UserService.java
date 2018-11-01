@@ -18,9 +18,11 @@ public interface UserService {
 
     boolean update(User user);
 
-    public User registerUser(RegistrationForm registrationForm);
+    User registerUser(RegistrationForm registrationForm);
 
-    boolean addTourInSetTours(User user, Tour tour);
+    boolean addTourToSetTours(User user, Tour tour);
+
+    boolean removeTourFromSetTours(User user, Tour tour);
 
     Set<Long> getWishList(long userId);
 }

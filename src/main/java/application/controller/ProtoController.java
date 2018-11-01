@@ -10,8 +10,6 @@ import application.service.tour.iface.SubjectService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+
+import static application.utils.ServiceHelper.getUserFromSession;
 
 /**
  * Загрузка данных для выпадающих списков
@@ -43,11 +43,9 @@ public class ProtoController {
 
     @ModelAttribute
     public void fillCollectionsForDropDowns(HttpServletRequest request, Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getPrincipal() instanceof User) {
-            User user = (User) auth.getPrincipal();
-            request.getSession().setAttribute("user_name", user.getLogin());
-        }
+        User user = getUserFromSession();
+        if (user != null) request.getSession().setAttribute("user_name", user.getLogin());
+
         model.addAttribute("subjects", subjects);
         model.addAttribute("places", places);
         model.addAttribute("durations", durations);

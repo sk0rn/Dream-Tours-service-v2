@@ -3,7 +3,7 @@
 
 .switch {
     --uiSwitchSize: var(--switchSize, 64px);
-    --uiSwitchBgColor: var(--switchBgColor, #f1f1f1);
+    --uiSwitchBgColor: var(--switchB gColor, #f1f1f1);
     --uiSwitchBgColorActive: var(--switchBgColorActive, #4ed164);
     --uiSwitchBorderColorActive: var(--switchBorderColorActive, #fff);
     --uiSwitchBorderColorFocus: var(--switchBgColorFocus, #43b556);
@@ -107,4 +107,8 @@
     overflow:hidden;
     margin-top:0px;
 
+}
+
+.not-in-wish-list {
+    -webkit-filter: grayscale(100%);
 }
