@@ -45,7 +45,7 @@ $(document).ready(function () {
         $("#advModal").modal("hide");
     });
 
-    //показать всплывающие сообщения
+    //показать всплывающее сообщение
     $('[data-toggle="popover"]').popover();
 
     //поиск тура по одному параметру
@@ -63,6 +63,53 @@ $(document).ready(function () {
     $(".menu-item-click").click(function () {
         $($(this).attr("menu-id")).text($(this).attr("menu-value"));
         $($(this).attr("target-id")).val($(this).attr("target-value"));
+    });
+
+    //Добавление/удаление тура в/из
+    //вишлист (избранное)
+    $(".a-wishList").click(function () {
+        var tourId = $(this).attr("tour-id");
+        var tagImg = $("#wl-" + tourId);
+        var formData = {idTour: tourId, operation: tagImg.hasClass("not-in-wish-list") ? 1 : 0};
+        formData[csrfParamName] = csrfParamValue;
+
+        jQuery.ajax({
+            method: "POST",
+            url: "/addInWishlist",
+            data: formData
+        }).done(function (msg) {
+            switch (msg.trim()) {
+                case "add":
+                    tagImg.removeClass("not-in-wish-list");
+                    break;
+
+                case "remove":
+                    tagImg.addClass("not-in-wish-list");
+                    break;
+
+                case "error":
+                    alert("При попытке добавить тур в WishList произошла ошибка. Мы уже работаем над этой проблемой. Попробуйте повторить попытку позже.");
+                    break;
+
+                default:
+                    alert("При попытке добавить тур в WishList произошла непредвиденная ситуация, результат операции не определён. Попробуйте повторить попытку позже.");
+                    break;
+            }
+        });
+    });
+
+
+    $(".RESTpay").submit(function (e) {
+        e.preventDefault();
+
+        jQuery.ajax({
+            method: "POST",
+            url: "https://restfordreamtours.herokuapp.com/",
+            contentType: "application/json",
+            data: JSON.stringify({tour: $("#tour").val(), cardNumber: $("#cardNumber").val(), cost: $("#cost").val()})
+        }).done(function (msg) {
+            alert(msg);
+        });
     });
 });
 
@@ -86,4 +133,10 @@ function updateExtBadge() {
 function hasValue(val) {
     return val != "" && val != "0";
 }
+
+//--------------------------------------------------------------------------
+form2form(false);
+form2form(true);
+updateExtBadge();
+
 //--------------------------------------------------------------------------

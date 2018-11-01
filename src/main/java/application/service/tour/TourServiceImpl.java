@@ -6,17 +6,18 @@ import application.repository.PlaceRepository;
 import application.repository.SubjectRepository;
 import application.repository.TourRepository;
 import application.repository.UserRepository;
+import application.service.subsets.IdOnly;
 import application.service.tour.iface.TourService;
 import application.utils.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
+import static application.utils.ServiceHelper.getUserIdFromSession;
 
 @Service
 public class TourServiceImpl implements TourService {
@@ -89,16 +90,15 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public List<Tour> superPuperDuperSearch(Long userId,
-                                            String subjectId, String placeId, String inWishList,
-                                            String searchString, Date dateBegin, Date dateEnd,
-                                            String costFrom, String costTo, String duration) {
+    public List<Tour> complexQuery(String subjectId, String placeId, String inWishList,
+                                   String searchString, Date dateBegin, Date dateEnd,
+                                   String costFrom, String costTo, String duration) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
 
         List<Tour> tours = tourRepository.findAllBy(
                 ServiceHelper.stringToId(subjectId),
                 ServiceHelper.stringToId(placeId),
-                ServiceHelper.stringToBool(inWishList) ? userId : -1,
+                ServiceHelper.stringToBool(inWishList) ? getUserIdFromSession() : -1,
                 "%" + searchString + "%",
                 dateBegin == null ? "1970-01-01 08:00:00.000" : dateFormat.format(dateBegin),
                 dateEnd == null ? "1970-01-01 08:00:00.000" : dateFormat.format(dateEnd),
@@ -124,11 +124,39 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public boolean addUserInSetUsers(Tour tour, User user) {
-        Set<User> users = tour.getUsers();
-        users.add(user);
-        tour.setUsers(users);
+    public boolean addUserToSetUsers(Tour tour, User user) {
+        tour.getUsers().add(user);
+        update(tour);
         return true;
     }
 
+    @Override
+    public boolean addUserToSetUsers(long tourId, User user) {
+        return addUserToSetUsers(getById(tourId), user);
+    }
+
+    @Override
+    @Transactional
+    public boolean removeUserFromSetUsers(Tour tour, User user) {
+        tour.getUsers().remove(user);
+        update(tour);
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public boolean removeUserFromSetUsers(long tourId, User user) {
+        return removeUserFromSetUsers(getById(tourId), user);
+    }
+
+    @Override
+    public Set<Long> getWishList(long userId) {
+        Set<Long> result = new HashSet<>();
+
+        for (IdOnly id : ServiceHelper.getById(userRepository::getWishList, userId)) {
+            result.add(id.getId());
+        }
+
+        return result;
+    }
 }

@@ -109,6 +109,9 @@
 
 }
 
+.not-in-wish-list {
+    -webkit-filter: grayscale(100%);
+}
 /*backgroung image*/
 
 .bg {

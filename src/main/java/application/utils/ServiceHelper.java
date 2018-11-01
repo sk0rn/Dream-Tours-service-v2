@@ -1,7 +1,9 @@
 package application.utils;
 
+import application.domain.User;
 import lombok.extern.log4j.Log4j;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.sql.Timestamp;
 import java.util.Collections;
@@ -9,6 +11,16 @@ import java.util.List;
 
 @Log4j
 public final class ServiceHelper {
+
+    public static long getUserIdFromSession() {
+        User user = getUserFromSession();
+        return user == null ? -1 : user.getId();
+    }
+
+    public static User getUserFromSession() {
+        Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return user instanceof User ? (User) user : null;
+    }
 
     public static <T> List<T> getAll(FinderNoParam<T> finder) {
         List<T> tours;

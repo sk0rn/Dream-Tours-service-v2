@@ -12,22 +12,21 @@ import java.util.Set;
 
 /**
  * The persistent class for the users database table.
- *
  */
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User implements Serializable, UserDetails {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE,
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "users_id_seq")
     @SequenceGenerator(
-            name="users_id_seq",
-            sequenceName="users_id_seq",
-            allocationSize=1
+            name = "users_id_seq",
+            sequenceName = "users_id_seq",
+            allocationSize = 1
     )
-    @Column(unique=true, nullable=false)
+    @Column(unique = true, nullable = false)
     private Long id;
 
     @OneToOne
@@ -36,16 +35,16 @@ public class User implements Serializable, UserDetails {
 
     private double bonus;
 
-    @Column(name="call_time")
+    @Column(name = "call_time")
     private Timestamp callTime;
 
-    @Column(length=250)
+    @Column(length = 250)
     private String fio;
 
-    @Column(nullable=false, length=250)
+    @Column(nullable = false, length = 250)
     private String login;
 
-    @Column(nullable=false, length=60)
+    @Column(nullable = false, length = 60)
     private String pass;
 
     private Boolean subscribe;
@@ -68,15 +67,10 @@ public class User implements Serializable, UserDetails {
     private Set<Order> orders;
 
     //bi-directional many-to-many association to Tour
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name="wishlist"
-            , joinColumns={
-            @JoinColumn(name="client_id", nullable=false)
-    }
-            , inverseJoinColumns={
-            @JoinColumn(name="tour_id", nullable=false)
-    }
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "wishlist",
+            joinColumns = @JoinColumn(name = "client_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "tour_id", nullable = false)
     )
     private Set<Tour> tours;
 
@@ -254,5 +248,33 @@ public class User implements Serializable, UserDetails {
     @Override
     public boolean isEnabled() {
         return isActive;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return id != null ? id.equals(user.id) : user.id == null;
+
+//        if (Double.compare(user.bonus, bonus) != 0) return false;
+//        if (albumGuid != null ? !albumGuid.equals(user.albumGuid) : user.albumGuid != null) return false;
+//        if (callTime != null ? !callTime.equals(user.callTime) : user.callTime != null) return false;
+//        if (fio != null ? !fio.equals(user.fio) : user.fio != null) return false;
+//        if (login != null ? !login.equals(user.login) : user.login != null) return false;
+//        if (pass != null ? !pass.equals(user.pass) : user.pass != null) return false;
+//        if (subscribe != null ? !subscribe.equals(user.subscribe) : user.subscribe != null) return false;
+//        if (isActive != null ? !isActive.equals(user.isActive) : user.isActive != null) return false;
+//        if (roles != null ? !roles.equals(user.roles) : user.roles != null) return false;
+//        if (contacts != null ? !contacts.equals(user.contacts) : user.contacts != null) return false;
+//        if (orders != null ? !orders.equals(user.orders) : user.orders != null) return false;
+//        return tours != null ? tours.equals(user.tours) : user.tours == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }

@@ -5,6 +5,7 @@ import application.domain.User;
 import application.domain.dto.RegistrationForm;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserService {
     boolean add(User user);
@@ -17,7 +18,11 @@ public interface UserService {
 
     boolean update(User user);
 
-    public User registerUser(RegistrationForm registrationForm);
+    User registerUser(RegistrationForm registrationForm);
 
-    boolean addTourInSetTours(User user, Tour tour);
+    boolean addTourToSetTours(User user, Tour tour);
+
+    boolean removeTourFromSetTours(User user, Tour tour);
+
+    Set<Long> getWishList(long userId);
 }

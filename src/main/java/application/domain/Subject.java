@@ -20,7 +20,7 @@ public class Subject implements Serializable {
 	@Column(unique=true, nullable=false)
 	private Long id;
 
-	@Column(length=2147483647)
+    @Column(columnDefinition = "text")
 	private String descr;
 
 	@Column(nullable=false, length=250)

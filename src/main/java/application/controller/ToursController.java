@@ -1,15 +1,18 @@
 package application.controller;
 
 import application.domain.Tour;
-import application.repository.TourRepository;
+import application.domain.User;
 import application.service.tour.iface.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Collections;
+import java.util.Set;
 
 @Controller
 public class ToursController extends ProtoController {
@@ -25,8 +28,8 @@ public class ToursController extends ProtoController {
 
     @GetMapping(value = {"/tours", "/"})
     public String tours(Model model) {
-        List<Tour> tours = tourService.getAll();
-        model.addAttribute("tours", tours);
+        model.addAttribute("tours", tourService.getAll());
+
         return "tours";
     }
 
@@ -52,13 +55,14 @@ public class ToursController extends ProtoController {
                             @RequestParam(name = "dateEnd", required = false, defaultValue = "") String dateEnd,
                             @RequestParam(name = "costFrom", required = false, defaultValue = "") String costFrom,
                             @RequestParam(name = "costTo", required = false, defaultValue = "") String costTo,
+                            @RequestParam(name = "durationFrom", required = false, defaultValue = "") String durationFrom,
+                            @RequestParam(name = "durationTo", required = false, defaultValue = "") String durationTo,
                             @RequestParam(name = "durationId", required = false, defaultValue = "-1") String duration
     ) {
         model.addAttribute("tours",
                 (subjectId.equals("-1") &&
                         placeId.equals("-1") &&
-//        TODO Раскоментить вишлист, когда с безопасностью срастётся
-                        //inWishList.equals("0") &&
+                        inWishList.equals("0") &&
                         searchString.isEmpty() &&
 //                TODO сделать на форме нормальные контролы для заполнения даты и парсить их здесь
                         //dateBegin.isEmpty() &&
@@ -69,16 +73,39 @@ public class ToursController extends ProtoController {
                 ) ?
                         tourService.getAll() :
 //        TODO Добавить юзера когда с безопасностью срастётся
-                        tourService.superPuperDuperSearch(-1L,
-                                subjectId, placeId, inWishList, searchString,
+                        tourService.complexQuery(subjectId, placeId, inWishList, searchString,
 //                TODO сделать на форме нормальные контролы для заполнения даты и парсить их здесь
                                 null/*dateBegin*/, null/*dateEnd*/,
                                 costFrom, costTo, duration));
+        model.addAttribute("subjectIdValue", subjectId);
+        model.addAttribute("placeIdValue", placeId);
+        model.addAttribute("durationIdValue", duration);
+        model.addAttribute("inWishListValue", inWishList);
+        model.addAttribute("dateBeginValue", dateBegin);
+        model.addAttribute("dateEndValue", dateEnd);
+        model.addAttribute("costFromValue", costFrom);
+        model.addAttribute("costToValue", costTo);
+        model.addAttribute("durationFromValue", durationFrom);
+        model.addAttribute("durationToValue", durationTo);
+        model.addAttribute("searchStringValue", searchString);
         return "tours";
     }
 
     @ModelAttribute(value = "remoteConnectionHost")
     public String internalFillConnectionHost() {
         return remoteConnectionHost;
+    }
+
+    @ModelAttribute(value = "wishList")
+    public Set<Long> internalFillWishList() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth.getPrincipal() instanceof User) {
+            User user = (User) auth.getPrincipal();
+            if (user != null) {
+                return tourService.getWishList(user.getId());
+            }
+        }
+
+        return Collections.emptySet();
     }
 }
