@@ -43,8 +43,9 @@
                             </#list>
                         </nobr>
                         <div class="form-group">
+                            <#--TODO сделать "затухание" текста-->
                         <div class="form-tours-dream" id="exampleFormControlTextarea1" rows="5"
-                                  name="tourName">${tour.getDescr()}</div>
+                                  name="tourName"><p class="text-justify">${tour.getDescr()}</p></div>
                             <nobr>
                             <#list tour.getPlaces() as place>
                                 <a href="#"

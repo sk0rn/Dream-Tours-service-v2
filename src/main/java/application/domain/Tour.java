@@ -31,6 +31,9 @@ public class Tour implements Serializable {
     @Column(name = "youtube_url", length = 50)
     private String youtubeUrl;
 
+    @Column(name = "map_url", length = 50)
+    private String mapUrl;
+
     @Column(columnDefinition = "text")
     private String features;
 
@@ -124,6 +127,14 @@ public class Tour implements Serializable {
 
     public void setYoutubeUrl(String youtubeUrl) {
         this.youtubeUrl = youtubeUrl;
+    }
+
+    public String getMapUrl() {
+        return mapUrl;
+    }
+
+    public void setMapUrl(String mapUrl) {
+        this.mapUrl = mapUrl;
     }
 
     public String getFeatures() {

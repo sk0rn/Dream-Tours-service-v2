@@ -255,6 +255,4 @@ public class User implements Serializable, UserDetails {
     public boolean isEnabled() {
         return isActive;
     }
-
-
 }
