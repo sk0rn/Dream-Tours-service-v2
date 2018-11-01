@@ -50,19 +50,18 @@ public class Tour implements Serializable {
 
     //bi-directional many-to-many association to Subject
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "tour_subject"
-            , joinColumns = {
-            @JoinColumn(name = "tour_id", nullable = false)
-    }
-            , inverseJoinColumns = {
-            @JoinColumn(name = "subject_id", nullable = false)
-    }
+    @JoinTable(name = "tour_subject",
+            joinColumns = @JoinColumn(name = "tour_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "subject_id", nullable = false)
     )
     private Set<Subject> subjects;
 
     //bi-directional many-to-many association to User
-    @ManyToMany(mappedBy = "tours", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY) //mappedBy = "tours",
+    @JoinTable(name = "wishlist",
+            joinColumns = @JoinColumn(name = "tour_id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "client_id", nullable = false)
+    )
     private Set<User> users;
 
     public Tour() {
