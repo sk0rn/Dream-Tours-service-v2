@@ -9,10 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManagerFactory;
@@ -69,7 +66,7 @@ public class AdminController extends ProtoController {
                                  @PathVariable Optional<Long> tourId) {
         tourId.ifPresent(x -> model.addAttribute("tour", tourService.getById(x)));
         model.addAttribute("tours", tourService.getAll());
-        model.addAttribute("tourReleases", releaseService.getAll());
+        model.addAttribute("releases", releaseService.getAll());
         return "admin";
     }
 
@@ -98,7 +95,7 @@ public class AdminController extends ProtoController {
                                   //cost:
                                   @RequestParam(value = "tourReleaseList", required = false) String tourReleaseList,
                                   @RequestParam(value = "kind", required = false) String kind,
-                                  @RequestParam(value = "tourCost", required = false) String tourCost,
+                                  @RequestParam(value = "cost", required = false) String cost,
                                   @RequestParam(value = "clippingAge", required = false) Integer clippingAge,
                                   @RequestParam(value = "isParticipant", required = false) String isParticipant) {
         if (tourName != null) {
@@ -150,7 +147,7 @@ public class AdminController extends ProtoController {
             return "redirect:/admin/content";
         }
 
-        if (tourCost != null) {
+        if (cost != null) {
             Boolean kindCost = false;
             if ("перелет".equals(kind)) {
                 kindCost = true;
@@ -160,9 +157,15 @@ public class AdminController extends ProtoController {
                 isParticipantCost = true;
             }
             costService.add(new Cost(releaseService.getById(Long.parseLong(tourReleaseList)),
-                    kindCost, Double.parseDouble(tourCost), clippingAge, isParticipantCost));
+                    kindCost, Double.parseDouble(cost), clippingAge, isParticipantCost));
             return "redirect:/admin/content";
         }
         return "admin";
+    }
+
+    @ModelAttribute
+    public void fillCollectionsForDropDowns(Model model) {
+        model.addAttribute("tours", tourService.getAll());
+        model.addAttribute("releases", releaseService.getAll());
     }
 }
