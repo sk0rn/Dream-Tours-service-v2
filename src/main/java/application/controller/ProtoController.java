@@ -44,7 +44,10 @@ public class ProtoController {
     @ModelAttribute
     public void fillCollectionsForDropDowns(HttpServletRequest request, Model model) {
         User user = getUserFromSession();
-        if (user != null) request.getSession().setAttribute("user_name", user.getLogin());
+        if (user != null) {
+            request.getSession().setAttribute("user_name", user.getLogin());
+            model.addAttribute("user", user);
+        }
 
         model.addAttribute("subjects", subjects);
         model.addAttribute("places", places);

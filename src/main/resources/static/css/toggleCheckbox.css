@@ -1,14 +1,29 @@
 /*Используется в customerBody.jsp*/
 /*comes wrom here: https://codemyui.com/toggle-switch-collection-using-pure-css-custom-properties/*/
+:root {
+    --switchSize: 64px;
+    --switchBgColor: #f1f1f1;
+    --switchBgColorActive: #4ed164;
+    --switchBorderColorActive: #fff;
+    --switchBgColorFocus: #43b556;
+    --switchButtonBgColor: #fff;
+    --uiSwitchThickFocus: 4px;
+    --switchBorderRadius: 60px;
+}
 
 .switch {
-    --uiSwitchSize: var(--switchSize, 64px);
-    --uiSwitchBgColor: var(--switchB gColor, #f1f1f1);
-    --uiSwitchBgColorActive: var(--switchBgColorActive, #4ed164);
-    --uiSwitchBorderColorActive: var(--switchBorderColorActive, #fff);
-    --uiSwitchBorderColorFocus: var(--switchBgColorFocus, #43b556);
-    --uiSwitchButtonBgColor: var(--switchButtonBgColor, #fff);
+    --uiSwitchSize: var(--switchSize);
+    --uiSwitchBgColor: var(--switchBgColor);
+    --uiSwitchBgColorActive: var(--switchBgColorActive);
+    --uiSwitchBorderColorActive: var(--switchBorderColorActive);
+    --uiSwitchBorderColorFocus: var(--switchBgColorFocus);
+    --uiSwitchButtonBgColor: var(--switchButtonBgColor);
+    --uiSwitchBorderRadius: var(--switchBorderRadius);
 
+    width: var(--uiSwitchSize);
+    height: calc((var(--uiSwitchSize) / 2));
+    border-radius: var(--uiSwitchBorderRadius);
+    background-color: var(--uiSwitchBgColorActive);
     display: inline-block;
     position: relative;
     cursor: pointer;
@@ -32,11 +47,11 @@
 }
 
 .switch__toggle:focus ~ .switch__label {
-    box-shadow: 0 0 0 var(--uiSwitchThickFocus, 4px) var(--uiSwitchBorderColorFocus);
+    box-shadow: 0 0 0 var(--uiSwitchThickFocus) var(--uiSwitchBorderColorFocus);
 }
 
 .switch__toggle:checked:focus ~ .switch__label {
-    box-shadow: 0 0 0 var(--uiSwitchThickFocus, 4px) var(--uiSwitchBorderColorActive);
+    box-shadow: 0 0 0 var(--uiSwitchThickFocus) var(--uiSwitchBorderColorActive);
 }
 
 .switch__label:before, .switch__label:after {
@@ -61,34 +76,23 @@
     transition: transform .4s cubic-bezier(0.44, -0.12, 0.07, 1.15);
 }
 
-/* type 1 */
-
-.switch_type1 {
-    --uiSwitchBorderRadius: var(--switchBorderRadius, 60px);
-
-    width: var(--uiSwitchSize);
-    height: calc((var(--uiSwitchSize) / 2));
-    border-radius: var(--uiSwitchBorderRadius);
-    background-color: var(--uiSwitchBgColorActive);
-}
-
-.switch_type1 .switch__label {
+.switch .switch__label {
     border-radius: var(--uiSwitchBorderRadius);
 }
 
-.switch_type1 .switch__label:before {
+.switch .switch__label:before {
     border-radius: var(--uiSwitchBorderRadius);
     transition: opacity .2s ease-out .1s, transform .2s ease-out .1s;
     transform: scale(1);
     opacity: 1;
 }
 
-.switch_type1 .switch__toggle:checked ~ .switch__label:before {
+.switch .switch__toggle:checked ~ .switch__label:before {
     transform: scale(0);
     opacity: .7;
 }
 
-.switch_type1 .switch__label:after {
+.switch .switch__label:after {
     width: calc(var(--uiSwitchSize) / 2);
     height: calc(var(--uiSwitchSize) / 2);
     transform: translate3d(0, -50%, 0);
@@ -98,7 +102,7 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
 }
 
-.switch_type1 .switch__toggle:checked ~ .switch__label:after {
+.switch .switch__toggle:checked ~ .switch__label:after {
     transform: translate3d(100%, -50%, 0);
 }
 

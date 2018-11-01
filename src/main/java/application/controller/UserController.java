@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import static application.consts.Consts.*;
-import static application.utils.ServiceHelper.getUserFromSession;
+import static application.consts.Consts.OPERATION_RESULT;
 
 @Controller
 public class UserController extends ProtoController {
@@ -24,34 +23,16 @@ public class UserController extends ProtoController {
     }
 
     @GetMapping("/profile")
-    public String tour(Model model
-                       //TODO добавить после включения security
-            /*, @AuthenticationPrincipal User user*/) {
+    public String tour(Model model) {
+        //нам нужна актуальная информация по
         return "customer";
     }
 
     @PostMapping(value = "/addInWishlist")
     public String addImWishList(@RequestParam(name = "idTour") long idTour,
-                                @RequestParam(name = "operation") int add,
+                                @RequestParam(name = "operation") int operation,
                                 Model model) {
-        switch (add) {
-            case ADD_TOUR_TO_WISH_LIST_OPERATION:
-                model.addAttribute(OPERATION_RESULT,
-                        tourService.addUserToSetUsers(idTour,
-                                getUserFromSession()) ? ADD : ERROR);
-                break;
-
-            case REMOVE_TOUR_FROM_WISH_LIST_OPERATION:
-                model.addAttribute(OPERATION_RESULT,
-                        tourService.removeUserFromSetUsers(idTour,
-                                getUserFromSession()) ? REMOVE : ERROR);
-                break;
-
-            default:
-                model.addAttribute(OPERATION_RESULT, ERROR);
-                break;
-        }
-
+        model.addAttribute(OPERATION_RESULT, tourService.modifyWishList(idTour, operation));
         return OPERATION_RESULT;
     }
 }

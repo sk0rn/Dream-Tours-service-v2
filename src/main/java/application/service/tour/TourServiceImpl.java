@@ -17,6 +17,8 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static application.consts.Consts.*;
+import static application.utils.ServiceHelper.getUserFromSession;
 import static application.utils.ServiceHelper.getUserIdFromSession;
 
 @Service
@@ -156,6 +158,21 @@ public class TourServiceImpl implements TourService {
         for (IdOnly id : ServiceHelper.getById(userRepository::getWishList, userId)) {
             result.add(id.getId());
         }
+
+        return result;
+    }
+
+    @Override
+    @Transactional
+    public String modifyWishList(long tourId, int operation) {
+        String result;
+        User user = getUserFromSession();
+
+        if (ADD_TOUR_TO_WISH_LIST_OPERATION == operation) {
+            result = addUserToSetUsers(tourId, user) ? ADD : ERROR;
+        } else if (REMOVE_TOUR_FROM_WISH_LIST_OPERATION == operation) {
+            result = removeUserFromSetUsers(tourId, user) ? REMOVE : ERROR;
+        } else result = ERROR;
 
         return result;
     }

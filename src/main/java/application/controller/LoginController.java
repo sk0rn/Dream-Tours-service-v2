@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -45,5 +47,4 @@ public class LoginController extends ProtoController {
         model.addAttribute("denied", denied != null);
         return "loginEvent";
     }
-
 }

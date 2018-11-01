@@ -41,4 +41,6 @@ public interface TourService {
     boolean removeUserFromSetUsers(long tourId, User user);
 
     Set<Long> getWishList(long userId);
+
+    String modifyWishList(long tourId, int operation);
 }
