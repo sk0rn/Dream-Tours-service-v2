@@ -28,10 +28,9 @@ public interface TourService {
 
     boolean deleteById(Long id);
 
-    List<Tour> superPuperDuperSearch(Long userId,
-                                     String subjectId, String placeId, String inWishList,
-                                     String searchString, Date dateBegin, Date dateEnd,
-                                     String costFrom, String costTo, String duration);
+    List<Tour> complexQuery(String subjectId, String placeId, String inWishList,
+                            String searchString, Date dateBegin, Date dateEnd,
+                            String costFrom, String costTo, String duration);
 
     boolean addUserToSetUsers(Tour tour, User user);
 

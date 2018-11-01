@@ -12,6 +12,11 @@ import java.util.List;
 @Log4j
 public final class ServiceHelper {
 
+    public static long getUserIdFromSession() {
+        User user = getUserFromSession();
+        return user == null ? -1 : user.getId();
+    }
+
     public static User getUserFromSession() {
         Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return user instanceof User ? (User) user : null;

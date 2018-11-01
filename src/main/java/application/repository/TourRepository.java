@@ -100,12 +100,12 @@ public interface TourRepository extends JpaRepository<Tour, Long> {
             "                     and (:date_end = '1970-01-01 08:00:00.000' or release.begin_time <= cast(:date_end as timestamp))\n" +
             "                     and (:duration_id is null or :duration_id = release.duration_id)\n" +
             "                     and ((:cost_from = 0.0 and :cost_to = 0.0) or exists(select id\n" +
-            "                                                                              from costs\n" +
-            "                                                                              where costs.release_id = release.id\n" +
-            "                                                                                and costs.is_participant = true\n" +
-            "                                                                                and costs.clipping_age is null\n" +
-            "                                                                                and (:cost_from <> 0.0 or :cost_from <= costs.cost)\n" +
-            "                                                                                and (:cost_to <> 0.0 or :cost_to >= costs.cost)\n" +
+            "                                                                              from cost\n" +
+            "                                                                              where cost.tour_release_id = release.id\n" +
+            "                                                                                and cost.is_participant = true\n" +
+            "                                                                                and cost.clipping_age is null\n" +
+            "                                                                                and (:cost_from <> 0.0 or :cost_from <= cost.cost)\n" +
+            "                                                                                and (:cost_to <> 0.0 or :cost_to >= cost.cost)\n" +
             "                                                                              limit 1\n" +
             "                       ))\n" +
             "                   limit 1)\n" +

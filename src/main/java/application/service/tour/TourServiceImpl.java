@@ -17,6 +17,8 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static application.utils.ServiceHelper.getUserIdFromSession;
+
 @Service
 public class TourServiceImpl implements TourService {
 
@@ -88,16 +90,15 @@ public class TourServiceImpl implements TourService {
     }
 
     @Override
-    public List<Tour> superPuperDuperSearch(Long userId,
-                                            String subjectId, String placeId, String inWishList,
-                                            String searchString, Date dateBegin, Date dateEnd,
-                                            String costFrom, String costTo, String duration) {
+    public List<Tour> complexQuery(String subjectId, String placeId, String inWishList,
+                                   String searchString, Date dateBegin, Date dateEnd,
+                                   String costFrom, String costTo, String duration) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
 
         List<Tour> tours = tourRepository.findAllBy(
                 ServiceHelper.stringToId(subjectId),
                 ServiceHelper.stringToId(placeId),
-                ServiceHelper.stringToBool(inWishList) ? userId : -1,
+                ServiceHelper.stringToBool(inWishList) ? getUserIdFromSession() : -1,
                 "%" + searchString + "%",
                 dateBegin == null ? "1970-01-01 08:00:00.000" : dateFormat.format(dateBegin),
                 dateEnd == null ? "1970-01-01 08:00:00.000" : dateFormat.format(dateEnd),

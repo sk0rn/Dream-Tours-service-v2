@@ -2,7 +2,6 @@ package application.controller;
 
 import application.domain.Tour;
 import application.domain.User;
-import application.repository.TourRepository;
 import application.service.tour.iface.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,8 +60,7 @@ public class ToursController extends ProtoController {
         model.addAttribute("tours",
                 (subjectId.equals("-1") &&
                         placeId.equals("-1") &&
-//        TODO Раскоментить вишлист, когда с безопасностью срастётся
-                        //inWishList.equals("0") &&
+                        inWishList.equals("0") &&
                         searchString.isEmpty() &&
 //                TODO сделать на форме нормальные контролы для заполнения даты и парсить их здесь
                         //dateBegin.isEmpty() &&
@@ -73,8 +71,7 @@ public class ToursController extends ProtoController {
                 ) ?
                         tourService.getAll() :
 //        TODO Добавить юзера когда с безопасностью срастётся
-                        tourService.superPuperDuperSearch(-1L,
-                                subjectId, placeId, inWishList, searchString,
+                        tourService.complexQuery(subjectId, placeId, inWishList, searchString,
 //                TODO сделать на форме нормальные контролы для заполнения даты и парсить их здесь
                                 null/*dateBegin*/, null/*dateEnd*/,
                                 costFrom, costTo, duration));
