@@ -119,4 +119,10 @@ function updateExtBadge() {
 function hasValue(val) {
     return val != "" && val != "0";
 }
+
+//--------------------------------------------------------------------------
+form2form(false);
+form2form(true);
+updateExtBadge();
+
 //--------------------------------------------------------------------------

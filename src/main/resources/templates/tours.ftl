@@ -16,7 +16,7 @@
                     </div>
                     <div class="col-9">
                         <#if roles?? && roles?seq_contains("ROLE_ADMIN")>
-                         <button type="button" class="btn-sm btn-success"
+                         <button type="button" class="btn btn-outline-danger"
                                  onclick="document.location.href='/admin/content/${tour.getId()}'">
                              Изменить
                          </button>&nbsp;
@@ -27,14 +27,14 @@
                                  width="24" ${inWishList?string("", "class='not-in-wish-list'")}>
                         </a>
                         </#if>
-                        <a href="/tour/${tour.getId()}">${tour.getName()}
+                        <a href="/tour/${tour.getId()}" class="badge badge-info">${tour.getName()}
                         </a><br>
                         <nobr>
                             <#list tour.getSubjects() as subj>
                                 <a href="#"
                                    submit-param="#searchSubject"
                                    submit-value="${subj.getId()}"
-                                   class="form-submit-link"
+                                   class="badge badge-success"
                                    title="${subj.getName()}"
                                    data-content="${subj.getDescr()}" data-toggle="popover"
                                    data-trigger="hover">
@@ -50,7 +50,7 @@
                                 <a href="#"
                                    submit-param="#searchPlace"
                                    submit-value="${place.getId()}"
-                                   class="form-submit-link"
+                                   class="badge badge-secondary"
                                    title="${place.getName()}"
                                    data-content="${place.getDescr()}" data-toggle="popover"
                                    data-trigger="hover">
