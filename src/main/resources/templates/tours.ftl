@@ -45,8 +45,17 @@
                     <div class="form-group">
                         <div class="form-tours-dream" id="exampleFormControlTextarea1" rows="5"
                              name="tourName">${tour.getDescr()}</div>
+                            <#if roles?? && roles?seq_contains("ROLE_USER")>
+                                                 <button type="button" class="btn-sm btn-success"
+                                                         onclick="document.location.href='/pay'">
+                                                     Купить
+                                                 </button>&nbsp;
+                            </#if>
+
                         <nobr>
-                            <#list tour.getPlaces() as place>
+
+
+<#list tour.getPlaces() as place>
                                 <a href="#"
                                    submit-param="#searchPlace"
                                    submit-value="${place.getId()}"
@@ -56,6 +65,7 @@
                                    data-trigger="hover">
                                     ${place.getName()}
                                 </a>
+
                             </#list>
                         </nobr>
                     </div>

@@ -22,7 +22,7 @@ public class Tour implements Serializable {
     @JoinColumn(name="album_guid_id")
     private Album albumGuid;
 
-    @Column(length = 2147483647)
+    @Column(columnDefinition = "text")
     private String descr;
 
     @Column(nullable = false, length = 250)
