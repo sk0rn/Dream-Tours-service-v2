@@ -52,6 +52,8 @@ public class ToursController extends ProtoController {
                             @RequestParam(name = "dateEnd", required = false, defaultValue = "") String dateEnd,
                             @RequestParam(name = "costFrom", required = false, defaultValue = "") String costFrom,
                             @RequestParam(name = "costTo", required = false, defaultValue = "") String costTo,
+                            @RequestParam(name = "durationFrom", required = false, defaultValue = "") String durationFrom,
+                            @RequestParam(name = "durationTo", required = false, defaultValue = "") String durationTo,
                             @RequestParam(name = "durationId", required = false, defaultValue = "-1") String duration
     ) {
         model.addAttribute("tours",
@@ -71,6 +73,17 @@ public class ToursController extends ProtoController {
 //                TODO сделать на форме нормальные контролы для заполнения даты и парсить их здесь
                                 null/*dateBegin*/, null/*dateEnd*/,
                                 costFrom, costTo, duration));
+        model.addAttribute("subjectIdValue", subjectId);
+        model.addAttribute("placeIdValue", placeId);
+        model.addAttribute("durationIdValue", duration);
+        model.addAttribute("inWishListValue", inWishList);
+        model.addAttribute("dateBeginValue", dateBegin);
+        model.addAttribute("dateEndValue", dateEnd);
+        model.addAttribute("costFromValue", costFrom);
+        model.addAttribute("costToValue", costTo);
+        model.addAttribute("durationFromValue", durationFrom);
+        model.addAttribute("durationToValue", durationTo);
+        model.addAttribute("searchStringValue", searchString);
         return "tours";
     }
 

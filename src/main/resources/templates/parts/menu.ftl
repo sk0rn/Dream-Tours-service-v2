@@ -106,19 +106,19 @@
     </div>
     <form class="form-inline my-2 my-lg-0" action="/tours" method="post" id="searchToursForm" name="searchToursForm">
         <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
-        <input type="hidden" id="searchSubject" name="subjectId" value="-1">
-        <input type="hidden" id="searchPlace" name="placeId" value="-1">
-        <input type="hidden" id="searchDuration" name="durationId" value="-1">
-        <input type="hidden" id="searchInWishList" name="inWishList" value="0">
-        <input type="hidden" id="searchDateBegin" name="DateBegin">
-        <input type="hidden" id="searchDateEnd" name="DateEnd">
-        <input type="hidden" id="searchCostBegin" name="costFrom">
-        <input type="hidden" id="searchCostEnd" name="costTo">
-        <input type="hidden" id="searchDurationBegin" name="durationFrom">
-        <input type="hidden" id="searchDurationEnd" name="durationTo">
+        <input type="hidden" id="searchSubject" name="subjectId" value="${(subjectIdValue)!}">
+        <input type="hidden" id="searchPlace" name="placeId" value="${(placeIdValue)!}">
+        <input type="hidden" id="searchDuration" name="durationId" value="${(durationIdValue)!}">
+        <input type="hidden" id="searchInWishList" name="inWishList" value="${(inWishListValue)!}">
+        <input type="hidden" id="searchDateBegin" name="DateBegin" value="${(dateBeginValue)!}">
+        <input type="hidden" id="searchDateEnd" name="DateEnd" value="${(dateEndValue)!}">
+        <input type="hidden" id="searchCostBegin" name="costFrom" value="${(costFromValue)!}">
+        <input type="hidden" id="searchCostEnd" name="costTo" value="${(costToValue)!}">
+        <input type="hidden" id="searchDurationBegin" name="durationFrom" value="${(durationFromValue)!}">
+        <input type="hidden" id="searchDurationEnd" name="durationTo" value="${(durationToValue)!}">
 
         <input class="form-control mr-sm-2" type="search" placeholder="Фудзи сакура ..." aria-label="Search"
-               name="searchString">
+               name="searchString" value="${(searchStringValue)!}">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Найти</button>
     </form>
 </nav>

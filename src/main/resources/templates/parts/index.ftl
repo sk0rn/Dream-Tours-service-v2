@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <#include "headTag.ftl">
-<body>
+<body class="bg">
 <#include "menu.ftl" >
 <#nested>
 <#include "tail.ftl">

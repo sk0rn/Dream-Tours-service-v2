@@ -16,7 +16,7 @@
                     </div>
                     <div class="col-9">
                         <#if roles?? && roles?seq_contains("ROLE_ADMIN")>
-                         <button type="button" class="btn-sm btn-success"
+                         <button type="button" class="btn btn-outline-danger"
                                  onclick="document.location.href='/admin/content/${tour.getId()}'">
                              Изменить
                          </button>&nbsp;
@@ -27,30 +27,37 @@
                                  width="24" ${inWishList?string("", "class='not-in-wish-list'")}>
                         </a>
                         </#if>
-                        <a href="/tour/${tour.getId()}">${tour.getName()}
+                        <a href="/tour/${tour.getId()}" class="badge badge-info">${tour.getName()}
                         </a><br>
                         <nobr>
                             <#list tour.getSubjects() as subj>
                                 <a href="#"
                                    submit-param="#searchSubject"
                                    submit-value="${subj.getId()}"
-                                   class="form-submit-link"
+                                   class="form-submit-link badge badge-success"
                                    title="${subj.getName()}"
                                    data-content="${subj.getDescr()}" data-toggle="popover"
                                    data-trigger="hover">
                                     ${subj.getName()}
                                 </a>
                             </#list>
-                    </nobr>
-                    <div class="form-group">
+                        </nobr>
+                        <div class="form-group">
+                            <#--TODO сделать "затухание" текста-->
                         <div class="form-tours-dream" id="exampleFormControlTextarea1" rows="5"
-                             name="tourName">${tour.getDescr()}</div>
-                        <nobr>
+                                  name="tourName"><p class="text-justify">${tour.getDescr()}</p></div>
+                            <nobr>
+                                <#if roles?? && roles?seq_contains("ROLE_USER")>
+                                                 <button type="button" class="btn-sm btn-success"
+                                                         onclick="document.location.href='/pay'">
+                                                     Купить
+                                                 </button>&nbsp;
+                                </#if>
                             <#list tour.getPlaces() as place>
                                 <a href="#"
                                    submit-param="#searchPlace"
                                    submit-value="${place.getId()}"
-                                   class="form-submit-link"
+                                   class="form-submit-link badge badge-secondary"
                                    title="${place.getName()}"
                                    data-content="${place.getDescr()}" data-toggle="popover"
                                    data-trigger="hover">
@@ -62,6 +69,9 @@
                 </div>
             </div>
         </div>
+        <#sep>
+        <div class="dropdown-divider"></div>
+        </#sep>
     <#else>
         <a style="color: #4736ff">К сожалению, по Вашему запросу ничего не найдено</a>
     </#list>

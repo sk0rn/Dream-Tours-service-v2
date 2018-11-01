@@ -97,6 +97,20 @@ $(document).ready(function () {
             }
         });
     });
+
+
+    $(".RESTpay").submit(function (e) {
+        e.preventDefault();
+
+        jQuery.ajax({
+            method: "POST",
+            url: "https://restfordreamtours.herokuapp.com/",
+            contentType: "application/json",
+            data: JSON.stringify({tour: $("#tour").val(), cardNumber: $("#cardNumber").val(), cost: $("#cost").val()})
+        }).done(function (msg) {
+            alert(JSON.stringify(msg));
+        });
+    });
 });
 
 //--------------------------------------------------------------------------
@@ -119,4 +133,10 @@ function updateExtBadge() {
 function hasValue(val) {
     return val != "" && val != "0";
 }
+
+//--------------------------------------------------------------------------
+form2form(false);
+form2form(true);
+updateExtBadge();
+
 //--------------------------------------------------------------------------
