@@ -37,20 +37,23 @@ public class AdminController extends ProtoController {
     private PlaceService placeService;
     private SubjectService subjectService;
     private DurationService durationService;
-    private TourReleaseService tourReleaseService;
-    private TourCostService tourCostService;
+    private ReleaseService releaseService;
+    private CostService costService;
+    private AlbumService albumService;
 
     @Autowired
     public AdminController(TourService tourService, FtpWrite ftpWrite, PlaceService placeService,
                            SubjectService subjectService, DurationService durationService,
-                           TourReleaseService tourReleaseService, TourCostService tourCostService) {
+                           ReleaseService releaseService, CostService costService,
+                           AlbumService albumService) {
         this.tourService = tourService;
         this.ftpWrite = ftpWrite;
         this.placeService = placeService;
         this.subjectService = subjectService;
         this.durationService = durationService;
-        this.tourReleaseService = tourReleaseService;
-        this.tourCostService = tourCostService;
+        this.releaseService = releaseService;
+        this.costService = costService;
+        this.albumService = albumService;
     }
 
     @Autowired
@@ -66,8 +69,7 @@ public class AdminController extends ProtoController {
                                  @PathVariable Optional<Long> tourId) {
         tourId.ifPresent(x -> model.addAttribute("tour", tourService.getById(x)));
         model.addAttribute("tours", tourService.getAll());
-        model.addAttribute("durations", durationService.getAll());
-        model.addAttribute("tourReleases", tourReleaseService.getAll());
+        model.addAttribute("tourReleases", releaseService.getAll());
         return "admin";
     }
 
@@ -100,9 +102,9 @@ public class AdminController extends ProtoController {
                                   @RequestParam(value = "clippingAge", required = false) Integer clippingAge,
                                   @RequestParam(value = "isParticipant", required = false) String isParticipant) {
         if (tourName != null) {
-            String albumGuid = null;
+            Album albumGuid = new Album();
             if ("".equals(idTour)) {
-                albumGuid = UUID.randomUUID().toString();
+                albumGuid.setName(UUID.randomUUID().toString());
             } else {
                 albumGuid = tourService.getById(Long.parseLong(idTour)).getAlbumGuid();
             }
@@ -113,10 +115,14 @@ public class AdminController extends ProtoController {
                 } catch (IOException e) {
                     log.error("Can't write file", e);
                 }
-                ftpWrite.writeInHost(albumGuid, "01.jpg", fileContent);
+
+                ftpWrite.writeInHost(albumGuid, imageTour.getOriginalFilename(), fileContent);
+                albumGuid.addFile(new File(imageTour.getOriginalFilename()));
             }
             if ("".equals(idTour)) {
-                tourService.add(new Tour(tourName, descTour, youtubeUrl, albumGuid.trim()));
+                albumGuid.setName(albumGuid.getName().trim());
+                albumService.add(albumGuid);
+                tourService.add(new Tour(tourName, descTour, youtubeUrl, albumGuid));
             } else {
                 tourService.update(new Tour(Long.parseLong(idTour), tourName, descTour, youtubeUrl,
                         tourService.getById(Long.parseLong(idTour)).getAlbumGuid()));
@@ -137,7 +143,7 @@ public class AdminController extends ProtoController {
         }
 
         if (dateStart != null) {
-            tourReleaseService.add(new TourRelease(tourService.getById(Long.parseLong(tourList)),
+            releaseService.add(new Release(tourService.getById(Long.parseLong(tourList)),
                     durationService.getById(Long.parseLong(tourDurationList)),
                     Timestamp.valueOf(dateStart.replace("T", " ") + ":00"),
                     capacity));
@@ -153,7 +159,7 @@ public class AdminController extends ProtoController {
             if ("on".equals(isParticipant)) {
                 isParticipantCost = true;
             }
-            tourCostService.add(new TourCost(tourReleaseService.getById(Long.parseLong(tourReleaseList)),
+            costService.add(new Cost(releaseService.getById(Long.parseLong(tourReleaseList)),
                     kindCost, Double.parseDouble(tourCost), clippingAge, isParticipantCost));
             return "redirect:/admin/content";
         }

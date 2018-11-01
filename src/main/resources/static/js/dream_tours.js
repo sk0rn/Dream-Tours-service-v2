@@ -41,6 +41,7 @@ $(document).ready(function () {
     //поиска туров
     $("#advOkButton").click(function () {
         form2form(true);
+        updateExtBadge();
         $("#advModal").modal("hide");
     });
 
@@ -97,4 +98,25 @@ $(document).ready(function () {
         });
     });
 });
+
+//--------------------------------------------------------------------------
+function updateExtBadge() {
+    var paramsSetted = 0;
+    if (hasValue($("#searchDateBegin").val())) ++paramsSetted;
+    if (hasValue($("#searchDateEnd").val())) ++paramsSetted;
+    if (hasValue($("#searchCostBegin").val())) ++paramsSetted;
+    if (hasValue($("#searchCostEnd").val())) ++paramsSetted;
+    if (hasValue($("#searchDurationBegin").val())) ++paramsSetted;
+    if (hasValue($("#searchDurationEnd").val())) ++paramsSetted;
+
+    if (paramsSetted) {
+        $("#ExtBadge").text(paramsSetted);
+        $("#ExtBadge").show();
+    } else $("#ExtBadge").hide();
+}
+
+//--------------------------------------------------------------------------
+function hasValue(val) {
+    return val != "" && val != "0";
+}
 //--------------------------------------------------------------------------

@@ -2,6 +2,7 @@ package application.controller;
 
 import application.domain.Tour;
 import application.domain.User;
+import application.repository.TourRepository;
 import application.service.tour.iface.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +34,7 @@ public class ToursController extends ProtoController {
         return "tours";
     }
 
-    @GetMapping("/tours/{tourId}")
+    @GetMapping("/tour/{tourId}")
     public String tour(Model model,
                        @PathVariable Long tourId) {
         Tour tour = tourService.getById(tourId);

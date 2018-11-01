@@ -3,17 +3,18 @@
 <@i.page>
 <div align="center">
     <#list tours![] as tour>
-        <div class="col-12" align="left">
-            <div class="form-row">
-                <div class="col-3">
-                    <div class="card" style="width: 22rem;">
-                        <img class="card-img-top"
-                        <#--TODO доавить поле в entity, проверить вывод картинки-->
-                             src="${remoteConnectionHost}${tour.getAlbumGuid()}/01.jpg"
-                             alt="${tour.getName()}">
+            <div class="col-12" align="left">
+                <div class="form-row">
+                    <div class="col-3">
+                        <div class="card" style="width: 22rem;">
+                            <img class="card-img-top"
+                                 <#--TODO доавить поле в entity, проверить вывод картинки-->
+                                 src="${remoteConnectionHost}${tour.getAlbumGuid().getName()}/01.jpg"
+                                 alt="${tour.getName()}">
+
+                        </div>
                     </div>
-                </div>
-                <div class="col-9">
+                    <div class="col-9">
                         <#if roles?? && roles?seq_contains("ROLE_ADMIN")>
                          <button type="button" class="btn-sm btn-success"
                                  onclick="document.location.href='/admin/content/${tour.getId()}'">
@@ -26,9 +27,9 @@
                                  width="24" ${inWishList?string("", "class='not-in-wish-list'")}>
                         </a>
                         </#if>
-                    <a href="/tour?id=${tour.getId()}">${tour.getName()}
-                    </a><br>
-                    <nobr>
+                        <a href="/tour/${tour.getId()}">${tour.getName()}
+                        </a><br>
+                        <nobr>
                             <#list tour.getSubjects() as subj>
                                 <a href="#"
                                    submit-param="#searchSubject"

@@ -5,12 +5,12 @@ import java.io.Serializable;
 
 
 /**
- * The persistent class for the tour_cost database table.
+ * The persistent class for the cost database table.
  * 
  */
 @Entity
-@Table(name="tour_cost")
-public class TourCost implements Serializable {
+@Table(name="cost")
+public class Cost implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -31,20 +31,20 @@ public class TourCost implements Serializable {
 	@Column(nullable=false)
 	private Boolean kind;
 
-	//bi-directional many-to-one association to TourRelease
+	//bi-directional many-to-one association to Release
 	@ManyToOne
 	@JoinColumn(name="tour_release_id", nullable=false)
-	private TourRelease tourRelease;
+	private Release release;
 
-	public TourCost() {
+	public Cost() {
 	}
 
-	public TourCost(TourRelease tourRelease, Boolean kind, double cost, Integer clippingAge, Boolean isParticipant) {
+	public Cost(Release release, Boolean kind, double cost, Integer clippingAge, Boolean isParticipant) {
 		this.clippingAge = clippingAge;
 		this.cost = cost;
 		this.isParticipant = isParticipant;
 		this.kind = kind;
-		this.tourRelease = tourRelease;
+		this.release = release;
 	}
 
 	public Long getId() {
@@ -87,12 +87,12 @@ public class TourCost implements Serializable {
 		this.kind = kind;
 	}
 
-	public TourRelease getTourRelease() {
-		return this.tourRelease;
+	public Release getRelease() {
+		return this.release;
 	}
 
-	public void setTourRelease(TourRelease tourRelease) {
-		this.tourRelease = tourRelease;
+	public void setRelease(Release release) {
+		this.release = release;
 	}
 
 }

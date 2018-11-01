@@ -29,8 +29,9 @@ public class User implements Serializable, UserDetails {
     @Column(unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "album_guid", length = 60)
-    private String albumGuid;
+    @OneToOne
+    @JoinColumn(name="album_guid_id")
+    private Album albumGuid;
 
     private double bonus;
 
@@ -86,11 +87,11 @@ public class User implements Serializable, UserDetails {
         this.id = id;
     }
 
-    public String getAlbumGuid() {
-        return this.albumGuid;
+    public Album getAlbumGuid() {
+        return albumGuid;
     }
 
-    public void setAlbumGuid(String albumGuid) {
+    public void setAlbumGuid(Album albumGuid) {
         this.albumGuid = albumGuid;
     }
 
