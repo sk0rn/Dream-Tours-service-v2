@@ -41,7 +41,7 @@
                                 <a href="#"
                                    submit-param="#searchPlace"
                                    submit-value="${place.getId()}"
-                                   class="badge badge-secondary"
+                                   class="form-submit-link badge badge-secondary"
                                    title="${place.getName()}"
                                    data-content="${place.getDescr()}" data-toggle="popover"
                                    data-trigger="hover">
@@ -54,7 +54,7 @@
                                 <a href="#"
                                    submit-param="#searchSubject"
                                    submit-value="${subj.getId()}"
-                                   class="badge badge-success"
+                                   class="form-submit-link badge badge-success"
                                    title="${subj.getName()}"
                                    data-content="${subj.getDescr()}" data-toggle="popover"
                                    data-trigger="hover">

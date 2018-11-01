@@ -108,7 +108,7 @@ $(document).ready(function () {
             contentType: "application/json",
             data: JSON.stringify({tour: $("#tour").val(), cardNumber: $("#cardNumber").val(), cost: $("#cost").val()})
         }).done(function (msg) {
-            alert(msg);
+            alert(JSON.stringify(msg));
         });
     });
 });
