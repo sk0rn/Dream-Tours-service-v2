@@ -116,8 +116,7 @@
 
 .bg {
     /* The image used */
-    /*background-image: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(20).jpg");*/
-    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url("https://www.setaswall.com/wp-content/uploads/2017/05/Sakura-Wallpaper-34-4288x2848-768x510.jpg");
+    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url("https://a12a12a12a.000webhostapp.com/system/bg.jpg");
 
     /* Full height */
     height: 100%;

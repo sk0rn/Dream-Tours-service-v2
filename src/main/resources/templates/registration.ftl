@@ -47,10 +47,10 @@
                        placeholder="Phone"
                        value="${registrationForm.phone!''}"
                        autofocus required/>
+                   <#if fieldError?has_content>
+                    <div class="invalid-feedback">${fieldError}</div>
+                   </#if>
             </div>
-            <#if fieldError?has_content>
-                <div class="invalid-feedback">${fieldError}</div>
-            </#if>
             <small id="passwordHelpInline" class="text-muted">
                 Длина 10 цифр
             </small>
