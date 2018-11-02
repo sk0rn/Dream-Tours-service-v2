@@ -18,6 +18,8 @@ import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.UUID;
 
+import static application.utils.ServiceHelper.stringToId;
+
 @Controller
 @RequestMapping("/admin")
 @Api(value = "admin!", description = "admin!!!!") // Swagger annotation
@@ -135,7 +137,7 @@ public class AdminController extends ProtoController {
                     kindCost, Double.parseDouble(cost), clippingAge, isParticipantCost));
             return "redirect:/admin/content";
         }
-        return getEditContent(model, Optional.of(Long.parseLong(idTour)));
+        return getEditContent(model, Optional.of(stringToId(idTour)));
     }
 
     @ModelAttribute
