@@ -90,7 +90,7 @@
 
             <nobr>
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/${tour.getYoutubeUrl()}"
-                        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>&nbsp;&nbsp;
                 <iframe src="https://yandex.ru/map-widget/v1/-/${tour.getMapUrl()}" width="560" height="315"
                         frameborder="1" allowfullscreen="true"></iframe>
             </nobr>
