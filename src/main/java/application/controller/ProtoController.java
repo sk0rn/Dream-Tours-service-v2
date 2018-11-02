@@ -33,9 +33,9 @@ import static application.utils.ServiceHelper.getUserFromSession;
 @Setter(onMethod = @__({@Autowired}))
 @Getter
 public class ProtoController {
-    private static final List<Subject> subjects = new ArrayList<>();
-    private static final List<Place> places = new ArrayList<>();
-    private static final List<Duration> durations = new ArrayList<>();
+    protected static final List<Subject> subjects = new ArrayList<>();
+    protected static final List<Place> places = new ArrayList<>();
+    protected static final List<Duration> durations = new ArrayList<>();
 
     private SubjectService subjectService;
     private PlaceService placeService;

@@ -24,10 +24,6 @@ import java.util.UUID;
 @Log4j
 @Setter(onMethod = @__({@Autowired}))
 public class AdminController extends ProtoController {
-//    TODO при любом изменении тематик в базе обнулить коллекцию subjects
-//    TODO при любом изменении мест в базе обнулить коллекцию places
-//    TODO при любом изменении длительностей в базе обнулить коллекцию durations
-
     private TourService tourService;
     private FtpWrite ftpWrite;
     private PlaceService placeService;
@@ -105,14 +101,17 @@ public class AdminController extends ProtoController {
 
         if (placeName != null) {
             placeService.add(new Place(placeName, descPlace));
+            places.clear();
         }
 
         if (subjectName != null) {
             subjectService.add(new Subject(subjectName, descSubject));
+            subjects.clear();
         }
 
         if (numberDays != null) {
             durationService.add(new Duration(numberDays, nameDuration));
+            durations.clear();
         }
 
         if (dateStart != null) {
@@ -124,11 +123,11 @@ public class AdminController extends ProtoController {
         }
 
         if (cost != null) {
-            Boolean kindCost = false;
+            boolean kindCost = false;
             if ("перелет".equals(kind)) {
                 kindCost = true;
             }
-            Boolean isParticipantCost = false;
+            boolean isParticipantCost = false;
             if ("on".equals(isParticipant)) {
                 isParticipantCost = true;
             }

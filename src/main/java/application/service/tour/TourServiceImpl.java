@@ -70,7 +70,6 @@ public class TourServiceImpl implements TourService {
     @Override
     public List<Tour> getByOrderId(Long orderId) {
 //        TODO Пока метод не задействован,
-//        для ускорения разработки оставляю на потом
         return Collections.emptyList();
     }
 
