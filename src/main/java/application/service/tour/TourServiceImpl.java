@@ -9,29 +9,24 @@ import application.repository.UserRepository;
 import application.service.subsets.IdOnly;
 import application.service.tour.iface.TourService;
 import application.utils.ServiceHelper;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static application.consts.Consts.*;
+import static application.utils.ServiceHelper.getUserFromSession;
 import static application.utils.ServiceHelper.getUserIdFromSession;
 
 @Service
+@Setter(onMethod = @__({@Autowired}))
 public class TourServiceImpl implements TourService {
-
-    @Autowired
     private TourRepository tourRepository;
-
-    @Autowired
     private SubjectRepository subjectRepository;
-
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private PlaceRepository placeRepository;
 
     @Override
@@ -75,7 +70,6 @@ public class TourServiceImpl implements TourService {
     @Override
     public List<Tour> getByOrderId(Long orderId) {
 //        TODO Пока метод не задействован,
-//        для ускорения разработки оставляю на потом
         return Collections.emptyList();
     }
 
@@ -108,21 +102,6 @@ public class TourServiceImpl implements TourService {
         return tours == null ? Collections.emptyList() : tours;
     }
 
-    private List<Tour> internalSuperPuperDuperRealisesSearch(long user_id, long subject_id, long place_id, boolean wish_list, String searchString, Timestamp date_begin, Timestamp date_end, double cost_from, double cost_to, Long duration_id) {
-//        List<Tour> tours = tourRepository.findAllBy(subject_id, place_id, wish_list ? user_id : -1, searchString, date_begin, date_end, cost_from, cost_to, duration_id);
-//        return tours == null ? Collections.emptyList() : tours;
-        return Collections.emptyList();
-    }
-
-    private List<Tour> internalSuperPuperDuperToursSearch(long user_id, long subject_id, long place_id, boolean wish_list, String searchString) {
-        if (subject_id == -1 && place_id == -1 && !wish_list && searchString.isEmpty()) return getAll();
-        else if (place_id == -1 && !wish_list && searchString.isEmpty()) return getBySubjectId(subject_id);
-        else if (subject_id == -1 && !wish_list && searchString.isEmpty()) return getByPlaceId(place_id);
-        else if (subject_id == -1 && place_id == -1 && searchString.isEmpty()) return getByClientId(user_id);
-        else if (subject_id == -1 && place_id == -1 && !wish_list) return this.getBySearchString(searchString);
-        return tourRepository.findAllBy(subject_id, place_id, wish_list ? user_id : -1, searchString);
-    }
-
     @Override
     public boolean addUserToSetUsers(Tour tour, User user) {
         tour.getUsers().add(user);
@@ -151,11 +130,27 @@ public class TourServiceImpl implements TourService {
 
     @Override
     public Set<Long> getWishList(long userId) {
-        Set<Long> result = new HashSet<>();
-
-        for (IdOnly id : ServiceHelper.getById(userRepository::getWishList, userId)) {
-            result.add(id.getId());
+        if (userId == -1) return Collections.emptySet();
+        else {
+            Set<Long> result = new HashSet<>();
+            for (IdOnly id : ServiceHelper.getById(userRepository::getWishList, userId)) {
+                result.add(id.getId());
+            }
+            return result;
         }
+    }
+
+    @Override
+    @Transactional
+    public String modifyWishList(long tourId, int operation) {
+        String result;
+        User user = getUserFromSession();
+
+        if (ADD_TOUR_TO_WISH_LIST_OPERATION == operation) {
+            result = addUserToSetUsers(tourId, user) ? ADD : ERROR;
+        } else if (REMOVE_TOUR_FROM_WISH_LIST_OPERATION == operation) {
+            result = removeUserFromSetUsers(tourId, user) ? REMOVE : ERROR;
+        } else result = ERROR;
 
         return result;
     }

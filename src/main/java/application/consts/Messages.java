@@ -7,4 +7,7 @@ public class Messages {
     public static final String LOGIN_EXISTS = "Такой логин уже используется";
     public static final String EMAIL_EXISTS = "Такой адрес уже используется";
     public static final String FILL_CAPTCHA = "Подтвердите,&nbsp;что&nbsp;вы&nbsp;не&nbsp;робот";
+
+    private Messages() {
+    }
 }

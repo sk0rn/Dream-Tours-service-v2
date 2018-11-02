@@ -62,9 +62,13 @@ public final class ServiceHelper {
     }
 
     public static <T> T getById(Getter<T, Long> getter, Long id) {
+        return getById(getter, id, null);
+    }
+
+    public static <T> T getById(Getter<T, Long> getter, Long id, T defValue) {
         return id == null ||
                 id < 1 ?
-                null :
+                defValue :
                 getter.execute(id);
     }
 

@@ -1,9 +1,11 @@
 //--------------------------------------------------------------------------
-function val2val(idName, toForm) {
-    $("#search" + idName + (toForm ? "" : "View")).val($("#search" + idName + (toForm ? "View" : "")).val());
+//Копирование значений из временной формы в форму поиска и обратно
+function val2val(idName, direction) {
+    $("#search" + idName + (direction ? "" : "View")).val($("#search" + idName + (direction ? "View" : "")).val());
 }
 
 //--------------------------------------------------------------------------
+//Копирование расширенных значений поиска из временной формы в форму поиска и обратно
 function form2form(toForm) {
     val2val("DateBegin", toForm);
     val2val("DateEnd", toForm);
@@ -14,6 +16,7 @@ function form2form(toForm) {
 }
 
 //--------------------------------------------------------------------------
+//Опустошить форму поиска туров
 function clearFindToursForm() {
     $("#searchSubject").val(-1);
     $("#searchPlace").val(-1);
@@ -67,15 +70,17 @@ $(document).ready(function () {
 
     //Добавление/удаление тура в/из
     //вишлист (избранное)
-    $(".a-wishList").click(function () {
+    $(".a-wishList").click(function (e) {
         var tourId = $(this).attr("tour-id");
         var tagImg = $("#wl-" + tourId);
         var formData = {idTour: tourId, operation: tagImg.hasClass("not-in-wish-list") ? 1 : 0};
         formData[csrfParamName] = csrfParamValue;
 
+        e.preventDefault();
+
         jQuery.ajax({
             method: "POST",
-            url: "/addInWishlist",
+            url: "/addToWishlist",
             data: formData
         }).done(function (msg) {
             switch (msg.trim()) {
@@ -111,6 +116,8 @@ $(document).ready(function () {
             alert(JSON.stringify(msg));
         });
     });
+
+    restoreSearchView();
 });
 
 //--------------------------------------------------------------------------
@@ -135,8 +142,18 @@ function hasValue(val) {
 }
 
 //--------------------------------------------------------------------------
-form2form(false);
-form2form(true);
-updateExtBadge();
+function restoreSearchView() {
+//Закидываем данные доп условий поиска во временную форму и обновляем бадж
+    form2form(false);
+    updateExtBadge();
+
+//Обновляем данные в меню по выпадающим спискам
+    $("[target-id = '#searchSubject'][target-value = " + $("#searchSubject").val() + "]").click();
+    $("[target-id = '#searchPlace'][target-value = " + $("#searchPlace").val() + "]").click();
+    $("[target-id = '#searchDuration'][target-value = " + $("#searchDuration").val() + "]").click();
+
+//Обновляем чекбокс Вишлист в меню
+    $("#searchInWishListView").attr("checked", $("#searchInWishList").val() === "1");
+}
 
 //--------------------------------------------------------------------------

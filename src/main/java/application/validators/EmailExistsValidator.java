@@ -15,10 +15,12 @@ public class EmailExistsValidator implements ConstraintValidator<EmailUnique, St
     }
 
     @Override
-    public void initialize(final EmailUnique constraintAnnotation) {}
+    public void initialize(final EmailUnique constraintAnnotation) {
+        //Because ...
+    }
 
     @Override
     public boolean isValid(final String value, final ConstraintValidatorContext context) {
-        return contactService.checkForMatch("email:"+value)? false : true;
+        return !contactService.checkForMatch("email:" + value);
     }
 }

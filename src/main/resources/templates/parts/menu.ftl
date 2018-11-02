@@ -88,9 +88,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="wishListViewCheckBox"
+                        <input class="form-check-input" type="checkbox" value="" id="searchInWishListView"
                                onchange="document.getElementById('searchInWishList').value = this.checked ? 1 : 0;">
-                        <label class="form-check-label" for="wishListViewCheckBox">
+                        <label class="form-check-label" for="searchInWishListView">
                             В избранном
                         </label>
                     </div>

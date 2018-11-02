@@ -16,7 +16,9 @@ public class LoginExistsValidator implements ConstraintValidator<LoginUnique, St
     }
 
     @Override
-    public void initialize(final LoginUnique constraintAnnotation) {}
+    public void initialize(final LoginUnique constraintAnnotation) {
+        //Because ...
+    }
 
     @Override
     public boolean isValid(final String login, final ConstraintValidatorContext context) {

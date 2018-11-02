@@ -14,9 +14,10 @@ import java.util.Properties;
 @Log4j
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {
 
-
     @Override
-	public void initialize(final ValidPassword constraintAnnotation) {}
+    public void initialize(final ValidPassword constraintAnnotation) {
+        //Because ...
+    }
 
 	@Override
 	public boolean isValid(final String password, final ConstraintValidatorContext context) {

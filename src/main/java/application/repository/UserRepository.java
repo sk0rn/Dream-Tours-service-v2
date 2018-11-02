@@ -22,5 +22,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Integer findUserIdByLogin(@Param("login") String login);
 
     @Query(value = "select tour_id as id from wishlist where client_id = :user_id", nativeQuery = true)
-    Set<IdOnly> getWishList(@Param("user_id") long user_id);
+    Set<IdOnly> getWishList(@Param("user_id") long userId);
 }

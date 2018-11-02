@@ -258,19 +258,6 @@ public class User implements Serializable, UserDetails {
         User user = (User) o;
 
         return id != null ? id.equals(user.id) : user.id == null;
-
-//        if (Double.compare(user.bonus, bonus) != 0) return false;
-//        if (albumGuid != null ? !albumGuid.equals(user.albumGuid) : user.albumGuid != null) return false;
-//        if (callTime != null ? !callTime.equals(user.callTime) : user.callTime != null) return false;
-//        if (fio != null ? !fio.equals(user.fio) : user.fio != null) return false;
-//        if (login != null ? !login.equals(user.login) : user.login != null) return false;
-//        if (pass != null ? !pass.equals(user.pass) : user.pass != null) return false;
-//        if (subscribe != null ? !subscribe.equals(user.subscribe) : user.subscribe != null) return false;
-//        if (isActive != null ? !isActive.equals(user.isActive) : user.isActive != null) return false;
-//        if (roles != null ? !roles.equals(user.roles) : user.roles != null) return false;
-//        if (contacts != null ? !contacts.equals(user.contacts) : user.contacts != null) return false;
-//        if (orders != null ? !orders.equals(user.orders) : user.orders != null) return false;
-//        return tours != null ? tours.equals(user.tours) : user.tours == null;
     }
 
     @Override

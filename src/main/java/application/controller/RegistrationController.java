@@ -24,7 +24,7 @@ public class RegistrationController {
     private final RestTemplate restTemplate;
 
     @Value("${captcha_url}")
-    private String CAPTCHA_URL;
+    private String captchaUrl;
 
     @Value("${captcha_secret}")
     private String captchaSecret;
@@ -49,7 +49,7 @@ public class RegistrationController {
                                BindingResult bindingResult,
                                ModelMap model) {
 
-        String url = String.format(CAPTCHA_URL, captchaSecret, captchaResponse);
+        String url = String.format(captchaUrl, captchaSecret, captchaResponse);
         CaptchaResponseDto response = restTemplate.postForObject(url
                                                                 ,Collections.emptyList()
                                                                 , CaptchaResponseDto.class);

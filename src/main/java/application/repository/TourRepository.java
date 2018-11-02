@@ -115,13 +115,13 @@ public interface TourRepository extends JpaRepository<Tour, Long> {
             @Param(value = "place_id") Long placeId,
             @Param(value = "client_id") Long clientId,
             @Param(value = "searchString") String searchString,
-            @Param(value = "date_begin") String date_begin,
-            @Param(value = "date_end") String date_end,
-            @Param(value = "cost_from") double cost_from,
-            @Param(value = "cost_to") double cost_to,
-            @Param(value = "duration_id") Long duration_id
+            @Param(value = "date_begin") String dateBegin,
+            @Param(value = "date_end") String dateEnd,
+            @Param(value = "cost_from") double costFrom,
+            @Param(value = "cost_to") double costTo,
+            @Param(value = "duration_id") Long durationId
     );
 
     @Query(value = "select tour_id as id from wishlist where client_id = :user_id", nativeQuery = true)
-    Set<IdOnly> getWishList(@Param("user_id") long user_id);
+    Set<IdOnly> getWishList(@Param("user_id") long userId);
 }

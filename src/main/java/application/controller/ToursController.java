@@ -1,18 +1,17 @@
 package application.controller;
 
 import application.domain.Tour;
-import application.domain.User;
 import application.service.tour.iface.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.Set;
+
+import static application.consts.Consts.TOURS;
+import static application.utils.ServiceHelper.getUserIdFromSession;
 
 @Controller
 public class ToursController extends ProtoController {
@@ -28,9 +27,8 @@ public class ToursController extends ProtoController {
 
     @GetMapping(value = {"/tours", "/"})
     public String tours(Model model) {
-        model.addAttribute("tours", tourService.getAll());
-
-        return "tours";
+        model.addAttribute(TOURS, tourService.getAll());
+        return TOURS;
     }
 
     @GetMapping("/tour/{tourId}")
@@ -41,7 +39,7 @@ public class ToursController extends ProtoController {
         return "tour";
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/tours")
+    @PostMapping(path = "/tours")
     public String findTours(Model model,
                             //Если заданы только первые четыре параметра, то поиск идёт просто по турам
                             @RequestParam(name = "subjectId", required = false, defaultValue = "-1") String subjectId,
@@ -59,7 +57,7 @@ public class ToursController extends ProtoController {
                             @RequestParam(name = "durationTo", required = false, defaultValue = "") String durationTo,
                             @RequestParam(name = "durationId", required = false, defaultValue = "-1") String duration
     ) {
-        model.addAttribute("tours",
+        model.addAttribute(TOURS,
                 (subjectId.equals("-1") &&
                         placeId.equals("-1") &&
                         inWishList.equals("0") &&
@@ -72,7 +70,6 @@ public class ToursController extends ProtoController {
                         duration.equals("-1")
                 ) ?
                         tourService.getAll() :
-//        TODO Добавить юзера когда с безопасностью срастётся
                         tourService.complexQuery(subjectId, placeId, inWishList, searchString,
 //                TODO сделать на форме нормальные контролы для заполнения даты и парсить их здесь
                                 null/*dateBegin*/, null/*dateEnd*/,
@@ -88,7 +85,7 @@ public class ToursController extends ProtoController {
         model.addAttribute("durationFromValue", durationFrom);
         model.addAttribute("durationToValue", durationTo);
         model.addAttribute("searchStringValue", searchString);
-        return "tours";
+        return TOURS;
     }
 
     @ModelAttribute(value = "remoteConnectionHost")
@@ -98,14 +95,6 @@ public class ToursController extends ProtoController {
 
     @ModelAttribute(value = "wishList")
     public Set<Long> internalFillWishList() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getPrincipal() instanceof User) {
-            User user = (User) auth.getPrincipal();
-            if (user != null) {
-                return tourService.getWishList(user.getId());
-            }
-        }
-
-        return Collections.emptySet();
+        return tourService.getWishList(getUserIdFromSession());
     }
 }

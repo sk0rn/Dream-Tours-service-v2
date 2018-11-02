@@ -7,7 +7,7 @@
                role="tab"
                aria-controls="v-pills-profile" aria-selected="true">Личная информация</a>
             <a class="nav-link" id="v-pills-wishlist-tab" data-toggle="pill" href="#v-pills-wishlist" role="tab"
-               aria-controls="v-pills-wishlist" aria-selected="false">Список желаний</a>
+               aria-controls="v-pills-wishlist" aria-selected="false">Документы</a>
             <a class="nav-link" id="v-pills-order-tab" data-toggle="pill" href="#v-pills-order" role="tab"
                aria-controls="v-pills-order" aria-selected="false">Заказы</a>
         </div>
@@ -22,14 +22,13 @@
                     <br>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"
-                                  id="inputGroup-sizing-default">ФИО:</span>
+                            <span class="input-group-text" id="inputGroup-fio">ФИО:</span>
                         </div>
                         <input type="text" class="form-control" value="Иванов Петр Сидорович" aria-label="Default"
-                               aria-describedby="inputGroup-sizing-default">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">Изменить</button>
-                        </div>
+                               aria-describedby="inputGroup-fio">
+                    <#--<div class="input-group-append">-->
+                    <#--<button class="btn btn-primary" type="submit">Изменить</button>-->
+                    <#--</div>-->
                     </div>
                     <br>
                     <div class="input-group mb-3">
@@ -39,9 +38,9 @@
                         </div>
                         <input type="text" class="form-control" value="Piter.the.great@russia.com" aria-label="Default"
                                aria-describedby="inputGroup-sizing-default">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">Изменить</button>
-                        </div>
+                    <#--<div class="input-group-append">-->
+                    <#--<button class="btn btn-primary" type="submit">Изменить</button>-->
+                    <#--</div>-->
                     </div>
                     <br>
                     <h4>Количество бонусных очков: 42</h4>

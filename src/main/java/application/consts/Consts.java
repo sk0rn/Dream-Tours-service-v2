@@ -7,6 +7,8 @@ public class Consts {
     public static final String ERROR = "error";
     public static final String ADD = "add";
     public static final String REMOVE = "remove";
+    public static final String PUBLIC_HTML = "/public_html/";
+    public static final String TOURS = "tours";
 
     private Consts() {
     }
