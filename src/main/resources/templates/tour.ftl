@@ -28,13 +28,25 @@
                             </a>
                         </div>
 
-                    <td class="align-top">
-                        <div class="form-tours-dream" id="exampleFormControlTextarea1" rows="5"
-                             name="tourName"><h5 class="text-primary">В стоимость входит:</h5>
+                    <td class="align-top px-3">
+                        <div name="tourName">
+                            <h5 class="text-primary">В стоимость входит:</h5>
                         <#escape x as x?html?replace('\r\n', '<br>')> ${tour.getFeatures()}</#escape>
+                            <br>
+                        <#if roles?? && roles?seq_contains("ROLE_USER")>
+                            <button type="button" class="btn btn-outline-danger"
+                                    onclick="document.location.href='/pay'">
+                                Купить
+                            </button>&nbsp;
+                            <#assign inWishList=wishList?seq_contains(tour.getId()) />
+                        <a href="#" class="a-wishList" tour-id="${(tour.getId())!}">
+                            <img src="/static/image/star.ico" id="wl-${tour.getId()}"
+                                 width="24" ${inWishList?string("", "class='not-in-wish-list'")}>
+                        </a>
+                        </#if>
                         </div>
 
-                    <td class="align-top">
+                    <td class="align-top px-3">
                         <div name="tourName">
                             <h5>Города:</h5>
                                  <#list tour.getPlaces() as place>
@@ -62,7 +74,7 @@
                                 </a>
                                  </#list>
                             <br><br>
-                            <h5 style="color: crimson">Ближайшие даты:</h5>
+                            <h5 style="color: crimson">Ближайшие даты начала:</h5>
                                  <#list tour.getReleases() as release>
                                      ${release.getBeginTime()}
                                 <h6>Количество дней:</h6>
@@ -78,7 +90,7 @@
 
             <nobr>
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/${tour.getYoutubeUrl()}"
-                        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>&nbsp;&nbsp;
                 <iframe src="https://yandex.ru/map-widget/v1/-/${tour.getMapUrl()}" width="560" height="315"
                         frameborder="1" allowfullscreen="true"></iframe>
             </nobr>
@@ -204,4 +216,8 @@
 
             </div>
 
+            <script>
+                var csrfParamName = "${_csrf.parameterName}";
+                var csrfParamValue = "${_csrf.token}";
+            </script>
         </@i.page>

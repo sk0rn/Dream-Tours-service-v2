@@ -1,5 +1,6 @@
 package application.service.user;
 
+import application.domain.Album;
 import application.domain.Role;
 import application.domain.Tour;
 import application.domain.User;
@@ -8,7 +9,9 @@ import application.domain.transformers.RegistrationFormUserTransformer;
 import application.repository.RoleRepository;
 import application.repository.UserRepository;
 import application.service.subsets.IdOnly;
+import application.service.tour.iface.AlbumService;
 import application.service.user.iface.UserService;
+import application.utils.FtpWrite;
 import application.utils.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,14 +27,21 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final FtpWrite ftpWrite;
+    private AlbumService albumService;
+
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
                            RoleRepository roleRepository,
-                           PasswordEncoder passwordEncoder) {
+                           PasswordEncoder passwordEncoder,
+                           FtpWrite ftpWrite,
+                           AlbumService albumService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.ftpWrite = ftpWrite;
+        this.albumService = albumService;
     }
 
     @Override
@@ -67,6 +78,13 @@ public class UserServiceImpl implements UserService {
         user.setPass(encodedPassword);
         user.getRoles().add(defaultRole);
         user.setActive(true);
+
+        Album albumGuid = new Album();
+        albumGuid.setName(UUID.randomUUID().toString());
+        ftpWrite.createDIR(albumGuid);
+        albumService.add(albumGuid);
+        user.setAlbumGuid(albumGuid);
+
         userRepository.save(user);
         return user;
     }
