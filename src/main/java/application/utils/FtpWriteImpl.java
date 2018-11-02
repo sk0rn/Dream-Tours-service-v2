@@ -41,4 +41,24 @@ public class FtpWriteImpl implements FtpWrite {
         }
         return false;
     }
+
+    @Override
+    public boolean createDIR(Album albumGuid) {
+        FTPClient ftpClient = new FTPClient();
+        try {
+            ftpClient.connect(remoteConnectionUrl);
+            ftpClient.login(remoteConnectionUsername, remoteConnectionPassword);
+            ftpClient.enterLocalPassiveMode();
+            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+            if (!ftpClient.changeWorkingDirectory("/public_html/" + albumGuid.getName())) {
+                ftpClient.makeDirectory("/public_html/" + albumGuid.getName());
+            }
+            ftpClient.logout();
+            ftpClient.disconnect();
+            return true;
+        } catch (IOException e) {
+            log.error("Can't crete DIR " + albumGuid.getName(), e);
+        }
+        return false;
+    }
 }

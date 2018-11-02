@@ -21,6 +21,10 @@
                              Изменить
                          </button>&nbsp;
                         <#elseif roles?? && roles?seq_contains("ROLE_USER")>
+                            <button type="button" class="btn btn-outline-danger"
+                               onclick="document.location.href='/pay'">
+                                   Купить
+                             </button>&nbsp;
                             <#assign inWishList=wishList?seq_contains(tour.getId()) />
                         <a href="#" class="a-wishList" tour-id="${(tour.getId())!}">
                             <img src="/static/image/star.ico" id="wl-${tour.getId()}"
@@ -46,13 +50,6 @@
                             <#--TODO сделать "затухание" текста-->
                         <div class="form-tours-dream" id="exampleFormControlTextarea1" rows="5"
                                   name="tourName"><p class="text-justify">${tour.getDescr()}</p></div>
-                            <nobr>
-                                <#if roles?? && roles?seq_contains("ROLE_USER")>
-                                                 <button type="button" class="btn-sm btn-success"
-                                                         onclick="document.location.href='/pay'">
-                                                     Купить
-                                                 </button>&nbsp;
-                                </#if>
                             <#list tour.getPlaces() as place>
                                 <a href="#"
                                    submit-param="#searchPlace"
@@ -64,7 +61,6 @@
                                     ${place.getName()}
                                 </a>
                             </#list>
-                        </nobr>
                     </div>
                 </div>
             </div>
