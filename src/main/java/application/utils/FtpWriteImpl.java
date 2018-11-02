@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static application.consts.Consts.PUBLIC_HTML;
+
 @Service
 @Log4j
 public class FtpWriteImpl implements FtpWrite {
@@ -23,14 +25,14 @@ public class FtpWriteImpl implements FtpWrite {
     @Override
     public boolean writeInHost(Album albumGuid, String fileName, InputStream inputStream) {
         FTPClient ftpClient = new FTPClient();
-        String fileInHost = "/public_html/" + albumGuid.getName() + "/" + fileName;
+        String fileInHost = PUBLIC_HTML + albumGuid.getName() + "/" + fileName;
         try {
             ftpClient.connect(remoteConnectionUrl);
             ftpClient.login(remoteConnectionUsername, remoteConnectionPassword);
             ftpClient.enterLocalPassiveMode();
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
-            if (!ftpClient.changeWorkingDirectory("/public_html/" + albumGuid.getName())) {
-                ftpClient.makeDirectory("/public_html/" + albumGuid.getName());
+            if (!ftpClient.changeWorkingDirectory(PUBLIC_HTML + albumGuid.getName())) {
+                ftpClient.makeDirectory(PUBLIC_HTML + albumGuid.getName());
             }
             ftpClient.storeFile(fileInHost, inputStream);
             ftpClient.logout();

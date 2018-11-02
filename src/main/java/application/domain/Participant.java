@@ -30,6 +30,7 @@ public class Participant implements Serializable {
 	private Order order;
 
 	public Participant() {
+		//Because ...
 	}
 
 	public Long getId() {

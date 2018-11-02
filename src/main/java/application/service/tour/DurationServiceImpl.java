@@ -4,15 +4,17 @@ import application.domain.Duration;
 import application.repository.DurationRepository;
 import application.service.tour.iface.DurationService;
 import application.utils.ServiceHelper;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
+@Setter(onMethod = @__({@Autowired}))
 public class DurationServiceImpl implements DurationService {
-    @Autowired
     private DurationRepository durationRepository;
 
     @Override
@@ -27,7 +29,7 @@ public class DurationServiceImpl implements DurationService {
 
     @Override
     public List<Duration> getAllByTourId(Long tourId) {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override

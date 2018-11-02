@@ -1,7 +1,7 @@
 package application.controller;
 
 import application.service.tour.iface.TourService;
-import application.service.user.iface.UserService;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,15 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import static application.consts.Consts.OPERATION_RESULT;
 
 @Controller
+@Setter(onMethod = @__({@Autowired}))
 public class UserController extends ProtoController {
-    private UserService userService;
     private TourService tourService;
-
-    @Autowired
-    public UserController(UserService userService, TourService tourService) {
-        this.userService = userService;
-        this.tourService = tourService;
-    }
 
     @GetMapping("/profile")
     public String tour(Model model) {
@@ -28,7 +22,7 @@ public class UserController extends ProtoController {
         return "customer";
     }
 
-    @PostMapping(value = "/addInWishlist")
+    @PostMapping(value = "/addToWishlist")
     public String addImWishList(@RequestParam(name = "idTour") long idTour,
                                 @RequestParam(name = "operation") int operation,
                                 Model model) {

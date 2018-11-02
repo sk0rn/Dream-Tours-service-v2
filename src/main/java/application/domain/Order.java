@@ -39,6 +39,7 @@ public class Order implements Serializable {
 	private Set<Participant> participants;
 
 	public Order() {
+        //Because ...
 	}
 
 	public Long getId() {
@@ -102,5 +103,4 @@ public class Order implements Serializable {
 
 		return participant;
 	}
-
 }

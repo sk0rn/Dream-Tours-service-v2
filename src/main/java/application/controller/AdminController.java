@@ -4,15 +4,14 @@ import application.domain.*;
 import application.service.tour.iface.*;
 import application.utils.FtpWrite;
 import io.swagger.annotations.Api;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.EntityManagerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
@@ -23,12 +22,12 @@ import java.util.UUID;
 @RequestMapping("/admin")
 @Api(value = "admin!", description = "admin!!!!") // Swagger annotation
 @Log4j
+@Setter(onMethod = @__({@Autowired}))
 public class AdminController extends ProtoController {
 //    TODO при любом изменении тематик в базе обнулить коллекцию subjects
 //    TODO при любом изменении мест в базе обнулить коллекцию places
 //    TODO при любом изменении длительностей в базе обнулить коллекцию durations
 
-    private SessionFactory sessionFactory;
     private TourService tourService;
     private FtpWrite ftpWrite;
     private PlaceService placeService;
@@ -38,30 +37,7 @@ public class AdminController extends ProtoController {
     private CostService costService;
     private AlbumService albumService;
 
-    @Autowired
-    public AdminController(TourService tourService, FtpWrite ftpWrite, PlaceService placeService,
-                           SubjectService subjectService, DurationService durationService,
-                           ReleaseService releaseService, CostService costService,
-                           AlbumService albumService) {
-        this.tourService = tourService;
-        this.ftpWrite = ftpWrite;
-        this.placeService = placeService;
-        this.subjectService = subjectService;
-        this.durationService = durationService;
-        this.releaseService = releaseService;
-        this.costService = costService;
-        this.albumService = albumService;
-    }
-
-    @Autowired
-    public void setSessionfacory(EntityManagerFactory factory) {
-        if (factory.unwrap(SessionFactory.class) == null) {
-            throw new NullPointerException("factory is not a hibernate factory");
-        }
-        sessionFactory = factory.unwrap(SessionFactory.class);
-    }
-
-    @RequestMapping(value = {"/content/{tourId}", "/content"}, method = RequestMethod.GET)
+    @GetMapping(value = {"/content/{tourId}", "/content"})
     public String getEditContent(Model model,
                                  @PathVariable Optional<Long> tourId) {
         tourId.ifPresent(x -> model.addAttribute("tour", tourService.getById(x)));
@@ -70,7 +46,7 @@ public class AdminController extends ProtoController {
         return "admin";
     }
 
-    @RequestMapping(value = {"/content/{tourId}", "/content"}, method = RequestMethod.POST)
+    @PostMapping(value = {"/content/{tourId}", "/content"})
     public String postEditContent(Model model,
                                   //tour:
                                   @RequestParam(value = "idTour", required = false) String idTour,
@@ -160,7 +136,7 @@ public class AdminController extends ProtoController {
                     kindCost, Double.parseDouble(cost), clippingAge, isParticipantCost));
             return "redirect:/admin/content";
         }
-        return "admin";
+        return getEditContent(model, Optional.of(Long.parseLong(idTour)));
     }
 
     @ModelAttribute
